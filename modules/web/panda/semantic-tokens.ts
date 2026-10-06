@@ -33,20 +33,35 @@ export const semanticTokens = defineSemanticTokens({
       strong: { value: '{colors.sand.7}' },
     },
     action: {
-      primary: { value: '{colors.coral.9}' },
-      primaryHover: { value: '{colors.coral.10}' },
+      primary: { value: '{colors.iris.9}' },
+      primaryHover: { value: '{colors.iris.10}' },
     },
     accent: {
-      default: { value: '{colors.coral.9}' },
-      text: { value: '{colors.coral.11}' },
-      tint: { value: 'rgba(235, 94, 65, 0.16)' },
-      ring: { value: '{colors.coral.9}' },
+      default: { value: '{colors.iris.9}' },
+      text: { value: '{colors.iris.11}' },
+      tint: { value: 'rgba(91, 91, 214, 0.2)' },
+      ring: { value: '{colors.iris.10}' },
+      glow: { value: 'rgba(110, 106, 222, 0.45)' },
     },
     danger: { value: '{colors.status.red}' },
+    success: {
+      default: { value: '{colors.status.green}' },
+      tint: { value: 'rgba(48, 164, 108, 0.16)' },
+      text: { value: '#5BD69B' },
+    },
+    // The drawing board is white paper on the dark app.
+    board: {
+      paper: { value: '{colors.ink.white}' },
+      edge: { value: 'rgba(0, 0, 0, 0.35)' },
+    },
     presence: { online: { value: '{colors.status.green}' } },
   },
   shadows: {
     floating: { value: '0 0 0 1px rgba(255, 251, 237, 0.08), 0 8px 24px rgba(0, 0, 0, 0.6)' },
     dialog: { value: '0 0 0 1px rgba(255, 251, 237, 0.1), 0 24px 48px rgba(0, 0, 0, 0.8)' },
+    // A sheet of paper lying on the dark table.
+    paper: { value: '0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 18px 40px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3)' },
+    // A drawing taped into a notebook.
+    sheet: { value: '0 6px 14px rgba(38, 37, 31, 0.18), 0 1px 3px rgba(38, 37, 31, 0.2)' },
   },
 });

@@ -13,16 +13,16 @@ Setup commit first (M0), then each phase gets its own branch and PR, as in the s
 3. **CI** (`feat/ci`). PR and merge.
 4. **Hosting** (`feat/hosting`): `pnpm play` and the `telephone-table` Cloudflare Tunnel on telephone.timnox.dev.
 
-**Every feature explains itself on screen** (spec D23): anything people wouldn't guess (likes, the favourite pick, Start now, the doodle board, the 🎲) gets a short line of text or a hint right where it's used. Check it in every UI review.
+**Every feature explains itself on screen** (spec D23): anything people wouldn't guess (likes, the favourite pick, stickers, Start now, the doodle board, the 🎲) gets a short line of text or a hint right where it's used. Check it in every UI review.
 
 ## Scribble Table's word lists stay secret
 The user plays Scribble Table, so knowing its words would spoil it. Nothing in this game is secret from the user (spec D1), but these rules guard the sibling's lists:
 - **Never show a word from Scribble Table's lists:** not in chat, commit messages, PR descriptions, docs, code comments or test names. Never open, decode or print them in the main session (they're `../drawing-game/modules/core-api/src/words/word-list.b64`). Talk about them only in aggregate.
-- **Starter sentences avoid them** (spec D20, §10). So do the demo table's sample sentences and the test sentences. A subagent compares new or changed sentences with the lists, removes clashes, and reports only how many clashes it found and removed, never the words.
+- **Starter sentences avoid them** (spec D20, §10): `modules/web/src/content/starters/`. So do the demo table's sample sentences (`modules/web/src/services/demo-table/samples.ts`) and the test sentences. A subagent compares new or changed sentences with the lists, rewrites clashes, and reports only how many it found and rewrote, never the words. Don't paste a before/after of those files either: what changed hints at the words.
 - The starter sentences themselves aren't secret: the user can read and edit them.
 
 ## Layout
-- `modules/web`: frontend. Vite + React 19 + TypeScript, Panda CSS, MobX, i18next (English and Ukrainian). Ark UI and the drawing board come in M1.
+- `modules/web`: frontend. Vite + React 19 + TypeScript, Panda CSS, MobX, Ark UI, i18next (English and Ukrainian).
 - `modules/core-api`: backend. Node + Express 5 + Colyseus 0.18 (live tables), one process on :2569.
 - `modules/protocol`: the shared contract. Intent schemas, server events, error codes.
 - `modules/engine`: pure game logic (the rotation and book length, the leaver rule, points, squiggles, drawing bytes), shared by both apps.
@@ -49,9 +49,10 @@ pnpm dev           # web on http://localhost:5175 + core-api on :2569 (Vite forw
 pnpm lint          # add --fix to auto-fix spacing
 pnpm typecheck
 pnpm test          # engine + core-api; one module: pnpm --filter @telephone-table/core-api test
+pnpm demo          # web only, against the demo table (no server): for UI work, now and after M2
 pnpm build         # production web build
 ```
-`pnpm demo` (the demo table, M1) and `pnpm play` (hosting, M4) come with their phases.
+`pnpm play` (hosting, M4) comes with its phase.
 
 ## Gotchas
 - **Ports are 5175, 2569 and 4175** (web, core-api, preview), one above Scribble Table's (5174, 2568, 4174) and two above Felt Table's (5173, 2567, 4173), so all three games can run at once. All are `strictPort`: a taken port fails loudly instead of moving.
@@ -60,4 +61,6 @@ pnpm build         # production web build
 - **pnpm's release-age guard:** pnpm refuses versions published in the last day. Pick the previous version instead of adding exceptions.
 - **No shared Colyseus state, and no peeking** (spec D10, §9.3): the server sends each person only the page they're responding to, and a page goes to everyone only when it's turned at the reveal. Drawings are saved to the server as you go, never streamed to others (D11). After joining or reconnecting, the browser asks for its task and draft with `sync`.
 - **Hosting is the user's to start.** Once M4 lands, `pnpm play` serves the build from this PC through a Cloudflare Tunnel (free, no payment card). Don't start it for them: give them the command.
-- **Dev handle:** in development the root store is `window.telephoneTable`, for checking state from the console or a test script.
+- **The demo table** (spec D19): `services/demo-table` plays the server's part in the browser, with sample players who write, draw ready-made sketches, like pages, stick stickers on them and turn their own books' pages. Until M2 every table is the demo table, `pnpm dev` included; M2 switches `pnpm dev` to live tables behind the same `TableClientService`, and `pnpm demo` keeps the demo. The top bar's **Demo** buttons skip ahead (start, end a step, turn a page, start the next round) and add or remove a sample player (removing one mid-round shows the leaver rule).
+- **Sounds** are CC0 recordings from Freesound, credited in `modules/web/src/assets/sounds/credits.md`. Generated sounds didn't sound good enough, so new ones come from there too.
+- **Dev handle:** in development the root store is `window.telephoneTable`, for checking state from the console or a test script, e.g. `telephoneTable.room.game.state`, `telephoneTable.room.reveal.status`, or at the demo table `telephoneTable.room.demo.skip()`.

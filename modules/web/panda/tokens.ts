@@ -1,6 +1,7 @@
 import { defineTokens } from '@pandacss/dev';
 
-// Palette from the Ark UI docs (dark): Radix "sand" greys with Ark's coral accent.
+// The siblings' palette (dark): Radix "sand" greys, with Telephone Table's own accent, Radix "iris"
+// (ballpoint ink, for a game played in notebooks), and the notebooks' paper.
 export const tokens = defineTokens({
   fonts: {
     body: { value: 'Lato, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif' },
@@ -22,23 +23,62 @@ export const tokens = defineTokens({
       11: { value: '#B5B3AD' },
       12: { value: '#EEEEEC' },
     },
-    coral: {
-      1: { value: '#1C1412' },
-      2: { value: '#391A18' },
-      3: { value: '#55221E' },
-      4: { value: '#722B25' },
-      5: { value: '#8E342B' },
-      6: { value: '#AA3D32' },
-      7: { value: '#C6493A' },
-      8: { value: '#E2503F' },
-      9: { value: '#EB5E41' },
-      10: { value: '#EF6B4E' },
-      11: { value: '#F47A5C' },
-      12: { value: '#FAA19B' },
+    iris: {
+      1: { value: '#13131E' },
+      2: { value: '#171625' },
+      3: { value: '#202248' },
+      4: { value: '#262A65' },
+      5: { value: '#303374' },
+      6: { value: '#3D3E82' },
+      7: { value: '#4A4A95' },
+      8: { value: '#5958B1' },
+      9: { value: '#5B5BD6' },
+      10: { value: '#6E6ADE' },
+      11: { value: '#B1A9FF' },
+      12: { value: '#E0DFFE' },
     },
     status: {
       red: { value: '#E5484D' },
       green: { value: '#30A46C' },
+    },
+    // The drawing inks (protocol `inkColors`, same order). The board painter reads them with `token()`.
+    ink: {
+      black: { value: '#111111' },
+      charcoal: { value: '#4A4A4A' },
+      gray: { value: '#8C8C8C' },
+      silver: { value: '#CACACA' },
+      white: { value: '#FFFFFF' },
+      red: { value: '#E5383B' },
+      orange: { value: '#F28C28' },
+      yellow: { value: '#F7D038' },
+      lime: { value: '#9BD143' },
+      green: { value: '#2E9E4F' },
+      teal: { value: '#18A999' },
+      sky: { value: '#4CB5F5' },
+      blue: { value: '#2F5BD8' },
+      violet: { value: '#8A4FD8' },
+      pink: { value: '#EE6FA8' },
+      brown: { value: '#8B5A2B' },
+    },
+    // A notebook's page: warm paper, ruled lines, a red margin, and tape for drawings (spec D15).
+    notebook: {
+      paper: { value: '#FBF8F1' },
+      paperShade: { value: '#EFE9DC' },
+      ink: { value: '#26251F' },
+      muted: { value: '#7A756A' },
+      rule: { value: '#DCE3EC' },
+      margin: { value: '#F0B9B4' },
+      bubble: { value: '#FFFFFF' },
+      tape: { value: 'rgba(244, 222, 130, 0.78)' },
+      spiral: { value: '#A9A499' },
+      heart: { value: '#E5484D' },
+      heartTint: { value: '#FFE4E4' },
+      star: { value: '#F2B53A' },
+    },
+    medal: {
+      gold: { value: '#F2C14E' },
+      silver: { value: '#C3C9D1' },
+      bronze: { value: '#CD8B5A' },
     },
     player: {
       raspberry: { value: '#E01E5A' },
