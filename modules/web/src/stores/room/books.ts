@@ -4,6 +4,7 @@ import type { BookPicture, BookSaverService } from '../../services';
 import type { Translate } from '../locale';
 import type { RoomGameStore } from './game';
 import type { RoomPresenceStore } from './presence';
+import type { StickerView } from './stickers';
 import type { PlayerColor, TableSend } from './types';
 
 export interface AuthorView {
@@ -32,6 +33,8 @@ export interface PageView {
   likeLabel: string;
   isFavourite: boolean;
   award: PageAward | null;
+  // Stuck on at the reveal (spec D25).
+  stickers: StickerView[];
 }
 
 export interface BookCoverView {
@@ -56,6 +59,7 @@ export interface RoomBooksDeps {
   presence: RoomPresenceStore;
   send: TableSend;
   bookSaver: BookSaverService;
+  stickersOf: (pageId: string) => StickerView[];
 }
 
 const authorView = (author: { name: string; color: PlayerColor }): AuthorView => ({ name: author.name, initial: author.name.charAt(0).toUpperCase(), color: author.color });
@@ -63,7 +67,7 @@ const authorView = (author: { name: string; color: PlayerColor }): AuthorView =>
 const fileName = (title: string): string => `${title.replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/gu, '').toLowerCase() || 'book'}.png`;
 
 // Every page the reveal has turned this game, kept by this browser (they arrive one by one and
-// nobody gets them twice), the likes on them, and the books as the shelf shows them.
+// nobody gets them twice), the likes and stickers on them, and the books as the shelf shows them.
 export class RoomBooksStore {
   pages: PageSnapshot[] = [];
   readonly #deps: RoomBooksDeps;
@@ -137,7 +141,15 @@ export class RoomBooksStore {
     if (!book) return null;
 
     const title = t('book.title', { name: book.owner.name });
-    const pages = this.viewsOf(bookId).map((view) => ({ kind: view.kind, authorName: view.author.name, authorColor: view.author.color, text: view.text, actions: view.actions }));
+
+    const pages = this.viewsOf(bookId).map((view) => ({
+      kind: view.kind,
+      authorName: view.author.name,
+      authorColor: view.author.color,
+      text: view.text,
+      actions: view.actions,
+      stickers: view.stickers.map(({ sticker, x, y, tilt }) => ({ sticker, x, y, tilt })),
+    }));
 
     return { title, subtitle: t('book.subtitle', { round: book.round }), pages, fileName: fileName(title) };
   }
@@ -179,6 +191,7 @@ export class RoomBooksStore {
       likeLabel: isMine ? t('page.yourLikes', { count: likers.length }) : t(liked ? 'page.unlike' : 'page.like', { count: likers.length }),
       isFavourite: this.books.get(page.bookId)?.favouritePageId === page.id,
       award: awards?.drawing.includes(page.id) ? 'drawing' : awards?.line.includes(page.id) ? 'line' : null,
+      stickers: this.#deps.stickersOf(page.id),
     };
   }
 }

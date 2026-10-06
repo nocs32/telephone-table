@@ -1,4 +1,4 @@
-// English strings for the drawing tools, reactions, sound and the demo; spread into en.ts.
+// English strings for the drawing tools, reactions, stickers, sound and the demo; spread into en.ts.
 export const enTools = {
   board: {
     tools: 'Drawing tools',
@@ -37,12 +37,23 @@ export const enTools = {
     react: 'React with {{emoji}}',
     more: 'More emoji',
   },
+  stickers: {
+    title: 'Stickers',
+    hint: 'Drag one onto a page, or tap it and then the page. Tap yours to peel it off.',
+    holding: 'Now tap a page to stick it on.',
+    pageFull_one: 'Your sticker is on that page already. Peel it off to move it.',
+    pageFull_other: 'All {{count}} of your stickers are on that page. Peel one off to stick another.',
+    pick: 'Pick up {{sticker}}',
+    yours: 'Your sticker: tap to peel it off',
+    by: 'A sticker from {{name}}',
+    someone: 'A sticker',
+  },
   sound: {
     buttonOn: 'Sound settings: on',
     buttonOff: 'Sound settings: muted',
     title: 'Sound',
     drawing: 'Game sounds',
-    hint: 'Pencil and eraser, a chime as each step starts, the clock’s last seconds, page turns and a fanfare',
+    hint: 'Pencil and eraser, a chime as each step starts, the clock’s last seconds, page turns, stickers and a fanfare',
     volume: 'Volume',
     percent: '{{value}}%',
   },

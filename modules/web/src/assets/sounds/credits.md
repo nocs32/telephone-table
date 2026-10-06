@@ -1,6 +1,6 @@
 # Sounds
 
-All of the game's sounds (the board sounds and the game cues) come from [Freesound](https://freesound.org) under **CC0** (public domain), so no credit is required. They're credited here anyway.
+All of the game's sounds (the board sounds, the game cues and the stickers) come from [Freesound](https://freesound.org) under **CC0** (public domain), so no credit is required. They're credited here anyway.
 
 | File | Source | Author | What was done to it |
 |---|---|---|---|
@@ -11,5 +11,7 @@ All of the game's sounds (the board sounds and the game cues) come from [Freesou
 | `tick.wav` | [clock-tick-01.flac](https://freesound.org/people/pbimal/sounds/534094/) | pbimal | one tick, 0.11 s from its start, cut below 150 Hz, faded out, kept quieter than the others since it repeats |
 | `page-turn.wav` | [Page Turn](https://freesound.org/people/davidbain/sounds/136778/) | davidbain | 0.78 s from 0.55 s, cut below 150 Hz (the rumble), the sharp snap of the flip rounded off, faded in and out, evened out in level |
 | `fanfare.wav` | [Tada Fanfare A](https://freesound.org/people/plasterbrain/sounds/397355/) | plasterbrain | silence trimmed from the start, reverb tail shortened and faded out, evened out in level |
+| `stick.wav` | [STICKIT.wav](https://freesound.org/people/JeroenWals/sounds/582469/) | JeroenWals | mixed to mono, silence trimmed from the start, cut to 0.42 s (the slap and a little of its boing), cut below 60 Hz, faded out, evened out in level |
+| `peel.wav` | [SFX_STICKERRIPPER_thumb_09.wav](https://freesound.org/people/MrFossy/sounds/590433/) | MrFossy | the rip alone, 0.16 s from its start, cut below 300 Hz, its sharp click evened out so the rip carries, faded out, evened out in level |
 
 All of them are mono, 16-bit, 48 kHz, cut from Freesound's high-quality previews.

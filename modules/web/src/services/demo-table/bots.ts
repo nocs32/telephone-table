@@ -1,5 +1,5 @@
 import { timelapseMs } from '@telephone-table/engine';
-import type { BoardAction, StrokeBatch } from '@telephone-table/protocol';
+import { stickers, type BoardAction, type Sticker, type StrokeBatch } from '@telephone-table/protocol';
 import { DemoPlans } from './plans';
 import type { DemoReveal } from './reveal';
 import type { DemoRound } from './round';
@@ -19,6 +19,7 @@ export interface DemoBotsHost {
   favourite: (memberId: string, pageId: string) => void;
   nextBook: (memberId: string) => void;
   like: (memberId: string, pageId: string) => void;
+  stick: (memberId: string, pageId: string, sticker: Sticker, x: number, y: number) => void;
 }
 
 // What sample players type in the chat: their own words, not UI text, so it isn't translated.
@@ -29,7 +30,8 @@ const pointsPerBatch = 5;
 const batchMs = 50;
 
 // Sample players: they greet, doodle in the lobby, write and draw their pages and press Done, like
-// pages at the reveal and turn the pages of their own books. They never take over someone else's.
+// pages and stick stickers on them at the reveal, and turn the pages of their own books. They never
+// take over someone else's.
 export class DemoBots {
   readonly #deps: DemoDeps;
   readonly #host: DemoBotsHost;
@@ -57,7 +59,8 @@ export class DemoBots {
     round.working.filter((member) => member.isBot).forEach((bot) => (round.kind === 'write' ? this.#write(bot, round) : this.#draw(bot, round)));
   }
 
-  // A page was turned: some like it, some react, and an owner turns their own book on.
+  // A page was turned: some like it, some stick a sticker on it, some react, and an owner turns
+  // their own book on.
   planPage(reveal: DemoReveal, bots: readonly DemoMember[], points: boolean): void {
     const page = reveal.page;
 
@@ -69,6 +72,8 @@ export class DemoBots {
       if (points && bot.id !== page.author.id && !isEmptyPage(page) && this.#deps.random() < 0.4) this.#plans.later('chat', 1500 + this.#random(3500), () => this.#host.like(bot.id, page.id));
 
       if (this.#deps.random() < 0.2) this.#plans.later('chat', 800 + this.#random(3000), () => this.#host.react(bot.id, this.#pick(laughs)));
+
+      if (this.#deps.random() < 0.3) this.#plans.later('page', 2000 + this.#random(4000), () => this.#stick(bot, page));
     });
 
     const owner = bots.find((bot) => bot.id === reveal.book?.owner.id);
@@ -116,6 +121,13 @@ export class DemoBots {
     if (points && favourite) this.#plans.later('page', waitMs, () => this.#host.favourite(owner.id, favourite.id));
 
     this.#plans.later('page', waitMs + 1800, () => this.#host.nextBook(owner.id));
+  }
+
+  // Somewhere on the page, not quite at its edge.
+  #stick(bot: DemoMember, page: DemoPage): void {
+    const spot = (): number => 0.12 + this.#deps.random() * 0.76;
+
+    this.#host.stick(bot.id, page.id, this.#pick(stickers), spot(), spot());
   }
 
   // A line on the doodle board, sent in batches at hand speed.

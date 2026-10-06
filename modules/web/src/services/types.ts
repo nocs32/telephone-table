@@ -42,6 +42,9 @@ export interface SoundsService {
   tick: () => void;
   pageTurn: () => void;
   fanfare: () => void;
+  // A sticker slapped onto a page, or peeled off it (spec D25).
+  stick: () => void;
+  peel: () => void;
   // 0 is silent, 1 is full volume.
   setLevel: (level: number) => void;
 }
@@ -62,6 +65,8 @@ export interface BookPicturePage {
   authorColor: PlayerColor;
   text: string;
   actions: readonly BoardAction[];
+  // Stuck on at the reveal: x and y from 0 to 1 across the drawing or bubble, tilt in degrees.
+  stickers: Array<{ sticker: string; x: number; y: number; tilt: number }>;
 }
 
 export interface BookPicture {

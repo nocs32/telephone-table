@@ -1,6 +1,7 @@
 import type { BoardAction } from './drawing.js';
 import type { GamePhase, GameSettingKey, GameSettings, StepKind } from './game.js';
 import type { PlayerColor } from './players.js';
+import type { StickerSnapshot } from './stickers.js';
 
 // What a table looks like to one person. The web app's stores read only these shapes, so the demo
 // referee and the real server are interchangeable behind them (spec D19). Nobody gets anyone
@@ -96,6 +97,8 @@ export interface GameSnapshot {
   books: BookSnapshot[];
   // Who likes each turned page: page id → member ids.
   likes: Record<string, string[]>;
+  // The stickers on each turned page, oldest first (spec D25).
+  stickers: Record<string, StickerSnapshot[]>;
   awards: AwardsSnapshot | null;
   // The lobby doodle board's squiggle (spec D22): every browser draws the same one from it.
   squiggle: number;

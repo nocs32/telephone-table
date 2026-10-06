@@ -5,7 +5,8 @@ import { PageCard } from '../page';
 import { RoomRevealThreadRoot } from './styled-components';
 import { useRoomRevealThreadScroll } from './use-thread';
 
-// The pages turned so far, newest at the bottom. The newest flips in; its drawing replays.
+// The pages turned so far, newest at the bottom. The newest flips in; its drawing replays. Every
+// one of them takes stickers.
 export const RoomRevealThread = observer(function RoomRevealThread(): ReactElement {
   const { reveal } = useRootStore().room;
   const pages = reveal.pages;
@@ -22,6 +23,7 @@ export const RoomRevealThread = observer(function RoomRevealThread(): ReactEleme
           replayFrom={page.replayFrom}
           onSkip={page.canSkip ? reveal.skipReplay : undefined}
           onPickFavourite={page.canPickFavourite ? () => reveal.pickFavourite(page.id) : undefined}
+          takesStickers
         />
       ))}
     </RoomRevealThreadRoot>

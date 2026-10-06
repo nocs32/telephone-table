@@ -102,6 +102,12 @@ export const keyframes = defineKeyframes({
     '50%': { transform: 'rotate(200deg) scale(1.2)' },
     '100%': { transform: 'rotate(360deg) scale(1)' },
   },
+  // A sticker slapped onto a page (spec D25); --tilt is its own.
+  stickOn: {
+    '0%': { transform: 'translate(-50%, -50%) rotate(calc(var(--tilt) - 18deg)) scale(1.9)', opacity: '0' },
+    '55%': { transform: 'translate(-50%, -50%) rotate(var(--tilt)) scale(0.9)', opacity: '1' },
+    '100%': { transform: 'translate(-50%, -50%) rotate(var(--tilt)) scale(1)', opacity: '1' },
+  },
   // A typing caret.
   blink: {
     '0%': { opacity: '1' },

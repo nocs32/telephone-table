@@ -3,6 +3,7 @@ export * from './drawing.js';
 export * from './game.js';
 export * from './health.js';
 export * from './players.js';
+export * from './stickers.js';
 export * from './table.js';
 export * from './table-errors.js';
 export * from './table-messages.js';

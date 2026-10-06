@@ -26,6 +26,7 @@ import { RoomRevealStore } from './reveal';
 import { RoomShareStore } from './share';
 import { RoomShelfStore } from './shelf';
 import { RoomStepStore } from './step';
+import { RoomStickersStore } from './stickers';
 import type { TableSend } from './types';
 
 // The table sends; the room hands it to its parts. Wrapped, because the room's actions are bound
@@ -62,6 +63,7 @@ export class RoomStore {
   readonly game: RoomGameStore;
   readonly doodle: RoomDoodleStore;
   readonly step: RoomStepStore;
+  readonly stickers: RoomStickersStore;
   readonly books: RoomBooksStore;
   readonly reveal: RoomRevealStore;
   readonly shelf: RoomShelfStore;
@@ -85,7 +87,8 @@ export class RoomStore {
     this.game = new RoomGameStore({ ...services, t, presence: this.presence, send, isWorking: () => this.step.state === 'working' });
     this.doodle = new RoomDoodleStore({ ...services, t, send, meId, isLobby: () => this.game.state === 'lobby' });
     this.step = new RoomStepStore({ ...services, t, send, language: () => locale.language, presence: this.presence, isStep: () => this.game.state === 'step', stepKind: () => this.game.stepKind });
-    this.books = new RoomBooksStore({ ...services, t, send, game: this.game, presence: this.presence });
+    this.stickers = new RoomStickersStore({ ...services, t, send, game: this.game, presence: this.presence });
+    this.books = new RoomBooksStore({ ...services, t, send, game: this.game, presence: this.presence, stickersOf: (pageId) => this.stickers.viewsOf(pageId) });
     this.reveal = new RoomRevealStore({ ...services, t, send, game: this.game, presence: this.presence, books: this.books });
     this.shelf = new RoomShelfStore({ t, game: this.game, presence: this.presence, books: this.books });
     this.chatPace = new RoomChatPaceStore({ t, now: services.now, schedule: services.schedule });
@@ -132,12 +135,14 @@ export class RoomStore {
 
   receiveSnapshot(snapshot: TableSnapshot): void {
     const revealBefore = this.game.reveal;
+    const stickersBefore = this.game.stickers;
 
     this.presence.receive(snapshot.members, this.connection.meId);
     this.game.receive(snapshot.game);
     this.doodle.receive(snapshot.game.squiggle);
     this.books.prune();
     this.reveal.cue(revealBefore);
+    this.stickers.receive(stickersBefore);
     this.shelf.receivePhase(snapshot.game.phase);
     this.feed.receive(snapshot.feed);
   }

@@ -7,6 +7,7 @@ import {
   type RevealSnapshot,
   type StepKind,
   type StepSnapshot,
+  type StickerSnapshot,
 } from '@telephone-table/protocol';
 import { makeAutoObservable } from 'mobx';
 import type { Schedule, SoundsService } from '../../../services';
@@ -38,6 +39,7 @@ export class RoomGameStore {
   reveal: RevealSnapshot | null = null;
   books: BookSnapshot[] = [];
   likes: Record<string, string[]> = {};
+  stickers: Record<string, StickerSnapshot[]> = {};
   awards: AwardsSnapshot | null = null;
   squiggle = 0;
   readonly settings: RoomGameSettingsStore;
@@ -122,6 +124,7 @@ export class RoomGameStore {
     this.reveal = game.reveal;
     this.books = game.books;
     this.likes = game.likes;
+    this.stickers = game.stickers;
     this.awards = game.awards;
     this.squiggle = game.squiggle;
     this.settings.receive(game.settings);

@@ -2,6 +2,7 @@ import * as v from 'valibot';
 import { boardHeight, boardWidth, brushSizes, inkColors, strokeBatchMaxPoints } from './drawing.js';
 import { bookLengths, sentenceMaxLength } from './game.js';
 import { personNameMaxLength } from './players.js';
+import { stickers } from './stickers.js';
 
 // Bumped whenever an intent or an event changes shape. A web app on another version is turned
 // away with PROTOCOL_MISMATCH and asked to reload.
@@ -44,6 +45,9 @@ const boardPoints = v.pipe(
 );
 
 const strokeBatch = v.strictObject({ strokeId: id, color: inkIndex, size: integer(0, brushSizes.length - 1), eraser: v.boolean(), points: boardPoints });
+
+// From 0 to 1 across a page (a sticker's place).
+const unit = v.pipe(v.number(), v.finite(), v.minValue(0), v.maxValue(1));
 
 const boardFill = v.strictObject({
   id,
@@ -103,6 +107,9 @@ export const tableIntentSchemas = {
   favourite: v.strictObject({ pageId: id }),
   nextBook: empty,
   like: v.strictObject({ pageId: id, liked: v.boolean() }),
+  // Stickers on the open book's turned pages (spec D25); you peel off only your own.
+  stick: v.strictObject({ pageId: id, sticker: v.picklist(stickers), x: unit, y: unit }),
+  peel: v.strictObject({ stickerId: id }),
   // Between rounds, and after the game.
   startNow: empty,
   playAgain: empty,

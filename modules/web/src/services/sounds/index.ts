@@ -2,12 +2,14 @@ import type { SoundsService } from '../types';
 import { loopShapes, playOnce, scratch, spray, startLoop, type Loop, type LoopName } from './board';
 
 // The game's cues (spec §7): a chime when a step starts, a tick in the last ten seconds, a page
-// turn at the reveal and a fanfare at the podium.
-type CueName = 'chime' | 'tick' | 'pageTurn' | 'fanfare';
+// turn at the reveal, a sticker stuck on or peeled off, and a fanfare at the podium.
+const cueNames = ['chime', 'tick', 'pageTurn', 'fanfare', 'stick', 'peel'] as const;
+
+type CueName = (typeof cueNames)[number];
 
 export type SoundUrls = Record<LoopName | 'spray' | CueName, string>;
 
-const cueLevels: Record<CueName, number> = { chime: 0.7, tick: 0.6, pageTurn: 0.8, fanfare: 0.7 };
+const cueLevels: Record<CueName, number> = { chime: 0.7, tick: 0.6, pageTurn: 0.8, fanfare: 0.7, stick: 0.6, peel: 0.8 };
 
 interface Recordings {
   loops: Record<LoopName, Loop>;
@@ -70,6 +72,14 @@ export class Sounds implements SoundsService {
     this.#cue('fanfare');
   }
 
+  stick(): void {
+    this.#cue('stick');
+  }
+
+  peel(): void {
+    this.#cue('peel');
+  }
+
   #cue(name: CueName): void {
     const context = this.#running();
 
@@ -103,16 +113,15 @@ export class Sounds implements SoundsService {
     const decode = async (url: string): Promise<AudioBuffer> => context.decodeAudioData(await (await fetch(url)).arrayBuffer());
     const urls = this.#urls;
 
-    const [pencil, eraser, sprayBuffer, chime, tick, pageTurn, fanfare] = await Promise.all(
-      [urls.pencil, urls.eraser, urls.spray, urls.chime, urls.tick, urls.pageTurn, urls.fanfare].map(decode),
-    );
+    const [pencil, eraser, sprayBuffer] = await Promise.all([urls.pencil, urls.eraser, urls.spray].map(decode));
+    const cues = await Promise.all(cueNames.map(async (name) => [name, await decode(urls[name])] as const));
 
-    if (!pencil || !eraser || !sprayBuffer || !chime || !tick || !pageTurn || !fanfare) return;
+    if (!pencil || !eraser || !sprayBuffer) return;
 
     this.#recordings = {
       loops: { pencil: startLoop(context, pencil, master, loopShapes.pencil), eraser: startLoop(context, eraser, master, loopShapes.eraser) },
       spray: sprayBuffer,
-      cues: { chime, tick, pageTurn, fanfare },
+      cues: Object.fromEntries(cues) as Record<CueName, AudioBuffer>,
     };
   }
 }

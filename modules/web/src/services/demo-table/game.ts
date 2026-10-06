@@ -1,8 +1,9 @@
 import { pickAwards, shuffle } from '@telephone-table/engine';
-import { gameLimits, type AwardsSnapshot, type GamePhase, type GameSettings } from '@telephone-table/protocol';
+import { gameLimits, type AwardsSnapshot, type GamePhase, type GameSettings, type Sticker } from '@telephone-table/protocol';
 import { DemoPlans } from './plans';
 import { DemoReveal } from './reveal';
 import { DemoRound } from './round';
+import { DemoStickers } from './stickers';
 import { toScored, type DemoBook, type DemoDeps, type DemoGameState, type DemoMember, type DemoPage } from './types';
 
 export interface DemoGameHost {
@@ -32,6 +33,7 @@ export class DemoGame implements DemoGameState {
   likes = new Map<string, Set<string>>();
   endsAt: number | null = null;
   awards: AwardsSnapshot | null = null;
+  readonly stickers: DemoStickers;
   readonly #deps: DemoDeps;
   readonly #host: DemoGameHost;
   readonly #plans: DemoPlans<'phase' | 'idle'>;
@@ -40,6 +42,7 @@ export class DemoGame implements DemoGameState {
     this.#deps = deps;
     this.#host = host;
     this.#plans = new DemoPlans(deps.schedule);
+    this.stickers = new DemoStickers(deps.createId);
   }
 
   // Every page the reveal has turned so far.
@@ -137,6 +140,15 @@ export class DemoGame implements DemoGameState {
 
     this.likes.set(pageId, likers);
     this.#host.emit();
+  }
+
+  // Stickers go only on the open book's turned pages (spec D25).
+  stick(memberId: string, pageId: string, sticker: Sticker, x: number, y: number): void {
+    if (this.#isOpenPage(pageId) && this.stickers.stick(memberId, pageId, sticker, x, y)) this.#host.emit();
+  }
+
+  peel(memberId: string, stickerId: string): void {
+    if (this.#isOpenPage(this.stickers.pageOf(stickerId) ?? '') && this.stickers.peel(memberId, stickerId)) this.#host.emit();
   }
 
   startNow(): void {
@@ -278,12 +290,19 @@ export class DemoGame implements DemoGameState {
     this.#host.emit();
   }
 
+  #isOpenPage(pageId: string): boolean {
+    const reveal = this.reveal;
+
+    return this.phase === 'reveal' && (reveal?.book?.pages.slice(0, reveal.shown).some((page) => page.id === pageId) ?? false);
+  }
+
   #isHere(memberId: string): boolean {
     return this.#host.members().some((member) => member.id === memberId && member.connected);
   }
 
   #reset(): void {
     this.#plans.cancelAll();
+    this.stickers.clear();
     Object.assign(this, { phase: 'lobby', roundNumber: 0, round: null, reveal: null, books: [], likes: new Map(), endsAt: null, awards: null });
   }
 }

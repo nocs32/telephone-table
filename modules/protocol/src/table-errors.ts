@@ -25,6 +25,9 @@ export const tableErrorCodes = [
   'NO_SUCH_PAGE',
   // Liking your own page, or picking your own page as the favourite.
   'OWN_PAGE',
+  // A sticker past your stickersPerPage on one page, or peeling off someone else's.
+  'STICKERS_USED',
+  'NOT_YOUR_STICKER',
   // The page hit its size cap.
   'PAGE_FULL',
   // A stroke or fill id someone else's action already has.

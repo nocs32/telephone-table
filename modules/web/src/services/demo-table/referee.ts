@@ -64,6 +64,7 @@ export class DemoReferee implements DemoTableState, DemoMoves {
       favourite: (id, pageId) => this.game.favourite(id, pageId),
       nextBook: (id) => this.game.nextBook(id),
       like: (id, pageId) => this.game.like(id, pageId, true),
+      stick: (id, pageId, sticker, x, y) => this.game.stick(id, pageId, sticker, x, y),
     });
 
     this.#handlers = demoHandlers(this, this.game);

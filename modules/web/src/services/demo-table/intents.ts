@@ -48,6 +48,8 @@ export const demoHandlers = (moves: DemoMoves, game: DemoGame): DemoHandlers => 
   favourite: (id, { pageId }) => game.favourite(id, pageId),
   nextBook: (id) => game.nextBook(id),
   like: (id, { pageId, liked }) => game.like(id, pageId, liked),
+  stick: (id, { pageId, sticker, x, y }) => game.stick(id, pageId, sticker, x, y),
+  peel: (id, { stickerId }) => game.peel(id, stickerId),
   startNow: () => game.startNow(),
   playAgain: () => game.playAgain(),
 });

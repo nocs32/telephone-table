@@ -44,6 +44,7 @@ const gameOf = (table: DemoTableState, game: DemoGame): GameSnapshot => {
     reveal: game.phase === 'reveal' ? (game.reveal?.snapshot ?? null) : null,
     books: game.books.map(toBookSnapshot),
     likes: likesRecord(game),
+    stickers: game.stickers.record,
     awards: game.awards,
     squiggle: table.squiggle,
   };

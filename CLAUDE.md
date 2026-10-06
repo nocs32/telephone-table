@@ -13,7 +13,7 @@ Setup commit first (M0), then each phase gets its own branch and PR, as in the s
 3. **CI** (`feat/ci`). PR and merge.
 4. **Hosting** (`feat/hosting`): `pnpm play` and the `telephone-table` Cloudflare Tunnel on telephone.timnox.dev.
 
-**Every feature explains itself on screen** (spec D23): anything people wouldn't guess (likes, the favourite pick, Start now, the doodle board, the 🎲) gets a short line of text or a hint right where it's used. Check it in every UI review.
+**Every feature explains itself on screen** (spec D23): anything people wouldn't guess (likes, the favourite pick, stickers, Start now, the doodle board, the 🎲) gets a short line of text or a hint right where it's used. Check it in every UI review.
 
 ## Scribble Table's word lists stay secret
 The user plays Scribble Table, so knowing its words would spoil it. Nothing in this game is secret from the user (spec D1), but these rules guard the sibling's lists:
@@ -61,6 +61,6 @@ pnpm build         # production web build
 - **pnpm's release-age guard:** pnpm refuses versions published in the last day. Pick the previous version instead of adding exceptions.
 - **No shared Colyseus state, and no peeking** (spec D10, §9.3): the server sends each person only the page they're responding to, and a page goes to everyone only when it's turned at the reveal. Drawings are saved to the server as you go, never streamed to others (D11). After joining or reconnecting, the browser asks for its task and draft with `sync`.
 - **Hosting is the user's to start.** Once M4 lands, `pnpm play` serves the build from this PC through a Cloudflare Tunnel (free, no payment card). Don't start it for them: give them the command.
-- **The demo table** (spec D19): `services/demo-table` plays the server's part in the browser, with sample players who write, draw ready-made sketches, like pages and turn their own books' pages. Until M2 every table is the demo table, `pnpm dev` included; M2 switches `pnpm dev` to live tables behind the same `TableClientService`, and `pnpm demo` keeps the demo. The top bar's **Demo** buttons skip ahead (start, end a step, turn a page, start the next round) and add or remove a sample player (removing one mid-round shows the leaver rule).
+- **The demo table** (spec D19): `services/demo-table` plays the server's part in the browser, with sample players who write, draw ready-made sketches, like pages, stick stickers on them and turn their own books' pages. Until M2 every table is the demo table, `pnpm dev` included; M2 switches `pnpm dev` to live tables behind the same `TableClientService`, and `pnpm demo` keeps the demo. The top bar's **Demo** buttons skip ahead (start, end a step, turn a page, start the next round) and add or remove a sample player (removing one mid-round shows the leaver rule).
 - **Sounds** are CC0 recordings from Freesound, credited in `modules/web/src/assets/sounds/credits.md`. Generated sounds didn't sound good enough, so new ones come from there too.
 - **Dev handle:** in development the root store is `window.telephoneTable`, for checking state from the console or a test script, e.g. `telephoneTable.room.game.state`, `telephoneTable.room.reveal.status`, or at the demo table `telephoneTable.room.demo.skip()`.

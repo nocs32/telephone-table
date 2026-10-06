@@ -84,6 +84,53 @@ export const PageSentenceTyped = styled('span', {
   },
 });
 
+// The stickers on a page (spec D25): a layer over its drawing or bubble, catching taps only while
+// you hold a sticker.
+export const PageCardStickersRoot = styled('span', {
+  base: { position: 'absolute', inset: '0', zIndex: '2', display: 'block', pointerEvents: 'none', fontWeight: '400', lineHeight: '1' },
+  variants: {
+    kind: {
+      // A share of the drawing's width (the sheet is the container), as on the saved picture.
+      drawing: { fontSize: 'clamp(24px, 9cqw, 50px)' },
+      sentence: { fontSize: '32px' },
+    },
+    catching: {
+      true: { pointerEvents: 'auto', cursor: 'none' },
+      false: {},
+    },
+  },
+});
+
+// A sticker: an emoji with a white die-cut edge, slapped on at a tilt. --x, --y and --tilt come from
+// usePageCardStickersItem.
+export const PageCardStickersItemRoot = styled('span', {
+  base: {
+    position: 'absolute',
+    left: 'calc(var(--x) * 100%)',
+    top: 'calc(var(--y) * 100%)',
+    display: 'block',
+    fontFamily: 'emoji',
+    transform: 'translate(-50%, -50%) rotate(var(--tilt))',
+    filter: 'drop-shadow(2px 0 0 token(colors.notebook.bubble)) drop-shadow(-2px 0 0 token(colors.notebook.bubble)) drop-shadow(0 2px 0 token(colors.notebook.bubble)) drop-shadow(0 -2px 0 token(colors.notebook.bubble)) drop-shadow(0 3px 3px rgba(38, 37, 31, 0.35))',
+    pointerEvents: 'auto',
+    userSelect: 'none',
+    animation: 'stickOn 0.4s cubic-bezier(0.3, 1.4, 0.5, 1) both',
+    _motionReduce: { animation: 'fadeIn 0.2s ease-out' },
+  },
+});
+
+// Your own sticker, which a tap peels off.
+export const PageCardStickersItemPeel = styled('button', {
+  base: {
+    display: 'block',
+    lineHeight: '1',
+    cursor: 'pointer',
+    transition: 'transform 0.12s ease',
+    _hover: { transform: 'scale(1.12) rotate(-6deg)' },
+    _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px', borderRadius: '6px' },
+  },
+});
+
 export const PageCardFooter = styled('footer', {
   base: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end', gap: '8px', paddingLeft: '34px', _empty: { display: 'none' } },
 });
@@ -173,6 +220,8 @@ export const PageDrawingSheet = styled('div', {
     width: '100%',
     maxWidth: '520px',
     padding: '8px',
+    // Stickers on it size themselves by its width.
+    containerType: 'inline-size',
     bg: 'notebook.bubble',
     boxShadow: 'sheet',
     _before: { content: '""', position: 'absolute', top: '-9px', left: '-14px', width: '74px', height: '22px', bg: 'notebook.tape', transform: 'rotate(-32deg)', zIndex: '1' },

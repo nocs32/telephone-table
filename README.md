@@ -4,13 +4,14 @@ A telephone drawing game you play with friends in the browser.
 
 - **Write, draw, pass it on:** everyone writes a silly sentence on page one of their book. The books move one seat along, and each person draws the sentence they get. They move on again, and the next person describes the drawing without seeing the sentence. Writing and drawing alternate until every book has been through everyone's hands.
 - **The reveal:** one book at a time, its owner turns the pages for the whole table. Drawings replay stroke by stroke, sentences type themselves out, and everyone sees how the sentence drifted.
+- **Stickers:** while a book is open, slap stickers from the sticker sheet onto its pages. They stay on the book, and in the saved picture too.
 - **Points, just for fun:** ❤️ the pages you love, each owner picks a favourite page in their book, and the podium crowns the best drawing and the best line.
 - **Save a book:** download any book as one tall picture, ready for the group chat.
 - **No accounts, no leftovers:** share the table link to play, in English or Ukrainian. A table disappears about 10 minutes after the last person leaves.
 
 It's a sibling of [Scribble Table](https://github.com/nocs32/scribble-table), the drawing-and-guessing game, and [Felt Table](https://github.com/nocs32/felt-table-jigsaw), the multiplayer jigsaw, and shares their stack, rules and look.
 
-> **Status:** the web UI is built and plays against a **demo table** in the browser: sample players who write, draw, like pages and turn their books' pages, with no server. Live tables on the server come next.
+> **Status:** the web UI is built and plays against a **demo table** in the browser: sample players who write, draw, like pages, stick stickers on them and turn their books' pages, with no server. Live tables on the server come next.
 
 ## Stack
 
