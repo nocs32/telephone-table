@@ -1,15 +1,21 @@
 import { createServices } from '../services';
 import type { Services } from '../services/types';
 import { LocaleStore } from './locale';
-import { ServerStatusStore } from './server-status';
+import { RoomStore } from './room';
+import { SoundStore } from './sound';
+import { UiStore } from './ui';
 
 export class RootStore {
   readonly locale: LocaleStore;
-  readonly server: ServerStatusStore;
+  readonly ui: UiStore;
+  readonly room: RoomStore;
+  readonly sound: SoundStore;
 
   constructor(services: Services) {
     this.locale = new LocaleStore(services);
-    this.server = new ServerStatusStore({ healthApi: services.healthApi, t: this.locale.t });
+    this.ui = new UiStore(services);
+    this.room = new RoomStore(services, this.locale, this.ui);
+    this.sound = new SoundStore({ t: this.locale.t, sounds: services.sounds, preferences: services.preferences });
   }
 }
 

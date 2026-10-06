@@ -10,13 +10,13 @@ A telephone drawing game you play with friends in the browser.
 
 It's a sibling of [Scribble Table](https://github.com/nocs32/scribble-table), the drawing-and-guessing game, and [Felt Table](https://github.com/nocs32/felt-table-jigsaw), the multiplayer jigsaw, and shares their stack, rules and look.
 
-> **Status:** early setup. A skeleton web app and API are running; the game itself is not built yet.
+> **Status:** the web UI is built and plays against a **demo table** in the browser: sample players who write, draw, like pages and turn their books' pages, with no server. Live tables on the server come next.
 
 ## Stack
 
 | Part | Tech |
 |---|---|
-| Web (`modules/web`) | React 19, TypeScript, Vite, Panda CSS, MobX, i18next. Coming next: Ark UI and the drawing board. |
+| Web (`modules/web`) | React 19, TypeScript, Vite, Panda CSS, MobX, Ark UI, i18next |
 | API (`modules/core-api`) | Node.js, Express 5 and Colyseus 0.18 (run with `tsx`). Coming next: the live tables. |
 | Shared | `modules/protocol` (the contract between the two) and `modules/engine` (pure game logic) |
 | Tooling | pnpm workspaces, ESLint 10 + typescript-eslint, TypeScript 6.0 |
@@ -39,7 +39,9 @@ pnpm dev
 | Web | http://localhost:5175 |
 | API | http://localhost:2569 — the web dev server forwards `/api/*`, and `/live` for tables, to it |
 
-Open the web URL. If everything is wired up, the page says **"Server online"**.
+Open the web URL to get a table. For now every table is a demo table: three sample players sit down with you and a fourth joins a little later. The **Demo** buttons in the top bar skip ahead and add or remove a sample player.
+
+`pnpm demo` runs the web app alone against the demo table, with no API; it keeps working once live tables arrive.
 
 The ports sit one above Scribble Table's (5174 and 2568) and two above Felt Table's (5173 and 2567), so all three games can run at the same time.
 
@@ -48,6 +50,7 @@ The ports sit one above Scribble Table's (5174 and 2568) and two above Felt Tabl
 | Command | What it does |
 |---|---|
 | `pnpm dev` | Runs the web app and the API with hot reload |
+| `pnpm demo` | Runs the web app alone against the demo table (sample players, no server), for working on the UI |
 | `pnpm lint` | Lints every module; `pnpm lint --fix` fixes spacing automatically |
 | `pnpm typecheck` | Type-checks every module |
 | `pnpm test` | Runs the engine and core-api tests; one module: `pnpm --filter @telephone-table/core-api test` |
@@ -86,7 +89,9 @@ eslint-rules/       custom lint rules used by the config
 - **Logic** lives in small state-machine classes.
 - **The server decides:** browsers send intents (a stroke batch, Done, a like) and never results.
 
-**Starter sentences** for the 🎲 button stay clear of the words in Scribble Table's lists, so playing one game never spoils the other.
+**Starter sentences** for the 🎲 button (`modules/web/src/content/starters/`) stay clear of the words in Scribble Table's lists, so playing one game never spoils the other.
+
+**Sounds** are CC0 recordings from [Freesound](https://freesound.org), credited in `modules/web/src/assets/sounds/credits.md`.
 
 **TypeScript** stays on **6.0** until typescript-eslint supports TypeScript 7.
 
