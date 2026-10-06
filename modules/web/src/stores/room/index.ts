@@ -84,7 +84,7 @@ export class RoomStore {
     this.presence = new RoomPresenceStore({ t });
     this.game = new RoomGameStore({ ...services, t, presence: this.presence, send, isWorking: () => this.step.state === 'working' });
     this.doodle = new RoomDoodleStore({ ...services, t, send, meId, isLobby: () => this.game.state === 'lobby' });
-    this.step = new RoomStepStore({ ...services, t, send, language: () => locale.language, presence: this.presence, isStep: () => this.game.state === 'step' });
+    this.step = new RoomStepStore({ ...services, t, send, language: () => locale.language, presence: this.presence, isStep: () => this.game.state === 'step', stepKind: () => this.game.stepKind });
     this.books = new RoomBooksStore({ ...services, t, send, game: this.game, presence: this.presence });
     this.reveal = new RoomRevealStore({ ...services, t, send, game: this.game, presence: this.presence, books: this.books });
     this.shelf = new RoomShelfStore({ t, game: this.game, presence: this.presence, books: this.books });

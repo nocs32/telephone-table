@@ -2,10 +2,10 @@ import { observer } from 'mobx-react-lite';
 import type { ReactElement } from 'react';
 import { useRootStore } from '../../../stores/use-root-store';
 import { Clock } from '../clock';
-import { RoomStepHeaderProgress } from './progress';
 import { RoomStepHeaderBadge, RoomStepHeaderMeta, RoomStepHeaderRoot, RoomStepHeaderText, RoomStepHeaderTitle } from './styled-components';
 
-// What this step is (stamped in as it starts), what to do, who's done, and the clock.
+// What this step is (stamped in as it starts), what to do, and the clock. Who's done has its own
+// card beside the page.
 export const RoomStepHeader = observer(function RoomStepHeader(): ReactElement {
   const { locale, room } = useRootStore();
   const { t } = locale;
@@ -24,7 +24,6 @@ export const RoomStepHeader = observer(function RoomStepHeader(): ReactElement {
           {game.roundLabel} · {game.stepLabel}
         </RoomStepHeaderMeta>
       </RoomStepHeaderText>
-      <RoomStepHeaderProgress />
       <Clock />
     </RoomStepHeaderRoot>
   );

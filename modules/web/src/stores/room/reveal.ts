@@ -8,7 +8,8 @@ import type { RoomPresenceStore } from './presence';
 import type { TableSend } from './types';
 
 export interface RevealPageView extends PageView {
-  // The latest drawing replays as a time-lapse from this moment (spec §6); null shows it finished.
+  // The latest page replays from this moment: a drawing as a time-lapse (spec §6), a sentence typing
+  // itself out. null shows it finished.
   replayFrom: number | null;
   // Whoever may turn the pages can tap the drawing to skip to the finished picture.
   canSkip: boolean;
@@ -88,11 +89,12 @@ export class RoomRevealStore {
     const views = this.#deps.books.viewsOf(snapshot.bookId, snapshot.shown);
 
     return views.map((view, index) => {
-      const isLatestDrawing = index === views.length - 1 && view.kind === 'drawing' && !view.isEmpty;
+      const isLatest = index === views.length - 1 && !view.isEmpty;
+      const isLatestDrawing = isLatest && view.kind === 'drawing';
 
       return {
         ...view,
-        replayFrom: isLatestDrawing && !snapshot.skipped ? snapshot.turnedAt : null,
+        replayFrom: isLatest && !snapshot.skipped ? snapshot.turnedAt : null,
         canSkip: isLatestDrawing && !snapshot.skipped && this.canTurn,
         canPickFavourite: this.isPickingFavourite && !view.isMine,
       };

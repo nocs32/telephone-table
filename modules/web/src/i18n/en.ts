@@ -1,6 +1,9 @@
+import { enTools } from './en-tools';
+
 // English UI strings. Every key here needs a Ukrainian one in uk.ts (index.ts checks).
 // Plural keys use i18next suffixes (_one, _other); pass `count` to pick the form.
 export const en = {
+  ...enTools,
   language: {
     code: 'EN',
     toggle: 'Language: English. Switch to Ukrainian',
@@ -107,6 +110,10 @@ export const en = {
     waitingFor_one: 'Waiting for {{count}} more…',
     waitingFor_other: 'Waiting for {{count}} more…',
     progress: '{{done}} of {{count}} done',
+    people: 'Who’s done',
+    workerDone: 'done',
+    workerWriting: 'writing…',
+    workerDrawing: 'drawing…',
     watchingTitle: 'You’re watching this round',
     watchingText: 'Everyone else is writing and drawing. You’ll get a seat when the next round starts, and you’ll see every book at the reveal.',
   },
@@ -170,38 +177,6 @@ export const en = {
     pages_other: '{{count}} pages',
     save: 'Save',
   },
-  board: {
-    tools: 'Drawing tools',
-    brush: 'Brush (B)',
-    eraser: 'Eraser (E)',
-    fill: 'Fill (F)',
-    sizes: 'Brush size',
-    size: 'Size {{number}}',
-    colors: 'Colours',
-    undo: 'Undo (Ctrl+Z)',
-    clear: 'Clear the page',
-    clearConfirm: 'Clear your whole drawing?',
-    clearYes: 'Clear it',
-    clearNo: 'Keep it',
-  },
-  ink: {
-    black: 'Black',
-    charcoal: 'Charcoal',
-    gray: 'Grey',
-    silver: 'Silver',
-    white: 'White',
-    red: 'Red',
-    orange: 'Orange',
-    yellow: 'Yellow',
-    lime: 'Lime',
-    green: 'Green',
-    teal: 'Teal',
-    sky: 'Sky blue',
-    blue: 'Blue',
-    violet: 'Violet',
-    pink: 'Pink',
-    brown: 'Brown',
-  },
   chat: {
     slowDown: 'Too fast: send it again in a moment.',
     notSent: 'Too fast: your last message didn’t go through.',
@@ -234,32 +209,5 @@ export const en = {
       pointsOn: 'turned points on',
       pointsOff: 'turned points off',
     },
-  },
-  reactions: {
-    label: 'Reactions',
-    react: 'React with {{emoji}}',
-    more: 'More emoji',
-  },
-  sound: {
-    buttonOn: 'Sound settings: on',
-    buttonOff: 'Sound settings: muted',
-    title: 'Sound',
-    drawing: 'Game sounds',
-    hint: 'Pencil and eraser, a chime as each step starts, the clock’s last seconds, page turns and a fanfare',
-    volume: 'Volume',
-    percent: '{{value}}%',
-  },
-  picker: {
-    search: 'Search emoji',
-    loading: 'Loading…',
-    empty: 'No emoji found',
-    hint: 'Pick an emoji to send it',
-  },
-  demo: {
-    title: 'Demo',
-    hint: 'Sample players, no server',
-    skip: 'Skip ahead',
-    addPlayer: 'Add a player',
-    removePlayer: 'Remove a player',
   },
 };

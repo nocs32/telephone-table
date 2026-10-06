@@ -3,7 +3,7 @@
 A telephone drawing game you play with friends in the browser.
 
 - **Write, draw, pass it on:** everyone writes a silly sentence on page one of their book. The books move one seat along, and each person draws the sentence they get. They move on again, and the next person describes the drawing without seeing the sentence. Writing and drawing alternate until every book has been through everyone's hands.
-- **The reveal:** one book at a time, its owner turns the pages for the whole table. Drawings replay stroke by stroke, and everyone sees how the sentence drifted.
+- **The reveal:** one book at a time, its owner turns the pages for the whole table. Drawings replay stroke by stroke, sentences type themselves out, and everyone sees how the sentence drifted.
 - **Points, just for fun:** ❤️ the pages you love, each owner picks a favourite page in their book, and the podium crowns the best drawing and the best line.
 - **Save a book:** download any book as one tall picture, ready for the group chat.
 - **No accounts, no leftovers:** share the table link to play, in English or Ukrainian. A table disappears about 10 minutes after the last person leaves.

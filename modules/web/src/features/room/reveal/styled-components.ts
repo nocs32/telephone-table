@@ -1,4 +1,5 @@
 import { styled } from 'styled-system/jsx';
+import { NotebookPage } from '../../../ui';
 
 export const RoomRevealRoot = styled('div', {
   base: {
@@ -11,40 +12,17 @@ export const RoomRevealRoot = styled('div', {
   },
 });
 
-// The open book: warm paper with ruled lines, a spiral along the top, and a red margin.
-export const RoomRevealBook = styled('section', {
+// The open book: a notebook page, bound at the top.
+export const RoomRevealBook = styled(NotebookPage, {
   base: {
-    position: 'relative',
+    '--margin': '38px',
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     maxWidth: '720px',
     minHeight: '320px',
     paddingTop: '26px',
-    borderRadius: '6px',
-    color: 'notebook.ink',
-    bg: 'notebook.paper',
-    bgImage:
-      'linear-gradient(90deg, transparent 38px, {colors.notebook.margin} 38px, {colors.notebook.margin} 40px, transparent 40px), repeating-linear-gradient(transparent 0 33px, {colors.notebook.rule} 33px 34px)',
-    boxShadow: 'paper',
-    animation: 'deal 0.5s cubic-bezier(0.2, 0.8, 0.3, 1.1) both',
     lg: { flex: '1', minHeight: '0' },
-  },
-});
-
-// Rings punched along the top edge.
-export const RoomRevealSpiral = styled('div', {
-  base: {
-    position: 'absolute',
-    top: '-12px',
-    left: '24px',
-    right: '24px',
-    height: '26px',
-    bgImage: 'radial-gradient(circle at 50% 70%, {colors.chrome.app} 0 5px, transparent 5.5px), linear-gradient(90deg, transparent 6px, {colors.notebook.spiral} 6px 10px, transparent 10px)',
-    bgSize: '28px 26px, 28px 18px',
-    bgRepeat: 'repeat-x',
-    bgPosition: '0 0, 0 0',
-    pointerEvents: 'none',
   },
 });
 

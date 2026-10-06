@@ -4,6 +4,17 @@ import { styled } from 'styled-system/jsx';
 // phone it fills the width.
 export const DrawingBoardRoot = styled('div', {
   base: { position: 'relative', width: '100%', lg: { width: 'min(100cqw, calc(100cqh * 4 / 3))' } },
+  variants: {
+    // Taped into a notebook, as drawings are at the reveal (spec D15).
+    taped: {
+      true: {
+        _before: { content: '""', position: 'absolute', top: '-16px', left: '-22px', zIndex: '1', width: '84px', height: '24px', bg: 'notebook.tape', transform: 'rotate(-32deg)', pointerEvents: 'none' },
+        _after: { content: '""', position: 'absolute', top: '-16px', right: '-22px', zIndex: '1', width: '84px', height: '24px', bg: 'notebook.tape', transform: 'rotate(32deg)', pointerEvents: 'none' },
+      },
+      false: {},
+    },
+  },
+  defaultVariants: { taped: false },
 });
 
 // 4:3 white paper.
@@ -17,6 +28,13 @@ export const DrawingBoardPaper = styled('div', {
     bg: 'board.paper',
     boxShadow: '0 0 0 1px {colors.board.edge}, 0 14px 34px rgba(0, 0, 0, 0.45)',
   },
+  variants: {
+    taped: {
+      true: { borderRadius: '1px', boxShadow: '0 0 0 1px rgba(38, 37, 31, 0.08), 0 0 0 7px {colors.ink.white}, 0 10px 22px rgba(38, 37, 31, 0.28)' },
+      false: {},
+    },
+  },
+  defaultVariants: { taped: false },
 });
 
 export const DrawingBoardCanvas = styled('canvas', {

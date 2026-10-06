@@ -54,6 +54,34 @@ export const keyframes = defineKeyframes({
     '60%': { transform: 'perspective(900px) rotateX(8deg)', opacity: '1' },
     '100%': { transform: 'perspective(900px) rotateX(0)', opacity: '1' },
   },
+  // A notebook bound at the top (NotebookTurn): the old page lifts slowly from its bottom edge, then
+  // swings up until it's edge-on under the rings, where the binding hides it.
+  pageTurn: {
+    '0%': { transform: 'rotateX(0deg)' },
+    '25%': { transform: 'rotateX(13deg)' },
+    '72%': { transform: 'rotateX(72deg)' },
+    '100%': { transform: 'rotateX(96deg)' },
+  },
+  // The bottom half of the page bends as it leads the lift, and stays a little curled as it goes.
+  pageCurl: {
+    '0%': { transform: 'rotateX(0deg)' },
+    '30%': { transform: 'rotateX(34deg)' },
+    '70%': { transform: 'rotateX(24deg)' },
+    '100%': { transform: 'rotateX(12deg)' },
+  },
+  // The printed side darkens as it curls away from the light.
+  pageTurnShade: {
+    '0%': { opacity: '0' },
+    '50%': { opacity: '1' },
+    '100%': { opacity: '1' },
+  },
+  // The lifting page's shadow on the new page, shrinking back to the binding.
+  pageTurnShadow: {
+    '0%': { opacity: '0', transform: 'scaleY(1)' },
+    '20%': { opacity: '1', transform: 'scaleY(0.92)' },
+    '70%': { opacity: '0.6', transform: 'scaleY(0.3)' },
+    '100%': { opacity: '0', transform: 'scaleY(0)' },
+  },
   // Confetti over the podium.
   confetti: {
     '0%': { transform: 'translate3d(0, -10vh, 0) rotate(0deg)', opacity: '1' },
@@ -73,6 +101,11 @@ export const keyframes = defineKeyframes({
     '0%': { transform: 'rotate(0deg) scale(1)' },
     '50%': { transform: 'rotate(200deg) scale(1.2)' },
     '100%': { transform: 'rotate(360deg) scale(1)' },
+  },
+  // A typing caret.
+  blink: {
+    '0%': { opacity: '1' },
+    '50%': { opacity: '0' },
   },
   fadeIn: {
     from: { opacity: '0' },

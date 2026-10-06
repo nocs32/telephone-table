@@ -2,35 +2,39 @@ import { observer } from 'mobx-react-lite';
 import type { ReactElement } from 'react';
 import { CheckIcon } from '../../../assets';
 import { useRootStore } from '../../../stores/use-root-store';
-import { Button } from '../../../ui';
+import { Button, NotebookSpiral, NotebookTurn } from '../../../ui';
 import { DrawingBoard, DrawingTools } from '../drawing';
-import { RoomStepDrawArea, RoomStepDrawBar, RoomStepDrawLabel, RoomStepDrawRoot, RoomStepDrawSentence } from './styled-components';
+import { RoomStepPage, RoomStepPageBody, RoomStepPageFoot, RoomStepPageHead, RoomStepPageLabel, RoomStepTray } from './styled-components';
 import { RoomStepWaiting } from './waiting';
 
-// A draw step (spec §4.3): the sentence stays above the board while you draw; the tools and Done
-// sit below it.
+// A draw step (spec §4.3) on a page of the notebook: the sentence written at the top, your drawing
+// taped in under it (as it will be at the reveal), and the tools on a tray at the bottom.
 export const RoomStepDraw = observer(function RoomStepDraw(): ReactElement {
   const { locale, room } = useRootStore();
   const { t } = locale;
   const { step } = room;
 
   return (
-    <RoomStepDrawRoot>
-      <RoomStepDrawSentence empty={step.isSentenceEmpty}>
-        <RoomStepDrawLabel>{t('step.drawThis')}</RoomStepDrawLabel>
+    <RoomStepPage>
+      <NotebookSpiral aria-hidden />
+      <RoomStepPageHead empty={step.isSentenceEmpty}>
+        <RoomStepPageLabel>{t('step.drawThis')}</RoomStepPageLabel>
         {step.sentence}
-      </RoomStepDrawSentence>
-      <RoomStepDrawArea>
-        <DrawingBoard board={step.board} label={t('step.yourDrawing')} />
-        {step.state === 'done' && <RoomStepWaiting />}
-      </RoomStepDrawArea>
-      <RoomStepDrawBar>
-        <DrawingTools board={step.board} />
+      </RoomStepPageHead>
+      <RoomStepPageBody>
+        <DrawingBoard board={step.board} label={t('step.yourDrawing')} taped />
+      </RoomStepPageBody>
+      <RoomStepPageFoot>
+        <RoomStepTray>
+          <DrawingTools board={step.board} />
+        </RoomStepTray>
         <Button tone="primary" type="button" disabled={!step.canEdit} onClick={step.done}>
           <CheckIcon />
           {t('step.done')}
         </Button>
-      </RoomStepDrawBar>
-    </RoomStepDrawRoot>
+      </RoomStepPageFoot>
+      {step.state === 'done' && <RoomStepWaiting />}
+      <NotebookTurn />
+    </RoomStepPage>
   );
 });

@@ -5,11 +5,11 @@ import { useRootStore } from '../../../stores/use-root-store';
 import { Avatar } from '../../../ui';
 import { PageDrawing } from './drawing';
 import { PageHeart } from './heart';
+import { PageSentence } from './sentence';
 import {
   PageCardAuthor,
   PageCardBadge,
   PageCardBody,
-  PageCardBubble,
   PageCardFavourite,
   PageCardFooter,
   PageCardName,
@@ -42,7 +42,7 @@ export const PageCard = observer(function PageCard({ page, tilt, isNew = false, 
       </PageCardAuthor>
       <PageCardBody>
         {page.kind === 'sentence' ? (
-          <PageCardBubble empty={page.isEmpty}>{page.text}</PageCardBubble>
+          <PageSentence text={page.text} empty={page.isEmpty} replayFrom={replayFrom} />
         ) : (
           <PageDrawing actions={page.actions} label={t('page.drawingBy', { name: page.author.name })} tilt={tilt} replayFrom={replayFrom} onSkip={onSkip} skipLabel={t('reveal.skip')} />
         )}

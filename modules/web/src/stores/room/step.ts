@@ -1,4 +1,4 @@
-import { sentenceMaxLength, type BoardAction, type TaskSnapshot } from '@telephone-table/protocol';
+import { sentenceMaxLength, type BoardAction, type StepKind, type TaskSnapshot } from '@telephone-table/protocol';
 import { makeAutoObservable } from 'mobx';
 import { starterSentences } from '../../content';
 import type { Language } from '../../i18n';
@@ -13,8 +13,9 @@ export interface RoomStepDeps {
   language: () => Language;
   send: TableSend;
   presence: RoomPresenceStore;
-  // The game is in a step (otherwise there's nothing to work on).
+  // The game is in a step (otherwise there's nothing to work on), and which kind.
   isStep: () => boolean;
+  stepKind: () => StepKind | null;
   sounds: SoundsService;
   random: () => number;
   now: () => number;
@@ -25,6 +26,15 @@ export interface RoomStepDeps {
 // none: no page for you (outside steps, or watching this round) · working · done (you pressed Done;
 // Not done takes it back until the step ends).
 export type RoomStepState = 'none' | 'working' | 'done';
+
+// Someone with a seat this step: done, still writing or drawing, or reconnecting.
+export type WorkerStatus = 'done' | 'working' | 'away';
+
+export interface WorkerView {
+  player: PlayerView;
+  status: WorkerStatus;
+  statusLabel: string;
+}
 
 // A sentence draft goes to the table a second after you stop typing (spec §6).
 const draftDelayMs = 1000;
@@ -130,6 +140,18 @@ export class RoomStepStore {
   // Everyone with a seat, ticked when done (spec §8).
   get workers(): PlayerView[] {
     return this.#deps.presence.seated;
+  }
+
+  // Who's done, by name, for the card beside the page.
+  get workerViews(): WorkerView[] {
+    const { t, stepKind } = this.#deps;
+    const working = t(stepKind() === 'draw' ? 'step.workerDrawing' : 'step.workerWriting');
+
+    return this.workers.map((player) => {
+      const status: WorkerStatus = player.done ? 'done' : player.status === 'reconnecting' ? 'away' : 'working';
+
+      return { player, status, statusLabel: status === 'done' ? t('step.workerDone') : status === 'away' ? t('people.reconnecting') : working };
+    });
   }
 
   get doneCount(): number {

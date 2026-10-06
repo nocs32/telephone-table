@@ -68,6 +68,22 @@ export const PageCardBubble = styled('p', {
   defaultVariants: { empty: false },
 });
 
+// The whole sentence keeps the bubble's size; it shows through only when there's no typing.
+export const PageSentenceWhole = styled('span', {
+  base: { color: 'transparent' },
+});
+
+// The sentence typing itself out over it, with a caret while it types.
+export const PageSentenceTyped = styled('span', {
+  base: {
+    position: 'absolute',
+    inset: '0',
+    paddingInline: '16px',
+    paddingBlock: '10px',
+    '&[data-typing=true]::after': { content: '""', display: 'inline-block', width: '2px', height: '1.1em', marginLeft: '2px', verticalAlign: 'text-bottom', bg: 'currentColor', animation: 'blink 0.8s steps(1) infinite' },
+  },
+});
+
 export const PageCardFooter = styled('footer', {
   base: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end', gap: '8px', paddingLeft: '34px', _empty: { display: 'none' } },
 });
@@ -168,8 +184,12 @@ export const PageDrawingSheet = styled('div', {
       right: { transform: 'rotate(1deg)' },
       none: {},
     },
+    fill: {
+      true: { maxWidth: 'none' },
+      false: {},
+    },
   },
-  defaultVariants: { tilt: 'none' },
+  defaultVariants: { tilt: 'none', fill: false },
 });
 
 export const PageDrawingCanvas = styled('canvas', {

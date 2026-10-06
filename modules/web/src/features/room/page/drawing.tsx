@@ -7,6 +7,8 @@ interface PageDrawingProps {
   actions: readonly BoardAction[];
   label: string;
   tilt: 'left' | 'right' | 'none';
+  // As big as its container (a step's page), instead of book-sized.
+  fill?: boolean;
   // The time-lapse runs from here; null shows the finished picture.
   replayFrom?: number | null;
   // Tapping skips the time-lapse to the finished picture.
@@ -15,12 +17,12 @@ interface PageDrawingProps {
 }
 
 // A drawing taped into the book (spec D15).
-export function PageDrawing({ actions, label, tilt, replayFrom = null, onSkip, skipLabel }: PageDrawingProps): ReactElement {
+export function PageDrawing({ actions, label, tilt, fill = false, replayFrom = null, onSkip, skipLabel }: PageDrawingProps): ReactElement {
   const canvasRef = usePageDrawing(actions, replayFrom);
   const canvas = <PageDrawingCanvas ref={canvasRef} width={boardWidth} height={boardHeight} role="img" aria-label={label} />;
 
   return (
-    <PageDrawingSheet tilt={tilt}>
+    <PageDrawingSheet tilt={tilt} fill={fill}>
       {onSkip ? (
         <PageDrawingSkip type="button" onClick={onSkip} title={skipLabel} aria-label={skipLabel}>
           {canvas}

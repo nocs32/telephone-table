@@ -2,21 +2,24 @@ import { observer } from 'mobx-react-lite';
 import type { ReactElement } from 'react';
 import { CheckIcon } from '../../../assets';
 import { useRootStore } from '../../../stores/use-root-store';
-import { Button } from '../../../ui';
+import { Button, NotebookSpiral, NotebookTurn } from '../../../ui';
 import { withoutDefault } from '../../../utils';
-import { RoomStepCard, RoomStepWriteCounter, RoomStepWriteField, RoomStepWriteForm, RoomStepWriteInput } from './styled-components';
+import { RoomStepPage, RoomStepPageBody, RoomStepWriteCounter, RoomStepWriteField, RoomStepWriteForm, RoomStepWriteInput } from './styled-components';
 import { RoomStepWaiting } from './waiting';
 import { RoomStepWritePrompt } from './write-prompt';
 
-// A write step (spec §4.3): page one is your own sentence; later pages say what the drawing you
-// got shows. One line, saved as you type.
+// A write step (spec §4.3) on a page of the notebook: page one is your own sentence; later pages say
+// what the drawing you got shows. One line at the bottom of the page, saved as you type.
 export const RoomStepWrite = observer(function RoomStepWrite(): ReactElement {
   const { locale, room } = useRootStore();
   const { step } = room;
 
   return (
-    <RoomStepCard>
-      <RoomStepWritePrompt />
+    <RoomStepPage>
+      <NotebookSpiral aria-hidden />
+      <RoomStepPageBody>
+        <RoomStepWritePrompt />
+      </RoomStepPageBody>
       <RoomStepWriteForm onSubmit={withoutDefault(step.done)}>
         <RoomStepWriteField>
           <RoomStepWriteInput
@@ -37,6 +40,7 @@ export const RoomStepWrite = observer(function RoomStepWrite(): ReactElement {
         </Button>
       </RoomStepWriteForm>
       {step.state === 'done' && <RoomStepWaiting />}
-    </RoomStepCard>
+      <NotebookTurn />
+    </RoomStepPage>
   );
 });

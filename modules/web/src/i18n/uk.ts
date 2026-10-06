@@ -1,6 +1,9 @@
+import { ukTools } from './uk-tools';
+
 // Ukrainian UI strings: the same keys as en.ts. Plural keys need _one, _few, _many and _other.
 // Lines about people use the present tense, so they don't depend on the person's gender.
 export const uk = {
+  ...ukTools,
   language: {
     code: 'UA',
     toggle: 'Мова: українська. Перейти на англійську',
@@ -123,6 +126,10 @@ export const uk = {
     waitingFor_many: 'Чекаємо ще {{count}}…',
     waitingFor_other: 'Чекаємо ще {{count}}…',
     progress: 'Готово: {{done}} з {{count}}',
+    people: 'Хто готовий',
+    workerDone: 'готово',
+    workerWriting: 'пише…',
+    workerDrawing: 'малює…',
     watchingTitle: 'Цей раунд ви спостерігаєте',
     watchingText: 'Усі інші пишуть і малюють. Місце за столом з’явиться з наступним раундом, а всі книжки ви побачите під час показу.',
   },
@@ -198,38 +205,6 @@ export const uk = {
     pages_other: '{{count}} сторінки',
     save: 'Зберегти',
   },
-  board: {
-    tools: 'Інструменти',
-    brush: 'Пензель (B)',
-    eraser: 'Гумка (E)',
-    fill: 'Заливка (F)',
-    sizes: 'Товщина пензля',
-    size: 'Розмір {{number}}',
-    colors: 'Кольори',
-    undo: 'Скасувати (Ctrl+Z)',
-    clear: 'Очистити сторінку',
-    clearConfirm: 'Стерти весь ваш малюнок?',
-    clearYes: 'Стерти',
-    clearNo: 'Залишити',
-  },
-  ink: {
-    black: 'Чорний',
-    charcoal: 'Графітовий',
-    gray: 'Сірий',
-    silver: 'Світло-сірий',
-    white: 'Білий',
-    red: 'Червоний',
-    orange: 'Помаранчевий',
-    yellow: 'Жовтий',
-    lime: 'Салатовий',
-    green: 'Зелений',
-    teal: 'Бірюзовий',
-    sky: 'Блакитний',
-    blue: 'Синій',
-    violet: 'Фіолетовий',
-    pink: 'Рожевий',
-    brown: 'Коричневий',
-  },
   chat: {
     slowDown: 'Надто швидко: надішліть ще раз за мить.',
     notSent: 'Надто швидко: останнє повідомлення не надіслано.',
@@ -268,32 +243,5 @@ export const uk = {
       pointsOn: 'вмикає очки',
       pointsOff: 'вимикає очки',
     },
-  },
-  reactions: {
-    label: 'Реакції',
-    react: 'Реакція {{emoji}}',
-    more: 'Більше емодзі',
-  },
-  sound: {
-    buttonOn: 'Налаштування звуку: увімкнено',
-    buttonOff: 'Налаштування звуку: вимкнено',
-    title: 'Звук',
-    drawing: 'Звуки гри',
-    hint: 'Олівець і гумка, дзвіночок на початку кроку, останні секунди годинника, гортання сторінок і фанфари',
-    volume: 'Гучність',
-    percent: '{{value}}%',
-  },
-  picker: {
-    search: 'Пошук емодзі',
-    loading: 'Завантаження…',
-    empty: 'Емодзі не знайдено',
-    hint: 'Оберіть емодзі, щоб надіслати його',
-  },
-  demo: {
-    title: 'Демо',
-    hint: 'Гравці-приклади, без сервера',
-    skip: 'Далі',
-    addPlayer: 'Додати гравця',
-    removePlayer: 'Прибрати гравця',
   },
 };

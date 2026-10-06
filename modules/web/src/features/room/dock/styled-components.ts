@@ -49,8 +49,8 @@ export const RoomDockChatLabel = styled('span', {
 export const RoomDockBadge = styled('span', {
   base: {
     position: 'absolute',
-    top: '2px',
-    left: '24px',
+    top: '-3px',
+    right: '-5px',
     display: 'grid',
     placeItems: 'center',
     minWidth: '18px',
