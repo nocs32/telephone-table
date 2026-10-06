@@ -42,9 +42,6 @@ const repeat: Schedule = (callback, intervalMs) => {
 
 const createId = (): string => crypto.randomUUID();
 
-// Wide enough that the chat floats open beside the game from the start.
-const wideLayoutQuery = '(min-width: 1200px)';
-
 export const createServices = (): Services => ({
   preferences: createPreferences(),
   translator: createTranslator(),
@@ -61,6 +58,5 @@ export const createServices = (): Services => ({
   now: Date.now,
   createId,
   origin: window.location.origin,
-  isWideLayout: window.matchMedia(wideLayoutQuery).matches,
   browserLanguages: navigator.languages.length > 0 ? navigator.languages : [navigator.language],
 });

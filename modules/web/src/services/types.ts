@@ -152,8 +152,6 @@ export interface Services {
   now: () => number;
   createId: () => string;
   origin: string;
-  // Wide enough to open the chat from the start.
-  isWideLayout: boolean;
   // The browser's languages, most preferred first (navigator.languages).
   browserLanguages: readonly string[];
 }

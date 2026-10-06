@@ -6,6 +6,6 @@ export class UiStore {
   readonly widgets: UiWidgetsStore;
 
   constructor(services: Services) {
-    this.widgets = new UiWidgetsStore({ preferences: services.preferences, isWideLayout: services.isWideLayout });
+    this.widgets = new UiWidgetsStore({ preferences: services.preferences });
   }
 }

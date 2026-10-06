@@ -5,18 +5,18 @@ import { UiWidgetsFrameStore } from './frame';
 
 export interface UiWidgetsDeps {
   preferences: PreferencesService;
-  isWideLayout: boolean;
 }
 
 // Felt Table's floating widgets, here just the chat (spec §7): it floats over the game, bottom left,
-// opened from the dock's chat button.
+// and starts closed (the lobby's start button and the step's side card need the room); the dock's
+// chat button opens it and counts what you've missed.
 export class UiWidgetsStore {
   readonly area = new UiWidgetsAreaStore();
   readonly chat: UiWidgetsFrameStore;
 
-  constructor({ preferences, isWideLayout }: UiWidgetsDeps) {
+  constructor({ preferences }: UiWidgetsDeps) {
     this.chat = new UiWidgetsFrameStore(
-      { key: 'chat', corner: 'bottomLeft', width: 340, height: 420, minWidth: 260, minHeight: 220, isOpenByDefault: isWideLayout, aspect: () => null },
+      { key: 'chat', corner: 'bottomLeft', width: 340, height: 420, minWidth: 260, minHeight: 220, isOpenByDefault: false, aspect: () => null },
       this.area,
       preferences,
     );
