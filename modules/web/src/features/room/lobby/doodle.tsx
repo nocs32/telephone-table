@@ -23,7 +23,7 @@ export const RoomLobbyDoodle = observer(function RoomLobbyDoodle(): ReactElement
         </RoomLobbyDice>
       </RoomLobbyDoodleHead>
       <RoomLobbyDoodleArea>
-        <DrawingBoard board={doodle.board} label={t('doodle.title')}>
+        <DrawingBoard board={doodle.board} label={t('doodle.title')} taped>
           <RoomLobbyDoodleNote>{t('doodle.caption')}</RoomLobbyDoodleNote>
         </DrawingBoard>
       </RoomLobbyDoodleArea>
