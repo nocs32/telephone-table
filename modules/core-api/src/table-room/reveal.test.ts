@@ -90,15 +90,15 @@ test('the owner leaving lets everyone turn, and skips the favourite', () => {
   expect(reveal.snapshot).toMatchObject({ bookIndex: 1, shown: 1, takeover: null });
 });
 
-test("the owner picks a favourite by someone else before the next notebook; it's skipped with points off", () => {
+test('at the end of a notebook the owner may pick a favourite by someone else, or go on without one', () => {
   const harness = createReveal();
   const { reveal } = harness;
 
   reveal.open();
   expect(() => reveal.favourite('a', 'A-1')).toThrow(new TableRoomError('WRONG_PHASE'));
-  reveal.turnPage('a');
-  reveal.turnPage('a');
   expect(() => reveal.nextBook('a')).toThrow(new TableRoomError('WRONG_PHASE'));
+  reveal.turnPage('a');
+  reveal.turnPage('a');
   expect(() => reveal.favourite('b', 'A-1')).toThrow(new TableRoomError('NOT_BOOK_OWNER'));
   expect(() => reveal.favourite('a', 'A-0')).toThrow(new TableRoomError('OWN_PAGE'));
   expect(() => reveal.favourite('a', 'B-1')).toThrow(new TableRoomError('NO_SUCH_PAGE'));
@@ -107,10 +107,22 @@ test("the owner picks a favourite by someone else before the next notebook; it's
   expect(reveal.book?.favouritePageId).toBe('A-1');
   expect(reveal.nextBook('a')).toBe(true);
 
-  harness.points.on = false;
   reveal.turnPage('b');
   reveal.turnPage('b');
   expect(reveal.nextBook('b')).toBe(false);
+  expect(reveal.book?.favouritePageId).toBeNull();
+});
+
+test('with points off there is no favourite to pick', () => {
+  const harness = createReveal();
+  const { reveal } = harness;
+
+  harness.points.on = false;
+  reveal.open();
+  reveal.turnPage('a');
+  reveal.turnPage('a');
+  expect(() => reveal.favourite('a', 'A-1')).toThrow(new TableRoomError('WRONG_PHASE'));
+  expect(reveal.nextBook('a')).toBe(true);
 });
 
 test('a notebook whose owner is gone opens with the takeover', () => {

@@ -68,17 +68,23 @@ export class RoomRevealStore {
     return snapshot !== null && snapshot.bookIndex >= snapshot.bookCount - 1;
   }
 
-  // The owner picks a favourite page by someone else before the next book (spec D7).
-  get needsFavourite(): boolean {
-    return this.#deps.game.settings.points && this.isLastPage && this.snapshot?.takeover === null && this.book?.favouritePageId === null;
-  }
-
+  // At the end of their book the owner may pick a favourite page by someone else (spec D7). It's
+  // up to them: the next book opens either way.
   get isPickingFavourite(): boolean {
-    return this.needsFavourite && this.isOwner;
+    return this.#deps.game.settings.points && this.isLastPage && this.isOwner && this.book?.favouritePageId === null;
   }
 
   get canNextBook(): boolean {
-    return this.canTurn && this.isLastPage && !this.needsFavourite;
+    return this.canTurn && this.isLastPage;
+  }
+
+  // A finished book can be saved as one tall picture by anyone (spec D24), as on the shelf.
+  get canSave(): boolean {
+    return this.isLastPage && this.book !== undefined;
+  }
+
+  get saveTitle(): string {
+    return this.#deps.t('reveal.save');
   }
 
   get pages(): RevealPageView[] {
@@ -154,6 +160,10 @@ export class RoomRevealStore {
 
   nextBook(): void {
     if (this.canNextBook) this.#deps.send('nextBook', {});
+  }
+
+  save(): void {
+    if (this.canSave && this.book) this.#deps.books.save(this.book.id);
   }
 
   // A page turned (or a book opened) since the last snapshot: the page-turn sound.

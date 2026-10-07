@@ -121,11 +121,8 @@ export class DemoGame implements DemoGameState {
   nextBook(memberId: string): void {
     const reveal = this.reveal;
 
-    if (this.phase !== 'reveal' || !reveal?.canTurn(memberId) || !reveal.isLastPage) return;
-
-    const needsFavourite = this.#host.settings().points && reveal.takeover === null && reveal.book?.favouritePageId === null;
-
-    if (!needsFavourite) this.#openNextBook(reveal);
+    // Picking a favourite first is up to the owner (spec D7).
+    if (this.phase === 'reveal' && reveal?.canTurn(memberId) && reveal.isLastPage) this.#openNextBook(reveal);
   }
 
   like(memberId: string, pageId: string, liked: boolean): void {
