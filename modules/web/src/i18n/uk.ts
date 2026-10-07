@@ -120,7 +120,7 @@ export const uk = {
     diceHint: '🎲 вставляє підказку: змініть її або киньте ще раз.',
     done: 'Готово',
     notDone: 'Ще не готово',
-    doneTitle: 'Готово! ✅',
+    doneStamp: 'Готово',
     waitingFor_one: 'Чекаємо ще {{count}}…',
     waitingFor_few: 'Чекаємо ще {{count}}…',
     waitingFor_many: 'Чекаємо ще {{count}}…',

@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import type { ReactElement } from 'react';
 import { useRootStore } from '../../../stores/use-root-store';
+import { PaintBucketIcon, PencilIcon } from '../../../assets';
 import { Clock } from '../clock';
-import { RoomStepHeaderBadge, RoomStepHeaderMeta, RoomStepHeaderRoot, RoomStepHeaderText, RoomStepHeaderTitle } from './styled-components';
+import { RoomStepHeaderBadge, RoomStepHeaderLabel, RoomStepHeaderMeta, RoomStepHeaderRoot, RoomStepHeaderText, RoomStepHeaderTitle } from './styled-components';
 
-// What this step is (stamped in as it starts), what to do, and the clock. Who's done has its own
-// card beside the page.
+// What this step is (stamped on a label as it starts), what to do, written on the mat, and the
+// kitchen timer. Who's done is a sticky note beside the page.
 export const RoomStepHeader = observer(function RoomStepHeader(): ReactElement {
   const { locale, room } = useRootStore();
   const { t } = locale;
@@ -14,10 +15,12 @@ export const RoomStepHeader = observer(function RoomStepHeader(): ReactElement {
 
   return (
     <RoomStepHeaderRoot>
-      <RoomStepHeaderBadge kind={kind}>
-        <span aria-hidden>{kind === 'draw' ? '🎨' : '✏️'}</span>
-        {t(kind === 'draw' ? 'step.draw' : 'step.write')}
-      </RoomStepHeaderBadge>
+      <RoomStepHeaderLabel>
+        <RoomStepHeaderBadge kind={kind}>
+          {kind === 'draw' ? <PaintBucketIcon /> : <PencilIcon />}
+          {t(kind === 'draw' ? 'step.draw' : 'step.write')}
+        </RoomStepHeaderBadge>
+      </RoomStepHeaderLabel>
       <RoomStepHeaderText>
         <RoomStepHeaderTitle>{step.isWatching ? t('step.watchingTitle') : step.title}</RoomStepHeaderTitle>
         <RoomStepHeaderMeta>

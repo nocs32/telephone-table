@@ -4,49 +4,92 @@ import { Switch } from '@ark-ui/react/switch';
 import { styled } from 'styled-system/jsx';
 
 // Desktop: players | doodle board | settings. Narrower: players, settings, then the doodle board.
+// Each lies on the desk: the guest list on a clipboard, the doodle board as a sketch pad, and the
+// settings on an index card held by a binder clip.
 export const RoomLobbyRoot = styled('div', {
   base: {
     display: 'grid',
     gridTemplateAreas: '"players" "settings" "doodle"',
-    gap: '12px',
-    padding: '12px',
-    lg: { gridTemplateColumns: '240px minmax(0, 1fr) 340px', gridTemplateAreas: '"players doodle settings"', height: '100%' },
+    gap: '28px 22px',
+    paddingInline: '14px',
+    paddingTop: '30px',
+    paddingBottom: '16px',
+    lg: { gridTemplateColumns: '250px minmax(0, 1fr) 340px', gridTemplateAreas: '"players doodle settings"', minHeight: '100%', paddingInline: '22px' },
   },
 });
 
 export const RoomLobbyCard = styled('section', {
   base: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     gap: '14px',
     minWidth: '0',
     minHeight: '0',
     padding: '16px',
-    borderRadius: '14px',
-    border: '1px solid',
-    borderColor: 'chrome.border',
-    bg: 'bg.surface',
-    animation: 'deal 0.4s cubic-bezier(0.2, 0.8, 0.3, 1.1) both',
+    color: 'notebook.ink',
+    // Backwards only: once it has landed, its own tilt shows.
+    animation: 'deal 0.4s cubic-bezier(0.2, 0.8, 0.3, 1.1) backwards',
+    _motionReduce: { animation: 'none' },
   },
   variants: {
     area: {
-      players: { gridArea: 'players' },
-      doodle: { gridArea: 'doodle', animationDelay: '0.06s' },
-      settings: { gridArea: 'settings', animationDelay: '0.12s', lg: { overflowY: 'auto' } },
+      // Paper on a hardboard clipboard (the border is the board), under a metal clip.
+      players: {
+        gridArea: 'players',
+        alignSelf: 'start',
+        maxHeight: '100%',
+        border: '12px solid #9A7754',
+        borderTopWidth: '30px',
+        borderRadius: '12px',
+        bg: 'stationery.card',
+        bgClip: 'padding-box',
+        bgImage: 'repeating-linear-gradient(transparent 0 43px, {colors.stationery.cardRule} 43px 44px)',
+        bgPosition: '0 58px',
+        boxShadow: '0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
+        transform: 'rotate(-1.2deg)',
+        _before: { content: '""', position: 'absolute', top: '-42px', left: '50%', width: '104px', height: '30px', marginLeft: '-52px', borderRadius: '8px 8px 14px 14px', bgImage: 'linear-gradient(#E4E4DF, #9C9C96 70%, #7D7D78)', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.8)' },
+        _after: { content: '""', position: 'absolute', top: '-36px', left: '50%', width: '40px', height: '12px', marginLeft: '-20px', borderRadius: 'full', bg: '#5E5E5A', boxShadow: 'inset 0 2px 3px rgba(0, 0, 0, 0.6)' },
+      },
+      // A sketch pad: a kraft back, the spiral along the top, and the board as its page.
+      doodle: {
+        gridArea: 'doodle',
+        paddingTop: '26px',
+        borderRadius: '8px',
+        bg: 'stationery.kraft',
+        bgImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 50%), radial-gradient(rgba(80, 50, 20, 0.12) 1px, transparent 1.5px)',
+        bgSize: '100% 100%, 5px 5px',
+        boxShadow: '0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
+        animationDelay: '0.06s',
+      },
+      // An index card: a red line under the title, blue lines below, and a binder clip on top.
+      settings: {
+        gridArea: 'settings',
+        alignSelf: 'start',
+        paddingTop: '20px',
+        borderRadius: '4px',
+        bg: 'stationery.card',
+        bgImage: 'linear-gradient(transparent 70px, {colors.stationery.cardTop} 70px 72px, transparent 72px), repeating-linear-gradient(transparent 0 27px, rgba(202, 220, 235, 0.55) 27px 28px)',
+        bgPosition: '0 0, 0 72px',
+        boxShadow: '0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
+        animationDelay: '0.12s',
+        _before: { content: '""', position: 'absolute', top: '-12px', left: '50%', width: '74px', height: '22px', marginLeft: '-37px', borderRadius: '3px 3px 6px 6px', bgImage: 'linear-gradient(#3A3A38, #141413)', boxShadow: '0 3px 5px rgba(0, 0, 0, 0.5)' },
+        _after: { content: '""', position: 'absolute', top: '-30px', left: '50%', width: '50px', height: '22px', marginLeft: '-25px', borderRadius: '12px 12px 0 0', border: '3px solid #C9C9C3', borderBottom: 'none' },
+      },
     },
   },
 });
 
 export const RoomLobbyCardTitle = styled('h2', {
-  base: { display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px', fontWeight: '900', '& svg': { width: '18px', height: '18px', color: 'fg.muted' } },
+  base: { display: 'flex', alignItems: 'center', gap: '8px', fontSize: '17px', fontWeight: '900', '& svg': { width: '18px', height: '18px', color: 'notebook.muted' } },
 });
 
 export const RoomLobbyPlayersList = styled('ul', {
-  base: { display: 'flex', flexWrap: 'wrap', gap: '6px', lg: { flexDirection: 'column', flexWrap: 'nowrap', overflowY: 'auto' } },
+  base: { display: 'flex', flexWrap: 'wrap', gap: '6px 16px', lg: { flexDirection: 'column', flexWrap: 'nowrap', gap: '0', overflowY: 'auto' } },
 });
 
 export const RoomLobbyPlayersItem = styled('li', {
-  base: { display: 'flex', alignItems: 'center', gap: '10px', minHeight: '44px', paddingInline: '8px', paddingBlock: '4px', borderRadius: '10px', bg: 'bg.subtle', animation: 'dialogIn 0.3s ease-out' },
+  base: { display: 'flex', alignItems: 'center', gap: '10px', minHeight: '44px', paddingInline: '2px', animation: 'dialogIn 0.3s ease-out' },
 });
 
 export const RoomLobbyPlayersName = styled('span', {
@@ -54,11 +97,12 @@ export const RoomLobbyPlayersName = styled('span', {
 });
 
 export const RoomLobbyPlayersNote = styled('span', {
-  base: { fontSize: '12px', color: 'fg.subtle' },
+  base: { fontSize: '12px', fontWeight: '700', color: 'notebook.muted' },
 });
 
+// "Waiting for 2 more": a sticky note on the list.
 export const RoomLobbyPlayersWaiting = styled('p', {
-  base: { padding: '10px', borderRadius: '10px', border: '1px dashed', borderColor: 'border.strong', fontSize: '13px', fontWeight: '700', color: 'fg.muted', textAlign: 'center', animation: 'shimmer 2.4s ease-in-out infinite' },
+  base: { padding: '10px 12px', bg: 'stationery.sticky', boxShadow: 'sheet', fontSize: '13px', fontWeight: '900', textAlign: 'center', transform: 'rotate(-2deg)', animation: 'noteIn 0.4s ease-out both' },
 });
 
 export const RoomLobbyDoodleHead = styled('header', {
@@ -74,12 +118,14 @@ export const RoomLobbyDice = styled('button', {
     height: '32px',
     paddingInline: '12px',
     borderRadius: 'full',
-    bg: 'bg.subtle',
+    bg: 'notebook.paper',
+    color: 'notebook.ink',
     fontSize: '13px',
-    fontWeight: '700',
+    fontWeight: '900',
+    boxShadow: '0 2px 0 #BDB49F, 0 4px 8px rgba(0, 0, 0, 0.2)',
     cursor: 'pointer',
-    transition: 'background-color 0.12s ease',
-    _hover: { bg: 'bg.muted', '& span': { animation: 'roll 0.5s ease-out' } },
+    transition: 'transform 0.1s ease',
+    _hover: { transform: 'translateY(-1px)', '& span': { animation: 'roll 0.5s ease-out' } },
     _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
     '& span': { display: 'inline-block', fontFamily: 'emoji', fontSize: '16px' },
   },
@@ -88,6 +134,11 @@ export const RoomLobbyDice = styled('button', {
 // On desktop the board fits the space both ways.
 export const RoomLobbyDoodleArea = styled('div', {
   base: { display: 'grid', placeItems: 'center', lg: { flex: '1', minHeight: '0', containerType: 'size' } },
+});
+
+// The drawing tools, on the same floating tray as in a draw step.
+export const RoomLobbyDoodleTray = styled('div', {
+  base: { alignSelf: 'center', paddingInline: '10px', paddingBlock: '6px', borderRadius: '14px', bg: 'bg.surface', color: 'fg.default', boxShadow: 'floating' },
 });
 
 // What the board is for, on a sticky note on the paper (spec D22, D23).
@@ -99,7 +150,7 @@ export const RoomLobbyDoodleNote = styled('p', {
     maxWidth: '44%',
     paddingInline: '12px',
     paddingBlock: '8px',
-    bg: 'notebook.tape',
+    bg: 'stationery.sticky',
     color: 'notebook.ink',
     fontSize: '14px',
     fontWeight: '900',
@@ -116,7 +167,7 @@ export const RoomLobbySettingsHead = styled('header', {
 });
 
 export const RoomLobbySettingsSubtitle = styled('p', {
-  base: { fontSize: '13px', color: 'fg.muted' },
+  base: { fontSize: '13px', color: 'notebook.muted' },
 });
 
 export const RoomLobbyField = styled('div', {
@@ -132,11 +183,11 @@ export const RoomLobbyLabel = styled('label', {
 });
 
 export const RoomLobbyValue = styled('span', {
-  base: { fontSize: '14px', fontWeight: '900', color: 'accent.text', fontVariantNumeric: 'tabular-nums' },
+  base: { fontSize: '14px', fontWeight: '900', color: 'accent.default', fontVariantNumeric: 'tabular-nums' },
 });
 
 export const RoomLobbyHint = styled('span', {
-  base: { fontSize: '12px', color: 'fg.subtle' },
+  base: { fontSize: '12px', color: 'notebook.muted' },
 });
 
 export const RoomLobbySliderRoot = styled(Slider.Root, {
@@ -148,7 +199,7 @@ export const RoomLobbySliderControl = styled(Slider.Control, {
 });
 
 export const RoomLobbySliderTrack = styled(Slider.Track, {
-  base: { flex: '1', height: '6px', borderRadius: 'full', bg: 'bg.muted', overflow: 'hidden' },
+  base: { flex: '1', height: '6px', borderRadius: 'full', bg: 'rgba(38, 37, 31, 0.14)', overflow: 'hidden' },
 });
 
 export const RoomLobbySliderRange = styled(Slider.Range, {
@@ -160,8 +211,10 @@ export const RoomLobbySliderThumb = styled(Slider.Thumb, {
     width: '20px',
     height: '20px',
     borderRadius: 'full',
-    bg: 'fg.default',
-    boxShadow: '0 1px 4px rgba(0, 0, 0, 0.5)',
+    bg: 'white',
+    border: '3px solid',
+    borderColor: 'accent.default',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
     cursor: 'grab',
     _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
   },
@@ -195,11 +248,12 @@ export const RoomLobbySegmentItem = styled(SegmentGroup.Item, {
     paddingInline: '6px',
     borderRadius: '8px',
     border: '1px solid',
-    borderColor: 'border.default',
+    borderColor: 'rgba(38, 37, 31, 0.22)',
+    bg: 'white',
     fontSize: '14px',
     fontWeight: '900',
     cursor: 'pointer',
-    '&[data-state=checked]': { borderColor: 'transparent', color: 'fg.onAccent' },
+    '&[data-state=checked]': { borderColor: 'transparent', bg: 'transparent', color: 'fg.onAccent' },
     '&[data-focus-visible]': { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
   },
   variants: {
@@ -232,7 +286,7 @@ export const RoomLobbySwitchControl = styled(Switch.Control, {
     height: '24px',
     padding: '2px',
     borderRadius: 'full',
-    bg: 'bg.muted',
+    bg: 'rgba(38, 37, 31, 0.2)',
     transition: 'background-color 0.15s ease',
     '&[data-state=checked]': { bg: 'accent.default' },
     '&[data-focus-visible]': { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
@@ -240,15 +294,15 @@ export const RoomLobbySwitchControl = styled(Switch.Control, {
 });
 
 export const RoomLobbySwitchThumb = styled(Switch.Thumb, {
-  base: { width: '20px', height: '20px', borderRadius: 'full', bg: 'fg.default', transition: 'transform 0.15s ease', '&[data-state=checked]': { transform: 'translateX(16px)' } },
+  base: { width: '20px', height: '20px', borderRadius: 'full', bg: 'white', boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3)', transition: 'transform 0.15s ease', '&[data-state=checked]': { transform: 'translateX(16px)' } },
 });
 
 export const RoomLobbyStartRoot = styled('footer', {
-  base: { display: 'grid', gap: '10px', marginTop: 'auto', paddingTop: '14px', borderTop: '1px solid', borderColor: 'border.subtle' },
+  base: { display: 'grid', gap: '10px', marginTop: 'auto', paddingTop: '14px', borderTop: '2px dashed', borderColor: 'rgba(38, 37, 31, 0.18)' },
 });
 
 export const RoomLobbyStartHint = styled('p', {
-  base: { fontSize: '13px', fontWeight: '700', color: 'fg.muted' },
+  base: { fontSize: '13px', fontWeight: '700', color: 'notebook.muted' },
 });
 
 export const RoomLobbyStartButtons = styled('div', {

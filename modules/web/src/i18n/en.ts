@@ -106,7 +106,7 @@ export const en = {
     diceHint: 'The 🎲 fills in a suggestion: change it or roll again.',
     done: 'Done',
     notDone: 'Not done',
-    doneTitle: 'Done! ✅',
+    doneStamp: 'Done',
     waitingFor_one: 'Waiting for {{count}} more…',
     waitingFor_other: 'Waiting for {{count}} more…',
     progress: '{{done}} of {{count}} done',

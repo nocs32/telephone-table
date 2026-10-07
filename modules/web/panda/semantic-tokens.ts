@@ -63,5 +63,9 @@ export const semanticTokens = defineSemanticTokens({
     paper: { value: '0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 18px 40px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3)' },
     // A drawing taped into a notebook.
     sheet: { value: '0 6px 14px rgba(38, 37, 31, 0.18), 0 1px 3px rgba(38, 37, 31, 0.2)' },
+    // A sticky note or card lying on the mat, a corner lifting a little.
+    note: { value: '0 14px 22px -8px rgba(0, 0, 0, 0.55), 0 3px 6px rgba(0, 0, 0, 0.3)' },
+    // A sticker: a white die-cut edge and a shadow.
+    sticker: { value: '0 0 0 2px #FFFFFF, 0 3px 6px rgba(0, 0, 0, 0.45)' },
   },
 });

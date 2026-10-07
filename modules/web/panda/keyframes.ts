@@ -43,6 +43,46 @@ export const keyframes = defineKeyframes({
     '75%': { transform: 'scale(1.06) rotate(-6deg)' },
     '100%': { transform: 'scale(1) rotate(-5deg)', opacity: '1' },
   },
+  // The book you're given slides across the desk from your neighbour (the pass), and settles.
+  passIn: {
+    '0%': { transform: 'translateX(-70vw) rotate(-9deg)', opacity: '0.4' },
+    '62%': { transform: 'translateX(14px) rotate(1deg)', opacity: '1' },
+    '82%': { transform: 'translateX(-4px) rotate(-0.4deg)' },
+    '100%': { transform: 'translateX(0) rotate(0)', opacity: '1' },
+  },
+  // Done: a big rubber stamp thumps onto your page.
+  stampDown: {
+    '0%': { transform: 'scale(3) rotate(-24deg)', opacity: '0' },
+    '45%': { transform: 'scale(0.94) rotate(-11deg)', opacity: '1' },
+    '62%': { transform: 'scale(1.04) rotate(-12deg)' },
+    '100%': { transform: 'scale(1) rotate(-12deg)', opacity: '1' },
+  },
+  // A sticky note slapped down onto the mat; --tilt is its own.
+  noteIn: {
+    '0%': { transform: 'translateY(-18px) rotate(calc(var(--tilt, 0deg) - 6deg)) scale(1.06)', opacity: '0' },
+    '60%': { transform: 'translateY(2px) rotate(var(--tilt, 0deg)) scale(0.99)', opacity: '1' },
+    '100%': { transform: 'translateY(0) rotate(var(--tilt, 0deg)) scale(1)', opacity: '1' },
+  },
+  // A pencil scribbling away.
+  scribble: {
+    '0%, 100%': { transform: 'translate(0, 0) rotate(-8deg)' },
+    '25%': { transform: 'translate(3px, -2px) rotate(4deg)' },
+    '50%': { transform: 'translate(6px, 1px) rotate(-6deg)' },
+    '75%': { transform: 'translate(2px, 2px) rotate(6deg)' },
+  },
+  // A tick drawn by hand (on an SVG path with pathLength 1).
+  tickDraw: {
+    from: { strokeDashoffset: '1' },
+    to: { strokeDashoffset: '0' },
+  },
+  // The kitchen timer's ding in the last seconds.
+  ring: {
+    '0%, 100%': { transform: 'rotate(0)' },
+    '20%': { transform: 'rotate(-9deg)' },
+    '40%': { transform: 'rotate(8deg)' },
+    '60%': { transform: 'rotate(-5deg)' },
+    '80%': { transform: 'rotate(3deg)' },
+  },
   // A step's card slides up onto the table.
   deal: {
     from: { transform: 'translateY(28px) rotate(-1.5deg)', opacity: '0' },

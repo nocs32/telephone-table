@@ -9,6 +9,7 @@ import {
   RoomStepPeopleItem,
   RoomStepPeopleList,
   RoomStepPeopleName,
+  RoomStepPeoplePencil,
   RoomStepPeopleRoot,
   RoomStepPeopleStatus,
   RoomStepPeopleTitle,
@@ -33,7 +34,7 @@ export const RoomStepPeople = observer(function RoomStepPeople(): ReactElement {
             <RoomStepPeopleName>{view.player.name}</RoomStepPeopleName>
             <RoomStepPeopleStatus status={view.status} aria-label={view.statusLabel}>
               {view.status === 'done' && <CheckIcon />}
-              {view.statusLabel}
+              {view.status === 'working' ? <RoomStepPeoplePencil aria-hidden>✏️</RoomStepPeoplePencil> : view.statusLabel}
             </RoomStepPeopleStatus>
           </RoomStepPeopleItem>
         ))}

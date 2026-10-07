@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import type { ReactElement } from 'react';
-import { LinkIcon, LogoMark, SpinnerIcon } from '../../../assets';
+import { LogoMark, SendIcon, SpinnerIcon } from '../../../assets';
 import { useRootStore } from '../../../stores/use-root-store';
 import { RoomTopBarDemo } from './demo';
 import { RoomTopBarLink } from './link';
@@ -43,7 +43,7 @@ export const RoomTopBar = observer(function RoomTopBar(): ReactElement {
           {locale.code}
         </RoomTopBarLanguage>
         <RoomTopBarShare type="button" onClick={room.share.copy}>
-          <LinkIcon />
+          <SendIcon />
           <RoomTopBarShareLabel>{room.share.shareLabel}</RoomTopBarShareLabel>
         </RoomTopBarShare>
       </RoomTopBarEnd>

@@ -18,12 +18,12 @@ interface RoomShelfCoverProps {
   cover: BookCoverView;
 }
 
-// A book on the shelf: its owner's colour on the spine and its first sentence on the cover.
+// A book on the shelf: a notebook in its owner's colour, with its first sentence on a label.
 export const RoomShelfCover = observer(function RoomShelfCover({ cover }: RoomShelfCoverProps): ReactElement {
   const { shelf, books } = useRootStore().room;
 
   return (
-    <RoomShelfCoverRoot spine={cover.owner.color}>
+    <RoomShelfCoverRoot tone={cover.owner.color}>
       <RoomShelfCoverOpen type="button" onClick={() => shelf.open(cover.id)}>
         <RoomShelfCoverOwner>
           <Avatar initial={cover.owner.initial} color={cover.owner.color} size="sm" />
