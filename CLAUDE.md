@@ -50,7 +50,7 @@ pnpm lint          # add --fix to auto-fix spacing
 pnpm typecheck
 pnpm test          # engine + core-api; one module: pnpm --filter @telephone-table/core-api test
 pnpm demo          # web only, against the demo table (no server): for UI work
-pnpm build         # production web build
+pnpm build         # production web build (CI runs lint, typecheck, test, build on every PR and push to main)
 ```
 `pnpm play` (hosting, M4) comes with its phase.
 

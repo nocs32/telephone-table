@@ -11,7 +11,7 @@ A telephone drawing game you play with friends in the browser.
 
 It's a sibling of [Scribble Table](https://github.com/nocs32/scribble-table), the drawing-and-guessing game, and [Felt Table](https://github.com/nocs32/felt-table-jigsaw), the multiplayer jigsaw, and shares their stack, rules and look.
 
-> **Status:** the game plays on live tables run by the server. `pnpm demo` keeps a **demo table** in the browser, with sample players, for working on the UI. CI and hosting come next.
+> **Status:** the game plays on live tables run by the server. `pnpm demo` keeps a **demo table** in the browser, with sample players, for working on the UI. Every pull request runs CI; hosting on telephone.timnox.dev comes next.
 
 ## Stack
 
@@ -58,6 +58,8 @@ The ports sit one above Scribble Table's (5174 and 2568) and two above Felt Tabl
 | `pnpm typecheck` | Type-checks every module |
 | `pnpm test` | Runs the engine and core-api tests; one module: `pnpm --filter @telephone-table/core-api test` |
 | `pnpm build` | Builds the web app for production |
+
+**CI:** GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, test and build on every pull request and every push to `main`.
 
 ## Project layout
 
