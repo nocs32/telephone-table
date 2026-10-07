@@ -54,16 +54,17 @@ export const RoomLobbyCard = styled('section', {
         _before: { content: '""', position: 'absolute', zIndex: '2', top: '8px', left: '50%', width: '128px', height: '34px', marginLeft: '-64px', borderRadius: '6px 6px 12px 12px', bgImage: 'radial-gradient(circle at 15px 55%, #5F5F5B 0 2.5px, #EDEDE9 3px 4px, transparent 4.5px), radial-gradient(circle at calc(100% - 15px) 55%, #5F5F5B 0 2.5px, #EDEDE9 3px 4px, transparent 4.5px), linear-gradient(#FBFBF9, #D2D2CD 38%, #9C9C97 52%, #CFCFCA 78%, #A9A9A4)', boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 5px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.4)' },
         _after: { content: '""', position: 'absolute', zIndex: '3', top: '-6px', left: '50%', width: '78px', height: '24px', marginLeft: '-39px', borderRadius: '14px 14px 5px 5px', bgImage: 'linear-gradient(#FFFFFF, #CACAC5 45%, #8E8E89 60%, #C4C4BF)', boxShadow: '0 3px 4px rgba(0, 0, 0, 0.35)', maskImage: 'radial-gradient(ellipse 20px 5px at 50% 42%, transparent 96%, black 100%)' },
       },
-      // A sketch pad: sheets of slightly toothy paper (public/textures/sketch-paper.svg) under the
-      // spiral, their edges stacked below, and the chipboard back showing only at the very bottom.
+      // A sketch pad of tan toned paper, so the white board taped on it stands out: the sheets are
+      // slightly toothy (public/textures/sketch-paper.svg), their edges stacked below the top one,
+      // and the chipboard back shows only at the very bottom.
       doodle: {
         gridArea: 'doodle',
         paddingTop: '26px',
         borderRadius: '3px',
-        bg: '#F6F3EB',
-        bgImage: "linear-gradient(160deg, rgba(255, 255, 255, 0.5), transparent 40%), url('/textures/sketch-paper.svg')",
+        bg: '#DDD0B9',
+        bgImage: "linear-gradient(160deg, rgba(255, 255, 255, 0.22), transparent 40%), url('/textures/sketch-paper.svg')",
         bgSize: '100% 100%, 240px 240px',
-        boxShadow: '0 1px 0 #DDD8CC, 0 2px 0 #F3EFE6, 0 3px 0 #D9D3C6, 0 4px 0 #F0ECE2, 0 5px 0 #D4CEC0, 0 6px 0 #8C7C68, 0 8px 0 #7A6B58, 0 18px 30px -8px rgba(0, 0, 0, 0.55), 0 3px 6px rgba(0, 0, 0, 0.3)',
+        boxShadow: '0 1px 0 #C6B89F, 0 2px 0 #DACDB5, 0 3px 0 #C2B49B, 0 4px 0 #D6C9B0, 0 5px 0 #BDAF95, 0 6px 0 #8C7C68, 0 8px 0 #7A6B58, 0 18px 30px -8px rgba(0, 0, 0, 0.55), 0 3px 6px rgba(0, 0, 0, 0.3)',
         animationDelay: '0.06s',
       },
       // An index card: a red line under the title, blue lines below, and a binder clip on top.
