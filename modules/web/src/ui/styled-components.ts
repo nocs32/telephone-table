@@ -1,6 +1,7 @@
 import { Popover } from '@ark-ui/react/popover';
 import { styled } from 'styled-system/jsx';
 
+// Everyone's initial on a round sticker in their colour.
 export const AvatarRoot = styled('span', {
   base: {
     position: 'relative',
@@ -8,9 +9,11 @@ export const AvatarRoot = styled('span', {
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: '0',
+    borderRadius: 'full',
     color: 'fg.onAccent',
     fontWeight: '900',
     lineHeight: '1',
+    boxShadow: 'sticker',
     userSelect: 'none',
   },
   variants: {
@@ -27,12 +30,12 @@ export const AvatarRoot = styled('span', {
       indigo: { bg: 'player.indigo' },
     },
     size: {
-      sm: { width: '20px', height: '20px', fontSize: '11px', borderRadius: '5px' },
-      md: { width: '26px', height: '26px', fontSize: '13px', borderRadius: '6px' },
-      lg: { width: '36px', height: '36px', fontSize: '16px', borderRadius: '8px' },
+      sm: { width: '20px', height: '20px', fontSize: '11px', boxShadow: '0 0 0 1.5px #FFFFFF, 0 2px 4px rgba(0, 0, 0, 0.4)' },
+      md: { width: '26px', height: '26px', fontSize: '13px' },
+      lg: { width: '36px', height: '36px', fontSize: '16px' },
     },
     ring: {
-      true: { boxShadow: '0 0 0 2px {colors.chrome.app}' },
+      true: { boxShadow: '0 0 0 2px #FFFFFF, 0 0 0 3.5px {colors.chrome.app}' },
       false: {},
     },
   },
@@ -48,53 +51,65 @@ export const AvatarPresence = styled('span', {
     height: '10px',
     borderRadius: 'full',
     border: '2px solid',
-    borderColor: 'bg.surface',
+    borderColor: 'white',
   },
   variants: {
     status: {
       online: { bg: 'presence.online' },
-      reconnecting: { bg: 'bg.surface', boxShadow: 'inset 0 0 0 1.5px {colors.fg.muted}' },
+      reconnecting: { bg: 'white', boxShadow: 'inset 0 0 0 1.5px {colors.notebook.muted}' },
     },
   },
 });
 
+// A paper cut-out lying on the desk: --edge is the thickness you see under it. It lifts as you
+// point at it and presses flat as you click.
 export const Button = styled('button', {
   base: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     gap: '6px',
-    height: '36px',
+    height: '38px',
     paddingInline: '16px',
-    borderRadius: '8px',
+    borderRadius: '10px',
     fontSize: '15px',
-    fontWeight: '700',
+    fontWeight: '900',
     whiteSpace: 'nowrap',
     cursor: 'pointer',
-    transition: 'background-color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease',
-    _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
-    _disabled: { opacity: '0.45', cursor: 'not-allowed' },
-    '& svg': { width: '16px', height: '16px' },
+    transition: 'background-color 0.12s ease, transform 0.1s ease, box-shadow 0.1s ease',
+    _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '3px' },
+    _disabled: { opacity: '0.5', cursor: 'not-allowed' },
+    '& svg': { width: '16px', height: '16px', strokeWidth: '2.5' },
+    boxShadow: '0 3px 0 var(--edge), 0 6px 12px rgba(0, 0, 0, 0.28)',
+    '&:hover:not(:disabled)': { transform: 'translateY(-1px)', boxShadow: '0 4px 0 var(--edge), 0 8px 14px rgba(0, 0, 0, 0.3)' },
+    '&:active:not(:disabled)': { transform: 'translateY(2px)', boxShadow: '0 1px 0 var(--edge), 0 2px 4px rgba(0, 0, 0, 0.25)' },
   },
   variants: {
     tone: {
-      primary: { bg: 'action.primary', color: 'fg.onAccent', _hover: { bg: 'action.primaryHover' } },
-      secondary: {
-        bg: 'bg.surface',
+      primary: { '--edge': '{colors.iris.7}', bg: 'action.primary', color: 'fg.onAccent', _hover: { bg: 'action.primaryHover' } },
+      secondary: { '--edge': '#BDB49F', bg: 'notebook.paper', color: 'notebook.ink', _hover: { bg: 'stationery.card' } },
+      ghost: {
+        bg: 'transparent',
         color: 'fg.default',
-        border: '1px solid',
-        borderColor: 'border.strong',
-        _hover: { bg: 'bg.subtle' },
+        boxShadow: 'none',
+        _hover: { bg: 'bg.hover' },
+        '&:hover:not(:disabled)': { transform: 'none', boxShadow: 'none' },
+        '&:active:not(:disabled)': { transform: 'none', boxShadow: 'none' },
       },
-      ghost: { bg: 'transparent', color: 'fg.default', _hover: { bg: 'bg.hover' } },
-      danger: { bg: 'danger', color: 'fg.onAccent', _hover: { opacity: '0.9' } },
+      danger: { '--edge': '#9E2428', bg: 'danger', color: 'fg.onAccent' },
     },
     size: {
       md: {},
-      sm: { height: '28px', paddingInline: '12px', fontSize: '13px', borderRadius: '6px' },
+      sm: { height: '30px', paddingInline: '12px', fontSize: '13px', borderRadius: '8px' },
     },
   },
   defaultVariants: { tone: 'secondary', size: 'md' },
+});
+
+// A die lying on the paper: five pips on white, with its edge showing beneath it. Its button rolls
+// it (dieRoll) when you point at it.
+export const Die = styled('span', {
+  base: { width: '30px', height: '30px', flexShrink: '0', borderRadius: '8px', bg: 'white', bgImage: 'radial-gradient(circle at 26% 26%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 74% 26%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 50% 50%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 26% 74%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 74% 74%, #26251F 0 2.6px, transparent 3.1px), linear-gradient(145deg, #FFFFFF, #ECE8E0)', boxShadow: '0 3px 0 #CFC8BA, 0 6px 8px rgba(0, 0, 0, 0.28), inset 0 -1px 2px rgba(0, 0, 0, 0.08)', transform: 'rotate(-12deg)', _motionReduce: { animation: 'none !important' } },
 });
 
 export const IconButton = styled('button', {

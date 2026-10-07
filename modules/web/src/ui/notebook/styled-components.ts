@@ -25,14 +25,15 @@ export const NotebookSpiral = styled('div', {
     right: '24px',
     zIndex: '5',
     height: '26px',
-    bgImage: 'radial-gradient(circle at 50% 70%, {colors.chrome.app} 0 5px, transparent 5.5px), linear-gradient(90deg, transparent 12px, {colors.notebook.spiral} 12px 16px, transparent 16px)',
+    bgImage: 'radial-gradient(circle at 50% 70%, {colors.desk.hole} 0 5px, transparent 5.5px), linear-gradient(90deg, transparent 12px, {colors.notebook.spiral} 12px 16px, transparent 16px)',
     bgSize: '28px 26px, 28px 18px',
     bgRepeat: 'space no-repeat',
     pointerEvents: 'none',
   },
 });
 
-// The page before this one turning over the binding, in 3D (see NotebookTurn).
+// The page before this one turning over the binding, in 3D (see NotebookTurn). A notebook that
+// slides in first sets --turn-delay, so the page turns once it has arrived.
 export const NotebookTurnRoot = styled('div', {
   base: {
     position: 'absolute',
@@ -57,7 +58,7 @@ export const NotebookTurnShadow = styled('div', {
     borderRadius: 'inherit',
     bgImage: 'linear-gradient(to bottom, rgba(38, 37, 31, 0.34), rgba(38, 37, 31, 0.14) 45%, transparent 80%)',
     transformOrigin: 'top center',
-    animation: 'pageTurnShadow 0.9s ease-out forwards',
+    animation: 'pageTurnShadow 0.9s ease-out var(--turn-delay, 0s) both',
   },
 });
 
@@ -68,7 +69,7 @@ export const NotebookTurnSheet = styled('div', {
     inset: '0',
     transformOrigin: 'top center',
     transformStyle: 'preserve-3d',
-    animation: 'pageTurn 0.9s cubic-bezier(0.45, 0, 0.35, 1) forwards',
+    animation: 'pageTurn 0.9s cubic-bezier(0.45, 0, 0.35, 1) var(--turn-delay, 0s) both',
   },
 });
 
@@ -78,7 +79,7 @@ export const NotebookTurnHalf = styled('div', {
   variants: {
     part: {
       top: { top: '0' },
-      bottom: { top: '50%', transformOrigin: 'top center', animation: 'pageCurl 0.9s ease-in-out forwards' },
+      bottom: { top: '50%', transformOrigin: 'top center', animation: 'pageCurl 0.9s ease-in-out var(--turn-delay, 0s) both' },
     },
   },
 });
@@ -91,7 +92,7 @@ export const NotebookTurnFront = styled('div', {
     bg: 'notebook.paper',
     bgImage: 'repeating-linear-gradient(transparent 0 33px, {colors.notebook.rule} 33px 34px)',
     backfaceVisibility: 'hidden',
-    _after: { content: '""', position: 'absolute', inset: '0', borderRadius: 'inherit', animation: 'pageTurnShade 0.9s ease-in forwards' },
+    _after: { content: '""', position: 'absolute', inset: '0', borderRadius: 'inherit', animation: 'pageTurnShade 0.9s ease-in var(--turn-delay, 0s) both' },
   },
   variants: {
     part: {

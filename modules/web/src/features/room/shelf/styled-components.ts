@@ -14,7 +14,7 @@ export const RoomShelfTitle = styled('h2', {
 });
 
 export const RoomShelfSubtitle = styled('p', {
-  base: { fontSize: '14px', color: 'fg.muted' },
+  base: { fontSize: '14px', color: 'desk.chalkMuted' },
 });
 
 export const RoomShelfActions = styled('div', {
@@ -26,40 +26,49 @@ export const RoomShelfRound = styled('section', {
 });
 
 export const RoomShelfRoundTitle = styled('h3', {
-  base: { fontSize: '13px', fontWeight: '900', color: 'fg.subtle', letterSpacing: '0.1em', textTransform: 'uppercase' },
+  base: { fontSize: '13px', fontWeight: '900', color: 'desk.chalkMuted', letterSpacing: '0.1em', textTransform: 'uppercase' },
 });
 
+// The books lie on the desk, each at its own slight angle.
 export const RoomShelfGrid = styled('div', {
-  base: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '14px' },
+  base: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+    gap: '20px',
+    '& > :nth-child(3n + 1)': { '--tilt': '-1.2deg' },
+    '& > :nth-child(3n + 2)': { '--tilt': '0.8deg' },
+    '& > :nth-child(3n)': { '--tilt': '-0.4deg' },
+  },
 });
 
-// A notebook's cover, with its owner's colour on the spine.
+// A notebook in its owner's colour: a cloth spine, a grain on the cover, and a label on the front.
 export const RoomShelfCoverRoot = styled('article', {
   base: {
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: '6px 12px 12px 6px',
-    borderLeft: '12px solid',
-    bg: 'notebook.paper',
-    color: 'notebook.ink',
-    boxShadow: 'paper',
+    borderRadius: '4px 10px 10px 4px',
+    bgImage: 'linear-gradient(90deg, rgba(0, 0, 0, 0.28) 0 12px, rgba(255, 255, 255, 0.16) 12px 14px, transparent 14px), repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0 2px, transparent 2px 5px)',
+    color: 'white',
+    boxShadow: '0 16px 26px -10px rgba(0, 0, 0, 0.65), 0 3px 6px rgba(0, 0, 0, 0.35)',
     overflow: 'hidden',
+    transform: 'rotate(var(--tilt, 0deg))',
     transition: 'transform 0.15s ease',
-    animation: 'deal 0.4s ease-out both',
-    _hover: { transform: 'translateY(-3px) rotate(-0.6deg)' },
+    // Backwards only: once it has landed, its own tilt shows.
+    animation: 'deal 0.4s ease-out backwards',
+    _hover: { transform: 'translateY(-4px) rotate(0deg)' },
   },
   variants: {
-    spine: {
-      raspberry: { borderColor: 'player.raspberry' },
-      sky: { borderColor: 'player.sky' },
-      green: { borderColor: 'player.green' },
-      mustard: { borderColor: 'player.mustard' },
-      violet: { borderColor: 'player.violet' },
-      orange: { borderColor: 'player.orange' },
-      teal: { borderColor: 'player.teal' },
-      pink: { borderColor: 'player.pink' },
-      lime: { borderColor: 'player.lime' },
-      indigo: { borderColor: 'player.indigo' },
+    tone: {
+      raspberry: { bg: 'player.raspberry' },
+      sky: { bg: 'player.sky' },
+      green: { bg: 'player.green' },
+      mustard: { bg: 'player.mustard', color: 'sand.1' },
+      violet: { bg: 'player.violet' },
+      orange: { bg: 'player.orange' },
+      teal: { bg: 'player.teal' },
+      pink: { bg: 'player.pink' },
+      lime: { bg: 'player.lime', color: 'sand.1' },
+      indigo: { bg: 'player.indigo' },
     },
   },
 });
@@ -70,8 +79,8 @@ export const RoomShelfCoverOpen = styled('button', {
     alignContent: 'start',
     gap: '10px',
     flex: '1',
-    minHeight: '150px',
-    padding: '14px',
+    minHeight: '170px',
+    padding: '14px 14px 14px 26px',
     textAlign: 'left',
     cursor: 'pointer',
     _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '-3px' },
@@ -86,12 +95,27 @@ export const RoomShelfCoverTitle = styled('span', {
   base: { fontSize: '13px', fontWeight: '900', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
 });
 
+// The first sentence, on a label stuck to the cover.
 export const RoomShelfCoverText = styled('span', {
-  base: { fontSize: '17px', fontWeight: '700', lineHeight: '1.3', overflowWrap: 'anywhere', _before: { content: '"“"' }, _after: { content: '"”"' } },
+  base: {
+    paddingInline: '12px',
+    paddingBlock: '10px',
+    borderRadius: '3px',
+    bg: 'stationery.card',
+    color: 'notebook.ink',
+    fontSize: '15px',
+    fontWeight: '700',
+    lineHeight: '1.3',
+    overflowWrap: 'anywhere',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3)',
+    transform: 'rotate(-1deg)',
+    _before: { content: '"“"' },
+    _after: { content: '"”"' },
+  },
 });
 
 export const RoomShelfCoverPages = styled('span', {
-  base: { marginTop: 'auto', fontSize: '12px', color: 'notebook.muted' },
+  base: { marginTop: 'auto', fontSize: '12px', fontWeight: '700', opacity: '0.85' },
 });
 
 export const RoomShelfCoverSave = styled('button', {
@@ -101,13 +125,14 @@ export const RoomShelfCoverSave = styled('button', {
     justifyContent: 'center',
     gap: '6px',
     height: '36px',
+    marginLeft: '14px',
     borderTop: '1px solid',
-    borderColor: 'notebook.rule',
+    borderColor: 'rgba(255, 255, 255, 0.28)',
     fontSize: '13px',
     fontWeight: '900',
-    color: 'notebook.ink',
+    color: 'inherit',
     cursor: 'pointer',
-    _hover: { bg: 'notebook.paperShade' },
+    _hover: { bg: 'rgba(0, 0, 0, 0.14)' },
     _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '-3px' },
     '& svg': { width: '15px', height: '15px' },
   },
@@ -207,10 +232,11 @@ export const RoomShelfPodiumCard = styled('section', {
     width: '100%',
     maxWidth: '560px',
     marginBlock: 'auto',
-    padding: '24px',
-    borderRadius: '16px',
-    bg: 'bg.surface',
-    boxShadow: 'dialog',
+    padding: '28px',
+    borderRadius: '4px',
+    bg: 'stationery.card',
+    color: 'notebook.ink',
+    boxShadow: 'inset 0 0 0 8px {colors.stationery.card}, inset 0 0 0 10px {colors.medal.gold}, inset 0 0 0 13px {colors.stationery.card}, inset 0 0 0 14px {colors.medal.gold}, 0 24px 48px rgba(0, 0, 0, 0.7)',
     textAlign: 'center',
     animation: 'dialogIn 0.3s ease-out',
   },
@@ -244,7 +270,7 @@ export const RoomShelfPodiumPlaceName = styled('span', {
 });
 
 export const RoomShelfPodiumPlacePoints = styled('span', {
-  base: { fontSize: '13px', fontWeight: '900', color: 'fg.muted', fontVariantNumeric: 'tabular-nums' },
+  base: { fontSize: '13px', fontWeight: '900', color: 'notebook.muted', fontVariantNumeric: 'tabular-nums' },
 });
 
 export const RoomShelfPodiumPlaceBlock = styled('span', {
@@ -260,7 +286,7 @@ export const RoomShelfPodiumPlaceBlock = styled('span', {
 
 // An award, with its pages on a sheet of notebook paper.
 export const RoomShelfPodiumAward = styled('section', {
-  base: { display: 'grid', gap: '12px', width: '100%', padding: '16px', borderRadius: '8px', bg: 'notebook.paper', color: 'notebook.ink', textAlign: 'left' },
+  base: { display: 'grid', gap: '12px', width: '100%', padding: '16px', borderRadius: '6px', bg: 'notebook.paper', bgImage: 'repeating-linear-gradient(transparent 0 33px, {colors.notebook.rule} 33px 34px)', color: 'notebook.ink', boxShadow: 'sheet', textAlign: 'left' },
 });
 
 export const RoomShelfPodiumAwardTitle = styled('h3', {

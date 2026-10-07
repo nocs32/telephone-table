@@ -1,7 +1,8 @@
 import { defineTokens } from '@pandacss/dev';
 
 // The siblings' palette (dark): Radix "sand" greys, with Telephone Table's own accent, Radix "iris"
-// (ballpoint ink, for a game played in notebooks), and the notebooks' paper.
+// (ballpoint ink, for a game played in notebooks), the notebooks' paper, and the art desk they lie
+// on: a cutting mat, sticky notes, index cards, stamps and stickers.
 export const tokens = defineTokens({
   fonts: {
     body: { value: 'Lato, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif' },
@@ -74,6 +75,35 @@ export const tokens = defineTokens({
       heart: { value: '#E5484D' },
       heartTint: { value: '#FFE4E4' },
       star: { value: '#F2B53A' },
+    },
+    // The art desk: muted oak, its dark edges, and light writing on it.
+    desk: {
+      wood: { value: '#6B5B4C' },
+      // The desk seen through a punched hole, in shadow.
+      hole: { value: '#3A3027' },
+      edge: { value: '#0E0E0D' },
+      chalk: { value: '#EEF2E4' },
+      chalkMuted: { value: 'rgba(238, 242, 228, 0.62)' },
+    },
+    // Things lying on the desk.
+    stationery: {
+      sticky: { value: '#FFE37A' },
+      stickyEdge: { value: '#F2CF4F' },
+      stickyPink: { value: '#FFBCCB' },
+      stickyBlue: { value: '#BDE3F8' },
+      stickyGreen: { value: '#CDEDB0' },
+      card: { value: '#FFFDF6' },
+      cardRule: { value: '#CADCEB' },
+      cardTop: { value: '#E8A3A0' },
+      stamp: { value: '#D93B3B' },
+      stampBlue: { value: '#3F5FD9' },
+      stampGreen: { value: '#2E9A5B' },
+      kraft: { value: '#C7A27A' },
+      kraftDeep: { value: '#A9845E' },
+      backing: { value: '#E9E6DE' },
+      clip: { value: '#2B2B2A' },
+      tapeBlue: { value: 'rgba(140, 196, 236, 0.82)' },
+      tapePink: { value: 'rgba(246, 168, 196, 0.82)' },
     },
     medal: {
       gold: { value: '#F2C14E' },

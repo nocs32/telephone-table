@@ -72,6 +72,11 @@ export class RoomGameStore {
     return this.#deps.t('game.round', { round: Math.max(1, this.round), rounds: this.settings.rounds });
   }
 
+  // The page this step is on, counted in the book (1 is the first).
+  get pageNumber(): number | null {
+    return this.step ? this.step.index + 1 : null;
+  }
+
   get stepLabel(): string {
     return this.step ? this.#deps.t('step.page', { page: this.step.index + 1, pages: this.step.count }) : '';
   }

@@ -4,49 +4,102 @@ import { Switch } from '@ark-ui/react/switch';
 import { styled } from 'styled-system/jsx';
 
 // Desktop: players | doodle board | settings. Narrower: players, settings, then the doodle board.
+// Each lies on the desk: the guest list on a clipboard, the doodle board as a sketch pad, and the
+// settings on an index card held by a binder clip.
 export const RoomLobbyRoot = styled('div', {
   base: {
     display: 'grid',
     gridTemplateAreas: '"players" "settings" "doodle"',
-    gap: '12px',
-    padding: '12px',
-    lg: { gridTemplateColumns: '240px minmax(0, 1fr) 340px', gridTemplateAreas: '"players doodle settings"', height: '100%' },
+    gap: '28px 22px',
+    paddingInline: '14px',
+    paddingTop: '30px',
+    paddingBottom: '16px',
+    lg: { gridTemplateColumns: '250px minmax(0, 1fr) 340px', gridTemplateAreas: '"players doodle settings"', minHeight: '100%', paddingInline: '22px' },
   },
 });
 
 export const RoomLobbyCard = styled('section', {
   base: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     gap: '14px',
     minWidth: '0',
     minHeight: '0',
     padding: '16px',
-    borderRadius: '14px',
-    border: '1px solid',
-    borderColor: 'chrome.border',
-    bg: 'bg.surface',
-    animation: 'deal 0.4s cubic-bezier(0.2, 0.8, 0.3, 1.1) both',
+    color: 'notebook.ink',
+    // Backwards only: once it has landed, its own tilt shows.
+    animation: 'deal 0.4s cubic-bezier(0.2, 0.8, 0.3, 1.1) backwards',
+    _motionReduce: { animation: 'none' },
   },
   variants: {
     area: {
-      players: { gridArea: 'players' },
-      doodle: { gridArea: 'doodle', animationDelay: '0.06s' },
-      settings: { gridArea: 'settings', animationDelay: '0.12s', lg: { overflowY: 'auto' } },
+      // A hardboard clipboard (public/textures/hardboard.svg), with a ruler printed down its edge: the
+      // sheet of paper lies on it under a chrome lever clip.
+      players: {
+        gridArea: 'players',
+        alignSelf: 'start',
+        maxHeight: '100%',
+        paddingTop: '30px',
+        paddingInline: '11px',
+        paddingBottom: '13px',
+        borderRadius: '14px',
+        bg: '#7A5A3D',
+        bgImage: "linear-gradient(115deg, rgba(255, 255, 255, 0.13), transparent 32%, transparent 68%, rgba(0, 0, 0, 0.16)), linear-gradient(rgba(255, 248, 235, 0.4) 1px, transparent 1px), url('/textures/hardboard.svg')",
+        bgSize: '100% 100%, 5px 8px, 320px 320px',
+        bgPosition: '0 0, 3px 34px, 0 0',
+        bgRepeat: 'no-repeat, repeat-y, repeat',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -2px 1px rgba(0, 0, 0, 0.28), inset 1px 0 0 rgba(255, 255, 255, 0.08), 0 1px 0 rgba(0, 0, 0, 0.5), 0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
+        transform: 'rotate(-1.2deg)',
+        _before: { content: '""', position: 'absolute', zIndex: '2', top: '8px', left: '50%', width: '128px', height: '34px', marginLeft: '-64px', borderRadius: '6px 6px 12px 12px', bgImage: 'radial-gradient(circle at 15px 55%, #5F5F5B 0 2.5px, #EDEDE9 3px 4px, transparent 4.5px), radial-gradient(circle at calc(100% - 15px) 55%, #5F5F5B 0 2.5px, #EDEDE9 3px 4px, transparent 4.5px), linear-gradient(#FBFBF9, #D2D2CD 38%, #9C9C97 52%, #CFCFCA 78%, #A9A9A4)', boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 5px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.4)' },
+        _after: { content: '""', position: 'absolute', zIndex: '3', top: '-6px', left: '50%', width: '78px', height: '24px', marginLeft: '-39px', borderRadius: '14px 14px 5px 5px', bgImage: 'linear-gradient(#FFFFFF, #CACAC5 45%, #8E8E89 60%, #C4C4BF)', boxShadow: '0 3px 4px rgba(0, 0, 0, 0.35)', maskImage: 'radial-gradient(ellipse 20px 5px at 50% 42%, transparent 96%, black 100%)' },
+      },
+      // A sketch pad of tan toned paper, so the white board taped on it stands out: the sheets are
+      // slightly toothy (public/textures/sketch-paper.svg), their edges stacked below the top one,
+      // and the chipboard back shows only at the very bottom.
+      doodle: {
+        gridArea: 'doodle',
+        paddingTop: '26px',
+        borderRadius: '3px',
+        bg: '#DDD0B9',
+        bgImage: "linear-gradient(160deg, rgba(255, 255, 255, 0.22), transparent 40%), url('/textures/sketch-paper.svg')",
+        bgSize: '100% 100%, 240px 240px',
+        boxShadow: '0 1px 0 #C6B89F, 0 2px 0 #DACDB5, 0 3px 0 #C2B49B, 0 4px 0 #D6C9B0, 0 5px 0 #BDAF95, 0 6px 0 #8C7C68, 0 8px 0 #7A6B58, 0 18px 30px -8px rgba(0, 0, 0, 0.55), 0 3px 6px rgba(0, 0, 0, 0.3)',
+        animationDelay: '0.06s',
+      },
+      // An index card: a red line under the title, blue lines below, and a binder clip on top.
+      settings: {
+        gridArea: 'settings',
+        alignSelf: 'start',
+        paddingTop: '20px',
+        borderRadius: '4px',
+        bg: 'stationery.card',
+        bgImage: 'linear-gradient(transparent 70px, {colors.stationery.cardTop} 70px 72px, transparent 72px), repeating-linear-gradient(transparent 0 27px, rgba(202, 220, 235, 0.55) 27px 28px)',
+        bgPosition: '0 0, 0 72px',
+        boxShadow: '0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
+        animationDelay: '0.12s',
+        _before: { content: '""', position: 'absolute', top: '-12px', left: '50%', width: '74px', height: '22px', marginLeft: '-37px', borderRadius: '3px 3px 6px 6px', bgImage: 'linear-gradient(#3A3A38, #141413)', boxShadow: '0 3px 5px rgba(0, 0, 0, 0.5)' },
+        _after: { content: '""', position: 'absolute', top: '-30px', left: '50%', width: '50px', height: '22px', marginLeft: '-25px', borderRadius: '12px 12px 0 0', border: '3px solid #C9C9C3', borderBottom: 'none' },
+      },
     },
   },
 });
 
 export const RoomLobbyCardTitle = styled('h2', {
-  base: { display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px', fontWeight: '900', '& svg': { width: '18px', height: '18px', color: 'fg.muted' } },
+  base: { display: 'flex', alignItems: 'center', gap: '8px', fontSize: '17px', fontWeight: '900', '& svg': { width: '18px', height: '18px', color: 'notebook.muted' } },
+});
+
+// The sheet of paper on the clipboard, under the clip.
+export const RoomLobbyPlayersSheet = styled('div', {
+  base: { position: 'relative', zIndex: '1', display: 'flex', flexDirection: 'column', gap: '12px', minHeight: '0', paddingTop: '22px', paddingInline: '14px', paddingBottom: '12px', borderRadius: '2px', bg: 'stationery.card', bgImage: 'repeating-linear-gradient(transparent 0 21px, {colors.stationery.cardRule} 21px 22px)', bgPosition: '0 6px', boxShadow: '0 1px 1px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.28)' },
 });
 
 export const RoomLobbyPlayersList = styled('ul', {
-  base: { display: 'flex', flexWrap: 'wrap', gap: '6px', lg: { flexDirection: 'column', flexWrap: 'nowrap', overflowY: 'auto' } },
+  base: { display: 'flex', flexWrap: 'wrap', gap: '6px 16px', lg: { flexDirection: 'column', flexWrap: 'nowrap', gap: '0', overflowY: 'auto' } },
 });
 
 export const RoomLobbyPlayersItem = styled('li', {
-  base: { display: 'flex', alignItems: 'center', gap: '10px', minHeight: '44px', paddingInline: '8px', paddingBlock: '4px', borderRadius: '10px', bg: 'bg.subtle', animation: 'dialogIn 0.3s ease-out' },
+  base: { display: 'flex', alignItems: 'center', gap: '10px', minHeight: '44px', paddingInline: '2px', animation: 'dialogIn 0.3s ease-out' },
 });
 
 export const RoomLobbyPlayersName = styled('span', {
@@ -54,40 +107,51 @@ export const RoomLobbyPlayersName = styled('span', {
 });
 
 export const RoomLobbyPlayersNote = styled('span', {
-  base: { fontSize: '12px', color: 'fg.subtle' },
+  base: { fontSize: '12px', fontWeight: '700', color: 'notebook.muted' },
 });
 
+// "Waiting for 2 more": a sticky note on the list.
 export const RoomLobbyPlayersWaiting = styled('p', {
-  base: { padding: '10px', borderRadius: '10px', border: '1px dashed', borderColor: 'border.strong', fontSize: '13px', fontWeight: '700', color: 'fg.muted', textAlign: 'center', animation: 'shimmer 2.4s ease-in-out infinite' },
+  base: { padding: '10px 12px', bg: 'stationery.sticky', boxShadow: 'sheet', fontSize: '13px', fontWeight: '900', textAlign: 'center', transform: 'rotate(-2deg)', animation: 'noteIn 0.4s ease-out both' },
 });
 
 export const RoomLobbyDoodleHead = styled('header', {
   base: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' },
 });
 
-// The 🎲: a new squiggle on a clean board.
+// The pad's title on embossed label-maker tape, stuck on a little crooked.
+export const RoomLobbyDoodleTitle = styled('h2', {
+  base: { paddingInline: '12px', paddingBlock: '5px', borderRadius: '3px', bgImage: 'linear-gradient(#303033, #161618 55%, #222225)', color: '#EDEDE8', fontSize: '14px', fontWeight: '900', letterSpacing: '0.2em', textTransform: 'uppercase', textShadow: '0 1px 0 rgba(0, 0, 0, 0.85), 0 -1px 0 rgba(255, 255, 255, 0.28)', boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 2px 3px rgba(0, 0, 0, 0.35)', transform: 'rotate(-1.5deg)' },
+});
+
+// A new squiggle on a clean board: a real die lying on the pad, which rolls when you go for it.
 export const RoomLobbyDice = styled('button', {
   base: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: '6px',
-    height: '32px',
-    paddingInline: '12px',
-    borderRadius: 'full',
-    bg: 'bg.subtle',
-    fontSize: '13px',
-    fontWeight: '700',
+    gap: '10px',
+    paddingBlock: '5px',
+    paddingLeft: '6px',
+    paddingRight: '10px',
+    borderRadius: '10px',
+    color: 'notebook.ink',
+    fontSize: '14px',
+    fontWeight: '900',
     cursor: 'pointer',
     transition: 'background-color 0.12s ease',
-    _hover: { bg: 'bg.muted', '& span': { animation: 'roll 0.5s ease-out' } },
+    _hover: { bg: 'rgba(38, 37, 31, 0.07)', '& > span': { animation: 'dieRoll 0.65s cubic-bezier(0.3, 0.7, 0.4, 1)' } },
     _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
-    '& span': { display: 'inline-block', fontFamily: 'emoji', fontSize: '16px' },
   },
 });
 
 // On desktop the board fits the space both ways.
 export const RoomLobbyDoodleArea = styled('div', {
   base: { display: 'grid', placeItems: 'center', lg: { flex: '1', minHeight: '0', containerType: 'size' } },
+});
+
+// The drawing tools, on the same floating tray as in a draw step.
+export const RoomLobbyDoodleTray = styled('div', {
+  base: { alignSelf: 'center', paddingInline: '10px', paddingBlock: '6px', borderRadius: '14px', bg: 'bg.surface', color: 'fg.default', boxShadow: 'floating' },
 });
 
 // What the board is for, on a sticky note on the paper (spec D22, D23).
@@ -99,7 +163,7 @@ export const RoomLobbyDoodleNote = styled('p', {
     maxWidth: '44%',
     paddingInline: '12px',
     paddingBlock: '8px',
-    bg: 'notebook.tape',
+    bg: 'stationery.sticky',
     color: 'notebook.ink',
     fontSize: '14px',
     fontWeight: '900',
@@ -116,7 +180,7 @@ export const RoomLobbySettingsHead = styled('header', {
 });
 
 export const RoomLobbySettingsSubtitle = styled('p', {
-  base: { fontSize: '13px', color: 'fg.muted' },
+  base: { fontSize: '13px', color: 'notebook.muted' },
 });
 
 export const RoomLobbyField = styled('div', {
@@ -132,11 +196,11 @@ export const RoomLobbyLabel = styled('label', {
 });
 
 export const RoomLobbyValue = styled('span', {
-  base: { fontSize: '14px', fontWeight: '900', color: 'accent.text', fontVariantNumeric: 'tabular-nums' },
+  base: { fontSize: '14px', fontWeight: '900', color: 'accent.default', fontVariantNumeric: 'tabular-nums' },
 });
 
 export const RoomLobbyHint = styled('span', {
-  base: { fontSize: '12px', color: 'fg.subtle' },
+  base: { fontSize: '12px', color: 'notebook.muted' },
 });
 
 export const RoomLobbySliderRoot = styled(Slider.Root, {
@@ -148,7 +212,7 @@ export const RoomLobbySliderControl = styled(Slider.Control, {
 });
 
 export const RoomLobbySliderTrack = styled(Slider.Track, {
-  base: { flex: '1', height: '6px', borderRadius: 'full', bg: 'bg.muted', overflow: 'hidden' },
+  base: { flex: '1', height: '6px', borderRadius: 'full', bg: 'rgba(38, 37, 31, 0.14)', overflow: 'hidden' },
 });
 
 export const RoomLobbySliderRange = styled(Slider.Range, {
@@ -160,8 +224,10 @@ export const RoomLobbySliderThumb = styled(Slider.Thumb, {
     width: '20px',
     height: '20px',
     borderRadius: 'full',
-    bg: 'fg.default',
-    boxShadow: '0 1px 4px rgba(0, 0, 0, 0.5)',
+    bg: 'white',
+    border: '3px solid',
+    borderColor: 'accent.default',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
     cursor: 'grab',
     _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
   },
@@ -195,11 +261,12 @@ export const RoomLobbySegmentItem = styled(SegmentGroup.Item, {
     paddingInline: '6px',
     borderRadius: '8px',
     border: '1px solid',
-    borderColor: 'border.default',
+    borderColor: 'rgba(38, 37, 31, 0.22)',
+    bg: 'white',
     fontSize: '14px',
     fontWeight: '900',
     cursor: 'pointer',
-    '&[data-state=checked]': { borderColor: 'transparent', color: 'fg.onAccent' },
+    '&[data-state=checked]': { borderColor: 'transparent', bg: 'transparent', color: 'fg.onAccent' },
     '&[data-focus-visible]': { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
   },
   variants: {
@@ -232,7 +299,7 @@ export const RoomLobbySwitchControl = styled(Switch.Control, {
     height: '24px',
     padding: '2px',
     borderRadius: 'full',
-    bg: 'bg.muted',
+    bg: 'rgba(38, 37, 31, 0.2)',
     transition: 'background-color 0.15s ease',
     '&[data-state=checked]': { bg: 'accent.default' },
     '&[data-focus-visible]': { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
@@ -240,15 +307,15 @@ export const RoomLobbySwitchControl = styled(Switch.Control, {
 });
 
 export const RoomLobbySwitchThumb = styled(Switch.Thumb, {
-  base: { width: '20px', height: '20px', borderRadius: 'full', bg: 'fg.default', transition: 'transform 0.15s ease', '&[data-state=checked]': { transform: 'translateX(16px)' } },
+  base: { width: '20px', height: '20px', borderRadius: 'full', bg: 'white', boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3)', transition: 'transform 0.15s ease', '&[data-state=checked]': { transform: 'translateX(16px)' } },
 });
 
 export const RoomLobbyStartRoot = styled('footer', {
-  base: { display: 'grid', gap: '10px', marginTop: 'auto', paddingTop: '14px', borderTop: '1px solid', borderColor: 'border.subtle' },
+  base: { display: 'grid', gap: '10px', marginTop: 'auto', paddingTop: '14px', borderTop: '2px dashed', borderColor: 'rgba(38, 37, 31, 0.18)' },
 });
 
 export const RoomLobbyStartHint = styled('p', {
-  base: { fontSize: '13px', fontWeight: '700', color: 'fg.muted' },
+  base: { fontSize: '13px', fontWeight: '700', color: 'notebook.muted' },
 });
 
 export const RoomLobbyStartButtons = styled('div', {

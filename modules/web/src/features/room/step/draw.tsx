@@ -4,7 +4,7 @@ import { CheckIcon } from '../../../assets';
 import { useRootStore } from '../../../stores/use-root-store';
 import { Button, NotebookSpiral, NotebookTurn } from '../../../ui';
 import { DrawingBoard, DrawingTools } from '../drawing';
-import { RoomStepPage, RoomStepPageBody, RoomStepPageFoot, RoomStepPageHead, RoomStepPageLabel, RoomStepTray } from './styled-components';
+import { RoomStepPage, RoomStepPageBody, RoomStepPageFoot, RoomStepPageHead, RoomStepPageLabel, RoomStepPageNumber, RoomStepTray } from './styled-components';
 import { RoomStepWaiting } from './waiting';
 
 // A draw step (spec §4.3) on a page of the notebook: the sentence written at the top, your drawing
@@ -12,7 +12,7 @@ import { RoomStepWaiting } from './waiting';
 export const RoomStepDraw = observer(function RoomStepDraw(): ReactElement {
   const { locale, room } = useRootStore();
   const { t } = locale;
-  const { step } = room;
+  const { game, step } = room;
 
   return (
     <RoomStepPage>
@@ -33,6 +33,7 @@ export const RoomStepDraw = observer(function RoomStepDraw(): ReactElement {
           {t('step.done')}
         </Button>
       </RoomStepPageFoot>
+      <RoomStepPageNumber aria-hidden>{game.pageNumber}</RoomStepPageNumber>
       {step.state === 'done' && <RoomStepWaiting />}
       <NotebookTurn />
     </RoomStepPage>
