@@ -34,32 +34,36 @@ export const RoomLobbyCard = styled('section', {
   },
   variants: {
     area: {
-      // Paper on a hardboard clipboard (the border is the board), under a metal clip.
+      // A hardboard clipboard (public/textures/hardboard.svg), with a ruler printed down its edge: the
+      // sheet of paper lies on it under a chrome lever clip.
       players: {
         gridArea: 'players',
         alignSelf: 'start',
         maxHeight: '100%',
-        border: '12px solid #9A7754',
-        borderTopWidth: '30px',
-        borderRadius: '12px',
-        bg: 'stationery.card',
-        bgClip: 'padding-box',
-        bgImage: 'repeating-linear-gradient(transparent 0 43px, {colors.stationery.cardRule} 43px 44px)',
-        bgPosition: '0 58px',
-        boxShadow: '0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
+        paddingTop: '30px',
+        paddingInline: '11px',
+        paddingBottom: '13px',
+        borderRadius: '14px',
+        bg: '#7A5A3D',
+        bgImage: "linear-gradient(115deg, rgba(255, 255, 255, 0.13), transparent 32%, transparent 68%, rgba(0, 0, 0, 0.16)), linear-gradient(rgba(255, 248, 235, 0.4) 1px, transparent 1px), url('/textures/hardboard.svg')",
+        bgSize: '100% 100%, 5px 8px, 320px 320px',
+        bgPosition: '0 0, 3px 34px, 0 0',
+        bgRepeat: 'no-repeat, repeat-y, repeat',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -2px 1px rgba(0, 0, 0, 0.28), inset 1px 0 0 rgba(255, 255, 255, 0.08), 0 1px 0 rgba(0, 0, 0, 0.5), 0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
         transform: 'rotate(-1.2deg)',
-        _before: { content: '""', position: 'absolute', top: '-42px', left: '50%', width: '104px', height: '30px', marginLeft: '-52px', borderRadius: '8px 8px 14px 14px', bgImage: 'linear-gradient(#E4E4DF, #9C9C96 70%, #7D7D78)', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.8)' },
-        _after: { content: '""', position: 'absolute', top: '-36px', left: '50%', width: '40px', height: '12px', marginLeft: '-20px', borderRadius: 'full', bg: '#5E5E5A', boxShadow: 'inset 0 2px 3px rgba(0, 0, 0, 0.6)' },
+        _before: { content: '""', position: 'absolute', zIndex: '2', top: '8px', left: '50%', width: '128px', height: '34px', marginLeft: '-64px', borderRadius: '6px 6px 12px 12px', bgImage: 'radial-gradient(circle at 15px 55%, #5F5F5B 0 2.5px, #EDEDE9 3px 4px, transparent 4.5px), radial-gradient(circle at calc(100% - 15px) 55%, #5F5F5B 0 2.5px, #EDEDE9 3px 4px, transparent 4.5px), linear-gradient(#FBFBF9, #D2D2CD 38%, #9C9C97 52%, #CFCFCA 78%, #A9A9A4)', boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 5px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.4)' },
+        _after: { content: '""', position: 'absolute', zIndex: '3', top: '-6px', left: '50%', width: '78px', height: '24px', marginLeft: '-39px', borderRadius: '14px 14px 5px 5px', bgImage: 'linear-gradient(#FFFFFF, #CACAC5 45%, #8E8E89 60%, #C4C4BF)', boxShadow: '0 3px 4px rgba(0, 0, 0, 0.35)', maskImage: 'radial-gradient(ellipse 20px 5px at 50% 42%, transparent 96%, black 100%)' },
       },
-      // A sketch pad: a kraft back, the spiral along the top, and the board as its page.
+      // A sketch pad: a chipboard back (public/textures/chipboard.svg), the spiral along the top, and
+      // the board as its page.
       doodle: {
         gridArea: 'doodle',
         paddingTop: '26px',
-        borderRadius: '8px',
-        bg: 'stationery.kraft',
-        bgImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 50%), radial-gradient(rgba(80, 50, 20, 0.12) 1px, transparent 1.5px)',
-        bgSize: '100% 100%, 5px 5px',
-        boxShadow: '0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
+        borderRadius: '6px',
+        bg: '#A98C6C',
+        bgImage: "linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 45%, rgba(0, 0, 0, 0.08)), url('/textures/chipboard.svg')",
+        bgSize: '100% 100%, 300px 300px',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
         animationDelay: '0.06s',
       },
       // An index card: a red line under the title, blue lines below, and a binder clip on top.
@@ -82,6 +86,11 @@ export const RoomLobbyCard = styled('section', {
 
 export const RoomLobbyCardTitle = styled('h2', {
   base: { display: 'flex', alignItems: 'center', gap: '8px', fontSize: '17px', fontWeight: '900', '& svg': { width: '18px', height: '18px', color: 'notebook.muted' } },
+});
+
+// The sheet of paper on the clipboard, under the clip.
+export const RoomLobbyPlayersSheet = styled('div', {
+  base: { position: 'relative', zIndex: '1', display: 'flex', flexDirection: 'column', gap: '12px', minHeight: '0', paddingTop: '22px', paddingInline: '14px', paddingBottom: '12px', borderRadius: '2px', bg: 'stationery.card', bgImage: 'repeating-linear-gradient(transparent 0 21px, {colors.stationery.cardRule} 21px 22px)', bgPosition: '0 6px', boxShadow: '0 1px 1px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.28)' },
 });
 
 export const RoomLobbyPlayersList = styled('ul', {

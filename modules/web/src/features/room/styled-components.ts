@@ -15,16 +15,19 @@ export const RoomMain = styled('main', {
   base: { position: 'relative', minHeight: '0', overflow: 'hidden', bg: 'desk.wood' },
 });
 
-// The desk: oak, drawn with noise. Smooth noise cut into thin bands makes the grain lines (and a
-// few lighter ones for sheen), with fine fibres and broad patches on top.
+// The desk: oak planks, each with its own grain and tone, worn with scratches and pores
+// (public/textures/desk.svg), lit by a lamp from the top left, with a coffee ring from an earlier
+// game night.
 export const RoomScroll = styled('div', {
   base: {
     height: '100%',
     overflowY: 'auto',
     overscrollBehavior: 'contain',
     bg: 'desk.wood',
-    bgImage: `url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%3E%3Cfilter%20id='f'%20x='0'%20y='0'%20width='100%25'%20height='100%25'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.0016%200.03'%20numOctaves='3'%20seed='2'%20stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type='table'%20tableValues='0%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200%200%200%200.15%201%200.15%200%200'/%3E%3C/feComponentTransfer%3E%3CfeColorMatrix%20values='0%200%200%200%200.16%200%200%200%200%200.12%200%200%200%200%200.08%200.42%200%200%200%200'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url%28%23f%29'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%3E%3Cfilter%20id='f'%20x='0'%20y='0'%20width='100%25'%20height='100%25'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.002%200.05'%20numOctaves='2'%20seed='8'%20stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type='table'%20tableValues='0%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200%200%200%200%201%200%200'/%3E%3C/feComponentTransfer%3E%3CfeColorMatrix%20values='0%200%200%200%201%200%200%200%200%200.96%200%200%200%200%200.9%200.1%200%200%200%200'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url%28%23f%29'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%3E%3Cfilter%20id='f'%20x='0'%20y='0'%20width='100%25'%20height='100%25'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.004%200.9'%20numOctaves='2'%20seed='5'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20values='0%200%200%200%200.16%200%200%200%200%200.12%200%200%200%200%200.08%200.5%200%200%200%20-0.22'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url%28%23f%29'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%3E%3Cfilter%20id='f'%20x='0'%20y='0'%20width='100%25'%20height='100%25'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.0008%200.006'%20numOctaves='2'%20seed='13'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.45%200%200%200%20-0.16'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url%28%23f%29'/%3E%3C/svg%3E")`,
-    bgSize: '1200px 800px',
+    bgImage: "radial-gradient(ellipse 75% 65% at 12% 0%, rgba(255, 236, 205, 0.13), transparent 70%), radial-gradient(ellipse 80% 70% at 100% 100%, rgba(0, 0, 0, 0.2), transparent 70%), url('/textures/coffee-ring.svg'), url('/textures/desk.svg')",
+    bgSize: '100% 100%, 100% 100%, 240px 240px, 1600px 1000px',
+    bgPosition: '0 0, 0 0, right 6% bottom 8%, 0 0',
+    bgRepeat: 'no-repeat, no-repeat, no-repeat, repeat',
     bgAttachment: 'local',
   },
 });

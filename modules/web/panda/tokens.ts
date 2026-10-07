@@ -79,6 +79,8 @@ export const tokens = defineTokens({
     // The art desk: muted oak, its dark edges, and light writing on it.
     desk: {
       wood: { value: '#6B5B4C' },
+      // The desk seen through a punched hole, in shadow.
+      hole: { value: '#3A3027' },
       edge: { value: '#0E0E0D' },
       chalk: { value: '#EEF2E4' },
       chalkMuted: { value: 'rgba(238, 242, 228, 0.62)' },

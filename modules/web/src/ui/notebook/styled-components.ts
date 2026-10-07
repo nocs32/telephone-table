@@ -25,7 +25,7 @@ export const NotebookSpiral = styled('div', {
     right: '24px',
     zIndex: '5',
     height: '26px',
-    bgImage: 'radial-gradient(circle at 50% 70%, {colors.chrome.app} 0 5px, transparent 5.5px), linear-gradient(90deg, transparent 12px, {colors.notebook.spiral} 12px 16px, transparent 16px)',
+    bgImage: 'radial-gradient(circle at 50% 70%, {colors.desk.hole} 0 5px, transparent 5.5px), linear-gradient(90deg, transparent 12px, {colors.notebook.spiral} 12px 16px, transparent 16px)',
     bgSize: '28px 26px, 28px 18px',
     bgRepeat: 'space no-repeat',
     pointerEvents: 'none',

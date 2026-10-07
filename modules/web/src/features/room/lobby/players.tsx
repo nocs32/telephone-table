@@ -10,6 +10,7 @@ import {
   RoomLobbyPlayersList,
   RoomLobbyPlayersName,
   RoomLobbyPlayersNote,
+  RoomLobbyPlayersSheet,
   RoomLobbyPlayersWaiting,
 } from './styled-components';
 
@@ -20,20 +21,22 @@ export const RoomLobbyPlayers = observer(function RoomLobbyPlayers(): ReactEleme
 
   return (
     <RoomLobbyCard area="players" aria-label={locale.t('players.label')}>
-      <RoomLobbyCardTitle>
-        <UsersIcon />
-        {presence.countLabel}
-      </RoomLobbyCardTitle>
-      <RoomLobbyPlayersList>
-        {presence.views.map((player) => (
-          <RoomLobbyPlayersItem key={player.id}>
-            <Avatar initial={player.initial} color={player.color} size="lg" presence={player.status} />
-            <RoomLobbyPlayersName>{player.name}</RoomLobbyPlayersName>
-            {player.note && <RoomLobbyPlayersNote>{player.note}</RoomLobbyPlayersNote>}
-          </RoomLobbyPlayersItem>
-        ))}
-      </RoomLobbyPlayersList>
-      {game.missingPlayers > 0 && <RoomLobbyPlayersWaiting>{locale.t('lobby.waiting', { count: game.missingPlayers })}</RoomLobbyPlayersWaiting>}
+      <RoomLobbyPlayersSheet>
+        <RoomLobbyCardTitle>
+          <UsersIcon />
+          {presence.countLabel}
+        </RoomLobbyCardTitle>
+        <RoomLobbyPlayersList>
+          {presence.views.map((player) => (
+            <RoomLobbyPlayersItem key={player.id}>
+              <Avatar initial={player.initial} color={player.color} size="lg" presence={player.status} />
+              <RoomLobbyPlayersName>{player.name}</RoomLobbyPlayersName>
+              {player.note && <RoomLobbyPlayersNote>{player.note}</RoomLobbyPlayersNote>}
+            </RoomLobbyPlayersItem>
+          ))}
+        </RoomLobbyPlayersList>
+        {game.missingPlayers > 0 && <RoomLobbyPlayersWaiting>{locale.t('lobby.waiting', { count: game.missingPlayers })}</RoomLobbyPlayersWaiting>}
+      </RoomLobbyPlayersSheet>
     </RoomLobbyCard>
   );
 });
