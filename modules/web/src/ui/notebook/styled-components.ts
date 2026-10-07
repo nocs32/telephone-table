@@ -14,7 +14,9 @@ export const NotebookPage = styled('section', {
   },
 });
 
-// Rings punched along the top edge: the notebook is bound at the top, like a reporter's pad.
+// Rings punched along the top edge: the notebook is bound at the top, like a reporter's pad. Each
+// 28px tile is a hole with its wire dropping into the middle of it (both centred at 14px), and the
+// tiles are spaced out to fill the edge with whole rings, so none is cut off at the end.
 export const NotebookSpiral = styled('div', {
   base: {
     position: 'absolute',
@@ -23,9 +25,9 @@ export const NotebookSpiral = styled('div', {
     right: '24px',
     zIndex: '5',
     height: '26px',
-    bgImage: 'radial-gradient(circle at 50% 70%, {colors.chrome.app} 0 5px, transparent 5.5px), linear-gradient(90deg, transparent 6px, {colors.notebook.spiral} 6px 10px, transparent 10px)',
+    bgImage: 'radial-gradient(circle at 50% 70%, {colors.chrome.app} 0 5px, transparent 5.5px), linear-gradient(90deg, transparent 12px, {colors.notebook.spiral} 12px 16px, transparent 16px)',
     bgSize: '28px 26px, 28px 18px',
-    bgRepeat: 'repeat-x',
+    bgRepeat: 'space no-repeat',
     pointerEvents: 'none',
   },
 });

@@ -21,7 +21,7 @@ const idleMs = gameLimits.ownerIdleSeconds * 1000;
 
 // A round's reveal (spec §4.5): one book at a time in seat order, page by page, turned by its
 // owner. Everyone may turn once the owner has left, or once a page sat unturned for 20 seconds
-// (spec D6). At the end of a book the owner picks a favourite (spec D7), then opens the next.
+// (spec D6). At the end of a book the owner may pick a favourite (spec D7), then opens the next.
 export class TableRoomReveal {
   readonly #books: readonly TableRoomBook[];
   #bookIndex = 0;
@@ -107,14 +107,12 @@ export class TableRoomReveal {
     book.favouritePageId = pageId;
   }
 
-  // Opens the next book; returns false after the last one. The owner picks a favourite first,
-  // unless someone took over.
+  // Opens the next book; returns false after the last one. Picking a favourite first is up to the
+  // owner (spec D7).
   nextBook(memberId: string): boolean {
-    const needsFavourite = this.#deps.pointsOn() && this.#takeover === null && this.book?.favouritePageId === null;
-
     this.#permit(memberId);
 
-    if (!this.isLastPage || needsFavourite) throw new TableRoomError('WRONG_PHASE');
+    if (!this.isLastPage) throw new TableRoomError('WRONG_PHASE');
 
     if (this.#bookIndex >= this.#books.length - 1) {
       this.dispose();

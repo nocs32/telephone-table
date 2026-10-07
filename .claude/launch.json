@@ -14,6 +14,12 @@
       "port": 5175
     },
     {
+      "name": "web-live",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@telephone-table/web", "dev"],
+      "port": 5175
+    },
+    {
       "name": "play-local",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["exec", "concurrently", "--kill-others", "pnpm play:api", "pnpm play:web"],

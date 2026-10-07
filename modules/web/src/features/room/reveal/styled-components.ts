@@ -86,8 +86,16 @@ export const RoomRevealControlsRoot = styled('div', {
   base: { display: 'grid', justifyItems: 'center', gap: '6px', width: '100%', maxWidth: '720px', textAlign: 'center' },
 });
 
+// The turning buttons nudge to be pressed; Save (data-save) stays still.
 export const RoomRevealControlsButtons = styled('div', {
-  base: { display: 'flex', gap: '10px', '& button': { height: '44px', paddingInline: '22px', fontSize: '16px', animation: 'nudge 1.6s ease-in-out 2s infinite' } },
+  base: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: '10px',
+    '& button': { height: '44px', paddingInline: '22px', fontSize: '16px' },
+    '& button:not([data-save])': { animation: 'nudge 1.6s ease-in-out 2s infinite' },
+  },
 });
 
 export const RoomRevealControlsStatus = styled('p', {
