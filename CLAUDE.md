@@ -51,8 +51,8 @@ pnpm typecheck
 pnpm test          # engine + core-api; one module: pnpm --filter @telephone-table/core-api test
 pnpm demo          # web only, against the demo table (no server): for UI work
 pnpm build         # production web build (CI runs lint, typecheck, test, build on every PR and push to main)
+pnpm play          # build + serve at https://telephone.timnox.dev from this PC through a Cloudflare Tunnel
 ```
-`pnpm play` (hosting, M4) comes with its phase.
 
 ## Gotchas
 - **Ports are 5175, 2569 and 4175** (web, core-api, preview), one above Scribble Table's (5174, 2568, 4174) and two above Felt Table's (5173, 2567, 4173), so all three games can run at once. All are `strictPort`: a taken port fails loudly instead of moving.
@@ -60,7 +60,7 @@ pnpm build         # production web build (CI runs lint, typecheck, test, build 
 - **pnpm workspaces:** the packages are listed in `pnpm-workspace.yaml`. Add a dependency with `pnpm --filter @telephone-table/<module> add <pkg>`.
 - **pnpm's release-age guard:** pnpm refuses versions published in the last day. Pick the previous version instead of adding exceptions.
 - **No shared Colyseus state, and no peeking** (spec D10, §9.3): the server sends each person only the page they're responding to, and a page goes to everyone only when it's turned at the reveal. Drawings are saved to the server as you go, never streamed to others (D11). After joining or reconnecting, the browser asks for its task and draft with `sync`.
-- **Hosting is the user's to start.** Once M4 lands, `pnpm play` serves the build from this PC through a Cloudflare Tunnel (free, no payment card). Don't start it for them: give them the command.
+- **Hosting is `pnpm play`, not a cloud host** (free, no payment card), as in the siblings. It runs `vite preview` on `127.0.0.1:4175`, which reuses the dev `/api` + `/live` proxy and only accepts the telephone.timnox.dev host, plus core-api and the `telephone-table` Cloudflare Tunnel (credentials in `~/.cloudflared/`). Stop `pnpm dev` first, since both need port 2569. The user starts `pnpm play` themselves: don't start it for them, give them the command.
 - **The demo table** (spec D19): `services/demo-table` plays the server's part in the browser, with sample players who write, draw ready-made sketches, like pages, stick stickers on them and turn their own books' pages. `pnpm dev` plays at live tables on core-api (`services/live-table`, behind the same `TableClientService`); `pnpm demo` plays at the demo table. The top bar's **Demo** buttons skip ahead (start, end a step, turn a page, start the next round) and add or remove a sample player (removing one mid-round shows the leaver rule).
 - **Live tables live in core-api's memory:** `tsx watch` restarts core-api when you save a file there, and every table is gone. Open a new one. To play a live table alone, open its link in three or four tabs: each tab is its own person (its seat is kept in sessionStorage, so a reload gets it back).
 - **A dropped connection** keeps its seat for 20 seconds, and stops holding a step up after 5 (`limits.ts`), so a reload never costs the last person their step.

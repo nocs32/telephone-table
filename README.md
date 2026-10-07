@@ -11,7 +11,7 @@ A telephone drawing game you play with friends in the browser.
 
 It's a sibling of [Scribble Table](https://github.com/nocs32/scribble-table), the drawing-and-guessing game, and [Felt Table](https://github.com/nocs32/felt-table-jigsaw), the multiplayer jigsaw, and shares their stack, rules and look.
 
-> **Status:** the game plays on live tables run by the server. `pnpm demo` keeps a **demo table** in the browser, with sample players, for working on the UI. Every pull request runs CI; hosting on telephone.timnox.dev comes next.
+> **Status:** the game plays on live tables run by the server, hosted at https://telephone.timnox.dev while `pnpm play` runs: share the link and play. `pnpm demo` keeps a **demo table** in the browser, with sample players, for working on the UI.
 
 ## Stack
 
@@ -58,8 +58,33 @@ The ports sit one above Scribble Table's (5174 and 2568) and two above Felt Tabl
 | `pnpm typecheck` | Type-checks every module |
 | `pnpm test` | Runs the engine and core-api tests; one module: `pnpm --filter @telephone-table/core-api test` |
 | `pnpm build` | Builds the web app for production |
+| `pnpm play` | Builds, then serves the game at https://telephone.timnox.dev from this computer (see below) |
 
 **CI:** GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, test and build on every pull request and every push to `main`.
+
+## Play with friends
+
+There's no cloud server: `pnpm play` runs Telephone Table on your own computer, and a free [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) puts it on **https://telephone.timnox.dev**. No router ports are opened, and your home address stays hidden behind Cloudflare.
+
+```bash
+pnpm play
+```
+
+- It builds the web app, then starts core-api, the production web server (`vite preview` on `127.0.0.1:4175`) and the tunnel. Ctrl+C stops all three.
+- Stop `pnpm dev` first: both use core-api's port 2569.
+- It runs alongside Scribble Table's and Felt Table's `pnpm play`: each game has its own ports and its own tunnel.
+- Keep the computer awake while you play. Closing the terminal or restarting wipes the tables, like any server restart.
+- To ship a change, stop `pnpm play` and start it again. It rebuilds from what's checked out.
+
+**One-time setup** on the computer that hosts: install `cloudflared` (`winget install Cloudflare.cloudflared`), open a new terminal so it's on PATH, then:
+
+```bash
+cloudflared tunnel login
+cloudflared tunnel create telephone-table
+cloudflared tunnel route dns telephone-table telephone.timnox.dev
+```
+
+`cloudflared tunnel login` is needed only once per computer; Felt Table's setup already did it here, and the `telephone-table` tunnel is already created. The tunnel's credentials live in `~/.cloudflared/`, outside the repo. Keep them private.
 
 ## Project layout
 

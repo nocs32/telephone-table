@@ -12,6 +12,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["demo"],
       "port": 5175
+    },
+    {
+      "name": "play-local",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "concurrently", "--kill-others", "pnpm play:api", "pnpm play:web"],
+      "port": 4175
     }
   ]
 }
