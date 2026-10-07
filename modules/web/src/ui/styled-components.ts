@@ -106,6 +106,12 @@ export const Button = styled('button', {
   defaultVariants: { tone: 'secondary', size: 'md' },
 });
 
+// A die lying on the paper: five pips on white, with its edge showing beneath it. Its button rolls
+// it (dieRoll) when you point at it.
+export const Die = styled('span', {
+  base: { width: '30px', height: '30px', flexShrink: '0', borderRadius: '8px', bg: 'white', bgImage: 'radial-gradient(circle at 26% 26%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 74% 26%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 50% 50%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 26% 74%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 74% 74%, #26251F 0 2.6px, transparent 3.1px), linear-gradient(145deg, #FFFFFF, #ECE8E0)', boxShadow: '0 3px 0 #CFC8BA, 0 6px 8px rgba(0, 0, 0, 0.28), inset 0 -1px 2px rgba(0, 0, 0, 0.08)', transform: 'rotate(-12deg)', _motionReduce: { animation: 'none !important' } },
+});
+
 export const IconButton = styled('button', {
   base: {
     display: 'inline-flex',

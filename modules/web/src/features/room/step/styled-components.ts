@@ -190,7 +190,7 @@ export const RoomStepPageLabel = styled('span', {
   base: { fontSize: '11px', fontWeight: '900', color: 'notebook.muted', letterSpacing: '0.1em', textTransform: 'uppercase' },
 });
 
-// The middle: the board, the drawing to describe, or the 🎲. On desktop it fits the space both ways.
+// The middle: the board, or the drawing to describe. On desktop it fits the space both ways.
 export const RoomStepPageBody = styled('div', {
   base: { position: 'relative', flex: '1', display: 'grid', placeItems: 'center', minHeight: '0', padding: '22px 10px 10px', lg: { containerType: 'size' } },
 });
@@ -209,72 +209,9 @@ export const RoomStepTray = styled('div', {
   base: { paddingInline: '10px', paddingBlock: '6px', borderRadius: '14px', bg: 'bg.surface', color: 'fg.default', boxShadow: 'floating' },
 });
 
-export const RoomStepWritePromptRoot = styled('div', {
-  base: { display: 'grid', justifyItems: 'center', width: '100%' },
-});
-
-export const RoomStepWriteIdea = styled('div', {
-  base: { display: 'grid', justifyItems: 'center', gap: '6px', textAlign: 'center' },
-});
-
-export const RoomStepWriteDice = styled('button', {
-  base: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    height: '40px',
-    paddingInline: '16px',
-    borderRadius: 'full',
-    border: '2px dashed',
-    borderColor: 'notebook.spiral',
-    bg: 'notebook.bubble',
-    color: 'notebook.ink',
-    fontSize: '15px',
-    fontWeight: '900',
-    cursor: 'pointer',
-    _hover: { borderColor: 'accent.default', '& span': { animation: 'roll 0.5s ease-out' } },
-    _focusVisible: { outline: '2px solid', outlineColor: 'accent.ring', outlineOffset: '2px' },
-    _disabled: { opacity: '0.5', cursor: 'not-allowed' },
-    '& span': { display: 'inline-block', fontFamily: 'emoji', fontSize: '20px' },
-  },
-});
-
-export const RoomStepWriteIdeaHint = styled('p', {
-  base: { fontSize: '13px', color: 'notebook.muted' },
-});
-
-export const RoomStepWriteBlank = styled('p', {
-  base: { paddingBlock: '28px', paddingInline: '16px', border: '2px dashed', borderColor: 'notebook.spiral', borderRadius: '8px', fontSize: '15px', fontWeight: '700', color: 'notebook.muted', textAlign: 'center' },
-});
-
-export const RoomStepWriteForm = styled('form', {
-  base: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: '12px', width: '100%', maxWidth: '760px', marginInline: 'auto' },
-});
-
-export const RoomStepWriteField = styled('label', {
-  base: { display: 'grid', flex: '1', minWidth: '220px', gap: '2px' },
-});
-
-export const RoomStepWriteInput = styled('input', {
-  base: {
-    width: '100%',
-    height: '48px',
-    paddingInline: '4px',
-    bg: 'transparent',
-    borderBottom: '3px solid',
-    borderColor: 'notebook.ink',
-    color: 'notebook.ink',
-    fontSize: '22px',
-    fontWeight: '700',
-    outline: 'none',
-    _placeholder: { color: 'notebook.muted', fontWeight: '400' },
-    _focus: { borderColor: 'accent.default' },
-    _disabled: { opacity: '0.6' },
-  },
-});
-
-export const RoomStepWriteCounter = styled('span', {
-  base: { justifySelf: 'end', fontSize: '12px', color: 'notebook.muted', fontVariantNumeric: 'tabular-nums' },
+// The page's number, in its bottom corner.
+export const RoomStepPageNumber = styled('span', {
+  base: { position: 'absolute', right: '16px', bottom: '10px', fontSize: '13px', fontWeight: '900', color: 'notebook.muted', fontVariantNumeric: 'tabular-nums' },
 });
 
 // Over your page once you've pressed Done: the page is stamped, with a note on it.

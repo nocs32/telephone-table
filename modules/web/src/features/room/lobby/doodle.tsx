@@ -2,11 +2,10 @@ import { observer } from 'mobx-react-lite';
 import type { ReactElement } from 'react';
 import { useRootStore } from '../../../stores/use-root-store';
 import { DrawingBoard, DrawingTools } from '../drawing';
-import { NotebookSpiral } from '../../../ui';
+import { Die, NotebookSpiral } from '../../../ui';
 import {
   RoomLobbyCard,
   RoomLobbyDice,
-  RoomLobbyDiceFace,
   RoomLobbyDoodleArea,
   RoomLobbyDoodleHead,
   RoomLobbyDoodleNote,
@@ -27,7 +26,7 @@ export const RoomLobbyDoodle = observer(function RoomLobbyDoodle(): ReactElement
       <RoomLobbyDoodleHead>
         <RoomLobbyDoodleTitle>{t('doodle.title')}</RoomLobbyDoodleTitle>
         <RoomLobbyDice type="button" onClick={doodle.newSquiggle} title={t('doodle.newHint')}>
-          <RoomLobbyDiceFace aria-hidden />
+          <Die aria-hidden />
           {t('doodle.new')}
         </RoomLobbyDice>
       </RoomLobbyDoodleHead>

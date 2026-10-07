@@ -125,6 +125,18 @@ export class RoomStepStore {
     return this.isWrite && !this.isFirst && this.drawing.length === 0;
   }
 
+  // Page one is the first page of your own book.
+  get ownerName(): string {
+    return this.#deps.presence.me?.name ?? '';
+  }
+
+  // How the game goes on from page one (spec D23).
+  get howItWorks(): string[] {
+    const { t } = this.#deps;
+
+    return [t('step.how1'), t('step.how2'), t('step.how3')];
+  }
+
   get placeholder(): string {
     return this.#deps.t(this.isFirst ? 'step.firstPlaceholder' : 'step.describePlaceholder');
   }

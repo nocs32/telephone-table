@@ -144,11 +144,6 @@ export const RoomLobbyDice = styled('button', {
   },
 });
 
-// Five pips on white, with the die's edge showing beneath it.
-export const RoomLobbyDiceFace = styled('span', {
-  base: { width: '30px', height: '30px', flexShrink: '0', borderRadius: '8px', bg: 'white', bgImage: 'radial-gradient(circle at 26% 26%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 74% 26%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 50% 50%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 26% 74%, #26251F 0 2.6px, transparent 3.1px), radial-gradient(circle at 74% 74%, #26251F 0 2.6px, transparent 3.1px), linear-gradient(145deg, #FFFFFF, #ECE8E0)', boxShadow: '0 3px 0 #CFC8BA, 0 6px 8px rgba(0, 0, 0, 0.28), inset 0 -1px 2px rgba(0, 0, 0, 0.08)', transform: 'rotate(-12deg)', _motionReduce: { animation: 'none !important' } },
-});
-
 // On desktop the board fits the space both ways.
 export const RoomLobbyDoodleArea = styled('div', {
   base: { display: 'grid', placeItems: 'center', lg: { flex: '1', minHeight: '0', containerType: 'size' } },
