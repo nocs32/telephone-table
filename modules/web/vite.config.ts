@@ -27,8 +27,8 @@ export default defineConfig({
     strictPort: true,
     proxy: { '/api': coreApiUrl, '/live': liveProxy },
   },
-  // Hosting (M4, `pnpm play`): the production build is served here, on this machine only, and a
-  // Cloudflare Tunnel of its own brings telephone.timnox.dev to it. The preview reuses
+  // `pnpm play`: the production build is served here, on this machine only, and a Cloudflare Tunnel
+  // of its own (not the siblings') brings telephone.timnox.dev to it. The preview reuses
   // `server.proxy`, so /api and /live reach core-api exactly as in dev.
   preview: {
     host: '127.0.0.1',
