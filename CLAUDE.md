@@ -49,7 +49,7 @@ pnpm dev           # web on http://localhost:5175 + core-api on :2569 (Vite forw
 pnpm lint          # add --fix to auto-fix spacing
 pnpm typecheck
 pnpm test          # engine + core-api; one module: pnpm --filter @telephone-table/core-api test
-pnpm demo          # web only, against the demo table (no server): for UI work, now and after M2
+pnpm demo          # web only, against the demo table (no server): for UI work
 pnpm build         # production web build
 ```
 `pnpm play` (hosting, M4) comes with its phase.
@@ -61,6 +61,8 @@ pnpm build         # production web build
 - **pnpm's release-age guard:** pnpm refuses versions published in the last day. Pick the previous version instead of adding exceptions.
 - **No shared Colyseus state, and no peeking** (spec D10, §9.3): the server sends each person only the page they're responding to, and a page goes to everyone only when it's turned at the reveal. Drawings are saved to the server as you go, never streamed to others (D11). After joining or reconnecting, the browser asks for its task and draft with `sync`.
 - **Hosting is the user's to start.** Once M4 lands, `pnpm play` serves the build from this PC through a Cloudflare Tunnel (free, no payment card). Don't start it for them: give them the command.
-- **The demo table** (spec D19): `services/demo-table` plays the server's part in the browser, with sample players who write, draw ready-made sketches, like pages, stick stickers on them and turn their own books' pages. Until M2 every table is the demo table, `pnpm dev` included; M2 switches `pnpm dev` to live tables behind the same `TableClientService`, and `pnpm demo` keeps the demo. The top bar's **Demo** buttons skip ahead (start, end a step, turn a page, start the next round) and add or remove a sample player (removing one mid-round shows the leaver rule).
+- **The demo table** (spec D19): `services/demo-table` plays the server's part in the browser, with sample players who write, draw ready-made sketches, like pages, stick stickers on them and turn their own books' pages. `pnpm dev` plays at live tables on core-api (`services/live-table`, behind the same `TableClientService`); `pnpm demo` plays at the demo table. The top bar's **Demo** buttons skip ahead (start, end a step, turn a page, start the next round) and add or remove a sample player (removing one mid-round shows the leaver rule).
+- **Live tables live in core-api's memory:** `tsx watch` restarts core-api when you save a file there, and every table is gone. Open a new one. To play a live table alone, open its link in three or four tabs: each tab is its own person (its seat is kept in sessionStorage, so a reload gets it back).
+- **A dropped connection** keeps its seat for 20 seconds, and stops holding a step up after 5 (`limits.ts`), so a reload never costs the last person their step.
 - **Sounds** are CC0 recordings from Freesound, credited in `modules/web/src/assets/sounds/credits.md`. Generated sounds didn't sound good enough, so new ones come from there too.
 - **Dev handle:** in development the root store is `window.telephoneTable`, for checking state from the console or a test script, e.g. `telephoneTable.room.game.state`, `telephoneTable.room.reveal.status`, or at the demo table `telephoneTable.room.demo.skip()`.

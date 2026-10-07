@@ -6,4 +6,5 @@ export * from './players.js';
 export * from './stickers.js';
 export * from './table.js';
 export * from './table-errors.js';
+export * from './table-events.js';
 export * from './table-messages.js';

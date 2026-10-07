@@ -41,13 +41,31 @@ importers:
       '@colyseus/ws-transport':
         specifier: ^0.18.4
         version: 0.18.4(@colyseus/core@0.18.18)(express@5.2.1(supports-color@10.2.2))
+      '@telephone-table/engine':
+        specifier: workspace:*
+        version: link:../engine
       '@telephone-table/protocol':
         specifier: workspace:*
         version: link:../protocol
       express:
         specifier: ^5.2.1
         version: 5.2.1(supports-color@10.2.2)
+      nanoid:
+        specifier: ^6.0.2
+        version: 6.0.2
+      valibot:
+        specifier: ^1.5.0
+        version: 1.5.0(typescript@6.0.3)
     devDependencies:
+      '@colyseus/sdk':
+        specifier: ^0.18.5
+        version: 0.18.5(@colyseus/core@0.18.18)(typescript@6.0.3)(zod@4.6.5)
+      '@colyseus/testing':
+        specifier: ^0.18.6
+        version: 0.18.6(@colyseus/core@0.18.18)(@colyseus/sdk@0.18.5(@colyseus/core@0.18.18)(typescript@6.0.3)(zod@4.6.5))(@colyseus/tools@0.18.9(@colyseus/core@0.18.18)(@colyseus/ws-transport@0.18.4)(supports-color@10.2.2))
+      '@colyseus/tools':
+        specifier: ^0.18.9
+        version: 0.18.9(@colyseus/core@0.18.18)(@colyseus/ws-transport@0.18.4)(supports-color@10.2.2)
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -82,6 +100,9 @@ importers:
       '@ark-ui/react':
         specifier: ^5.39.2
         version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@colyseus/sdk':
+        specifier: ^0.18.5
+        version: 0.18.5(@colyseus/core@0.18.18)(typescript@6.0.3)(zod@4.6.5)
       '@fontsource/lato':
         specifier: ^5.3.0
         version: 5.3.0
@@ -280,12 +301,37 @@ packages:
       typescript:
         optional: true
 
+  '@colyseus/sdk@0.18.5':
+    resolution: {integrity: sha512-wHlUCq+oPeiI74mNM5p6yr8WE5EBJXwNxVIPnov7D8+Q/F6p7dyjWec3PfKOSv9or3uP5OjsCYKPwlC2hkxlHQ==}
+    engines: {node: '>= 12.x'}
+    peerDependencies:
+      '@colyseus/core': 0.18.x
+    peerDependenciesMeta:
+      '@colyseus/core':
+        optional: true
+
   '@colyseus/shared-types@0.18.3':
     resolution: {integrity: sha512-Kye6Lmpd4RXY52Ro8NawurUKMNagkNfAdV79Dx/cdWib1LrNW4e94JOtl9HIxy4QYVdHlkxc2m5ZjcwQXekWng==}
     engines: {node: '>= 22.x'}
 
+  '@colyseus/testing@0.18.6':
+    resolution: {integrity: sha512-f7ST7ulXLXNXbG5iVohn9nxsjz2OBi5lK5dt7TMKoTClmvr278yP6xa9voXal2X0Z0pzYJhXWrlgynsPCNMG0A==}
+    engines: {node: '>= 22.x'}
+    peerDependencies:
+      '@colyseus/core': 0.18.x
+      '@colyseus/sdk': 0.18.x
+      '@colyseus/tools': 0.18.x
+
   '@colyseus/timer@2.0.3':
     resolution: {integrity: sha512-75MI7LfXQncibesa7W6FKWUc8YBcVI6jwBrDXOq1TlgYQXSMRv7a5WFPBdDKkP5Pht9IWpE2hyUb8B1DPrLYqg==}
+
+  '@colyseus/tools@0.18.9':
+    resolution: {integrity: sha512-RK2s7HpZTnTH/dQC9fsseqZGooyu1Tb4RDFraMorQMQZlgQD8NSnEiZcNw2eBChxheB6nlLGo+8jXt54VC27pQ==}
+    engines: {node: '>= 22.x'}
+    hasBin: true
+    peerDependencies:
+      '@colyseus/core': 0.18.x
+      '@colyseus/ws-transport': 0.18.x
 
   '@colyseus/ws-transport@0.18.4':
     resolution: {integrity: sha512-gSPEkhV9cX8QjJWJiXfkRF38ZIiWq7DbDvzkgGqa1zmdOSZBP1aaM9tnZyvcjc1OpG+AFggeehrs/QMDBEzz2g==}
@@ -1629,6 +1675,11 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
+  dotenv@18.0.5:
+    resolution: {integrity: sha512-aBrGvt6KhjxbEnatqMWOMidftwsrCiCvqh1yNIGB9QyF0J+VcWkKDMsvYOEm7ZS82oiV+BT1sTOtIlAmUlTpwQ==}
+    engines: {node: '>=12'}
+    hasBin: true
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -1889,6 +1940,10 @@ packages:
     resolution: {integrity: sha512-4FbRdAX+bSdmo4AUFuS0WNiPz8NgFt+r8ThgNWmlrjQjt1Q7ZR9+zTlce2859x4KSXrwIsaeTqDoKQmtP8pLmQ==}
     engines: {node: '>= 0.8'}
 
+  httpie@2.0.0-next.13:
+    resolution: {integrity: sha512-KbKOnq8wt0hVEfteYCSnEsPgzaWxcVc4qZ4OaDU9mVOYLRo3XChjWs3MiuRgFu5y+4JDo7sDKdKzkAn1ljQYFA==}
+    engines: {node: '>=10'}
+
   i18next@26.4.2:
     resolution: {integrity: sha512-RX+R0VLg13IbvRuJSxnqykUFS9vQZTl8wYpWPCIUDWVrSGjsQywB5Y+pjzrkboxGAuYfJZVH1InFTdgBdxq6ug==}
     peerDependencies:
@@ -2133,6 +2188,11 @@ packages:
   nanoid@3.3.19:
     resolution: {integrity: sha512-Y2tUNy4ouw6tq5oDSKeQYGOyhkUBhNOcGV/02KC+6kd9eDGqdZd++mjMiIDilrBYvjEnCYvVtsuHCuP+okSfug==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
+  nanoid@6.0.2:
+    resolution: {integrity: sha512-hIvVOb9Qr1p/9CNNLOe0OlWvgx/ziTsVwKN/GDSsuArN2K0wDiafP3s0SWmsm7o2BdnyS8Z9Z64NFBUbn6ziBg==}
+    engines: {node: ^22 || ^24 || >=26}
     hasBin: true
 
   natural-compare@1.4.0:
@@ -2865,13 +2925,45 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
+  '@colyseus/sdk@0.18.5(@colyseus/core@0.18.18)(typescript@6.0.3)(zod@4.6.5)':
+    dependencies:
+      '@colyseus/better-call': 1.3.3(zod@4.6.5)
+      '@colyseus/schema': 5.0.35(typescript@6.0.3)
+      '@colyseus/shared-types': 0.18.3
+      msgpackr: 2.1.0
+      tslib: 2.8.1
+      ws: 8.22.0
+    optionalDependencies:
+      '@colyseus/core': 0.18.18(@colyseus/better-call@1.3.3(zod@4.6.5))(@colyseus/schema@5.0.35(typescript@6.0.3))(@colyseus/ws-transport@0.18.4)(@pm2/io@6.1.0(supports-color@10.2.2))(express@5.2.1(supports-color@10.2.2))(supports-color@10.2.2)(zod@4.6.5)
+    transitivePeerDependencies:
+      - bufferutil
+      - typescript
+      - utf-8-validate
+      - zod
+
   '@colyseus/shared-types@0.18.3':
     dependencies:
       '@standard-schema/spec': 1.1.0
 
+  '@colyseus/testing@0.18.6(@colyseus/core@0.18.18)(@colyseus/sdk@0.18.5(@colyseus/core@0.18.18)(typescript@6.0.3)(zod@4.6.5))(@colyseus/tools@0.18.9(@colyseus/core@0.18.18)(@colyseus/ws-transport@0.18.4)(supports-color@10.2.2))':
+    dependencies:
+      '@colyseus/core': 0.18.18(@colyseus/better-call@1.3.3(zod@4.6.5))(@colyseus/schema@5.0.35(typescript@6.0.3))(@colyseus/ws-transport@0.18.4)(@pm2/io@6.1.0(supports-color@10.2.2))(express@5.2.1(supports-color@10.2.2))(supports-color@10.2.2)(zod@4.6.5)
+      '@colyseus/sdk': 0.18.5(@colyseus/core@0.18.18)(typescript@6.0.3)(zod@4.6.5)
+      '@colyseus/tools': 0.18.9(@colyseus/core@0.18.18)(@colyseus/ws-transport@0.18.4)(supports-color@10.2.2)
+      httpie: 2.0.0-next.13
+
   '@colyseus/timer@2.0.3':
     dependencies:
       '@colyseus/clock': 2.0.3
+
+  '@colyseus/tools@0.18.9(@colyseus/core@0.18.18)(@colyseus/ws-transport@0.18.4)(supports-color@10.2.2)':
+    dependencies:
+      '@colyseus/core': 0.18.18(@colyseus/better-call@1.3.3(zod@4.6.5))(@colyseus/schema@5.0.35(typescript@6.0.3))(@colyseus/ws-transport@0.18.4)(@pm2/io@6.1.0(supports-color@10.2.2))(express@5.2.1(supports-color@10.2.2))(supports-color@10.2.2)(zod@4.6.5)
+      '@colyseus/ws-transport': 0.18.4(@colyseus/core@0.18.18)(express@5.2.1(supports-color@10.2.2))
+      '@pm2/io': 6.1.0(supports-color@10.2.2)
+      dotenv: 18.0.5
+    transitivePeerDependencies:
+      - supports-color
 
   '@colyseus/ws-transport@0.18.4(@colyseus/core@0.18.18)(express@5.2.1(supports-color@10.2.2))':
     dependencies:
@@ -3278,7 +3370,6 @@ snapshots:
       tslib: 1.9.3
     transitivePeerDependencies:
       - supports-color
-    optional: true
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
     optional: true
@@ -4262,7 +4353,6 @@ snapshots:
   async@2.6.4:
     dependencies:
       lodash: 4.18.1
-    optional: true
 
   balanced-match@4.0.4: {}
 
@@ -4358,7 +4448,6 @@ snapshots:
       ms: 2.1.3
     optionalDependencies:
       supports-color: 10.2.2
-    optional: true
 
   debug@4.4.3(supports-color@10.2.2):
     dependencies:
@@ -4376,6 +4465,8 @@ snapshots:
     dependencies:
       no-case: 3.0.4
       tslib: 2.8.1
+
+  dotenv@18.0.5: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -4533,8 +4624,7 @@ snapshots:
 
   etag@1.8.1: {}
 
-  eventemitter2@6.4.9:
-    optional: true
+  eventemitter2@6.4.9: {}
 
   expect-type@1.4.0: {}
 
@@ -4694,6 +4784,8 @@ snapshots:
       statuses: 2.0.2
       toidentifier: 1.0.1
 
+  httpie@2.0.0-next.13: {}
+
   i18next@26.4.2(typescript@6.0.3):
     optionalDependencies:
       typescript: 6.0.3
@@ -4722,7 +4814,6 @@ snapshots:
   is-core-module@2.17.0:
     dependencies:
       hasown: 2.0.4
-    optional: true
 
   is-extglob@2.1.1: {}
 
@@ -4816,8 +4907,7 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
-  lodash@4.18.1:
-    optional: true
+  lodash@4.18.1: {}
 
   lower-case@2.0.2:
     dependencies:
@@ -4830,7 +4920,6 @@ snapshots:
   lru-cache@6.0.0:
     dependencies:
       yallist: 4.0.0
-    optional: true
 
   magic-string@0.30.21:
     dependencies:
@@ -4865,8 +4954,7 @@ snapshots:
 
   mobx@7.0.6: {}
 
-  module-details-from-path@1.0.4:
-    optional: true
+  module-details-from-path@1.0.4: {}
 
   ms@2.1.3: {}
 
@@ -4887,6 +4975,8 @@ snapshots:
       msgpackr-extract: 3.0.4
 
   nanoid@3.3.19: {}
+
+  nanoid@6.0.2: {}
 
   natural-compare@1.4.0: {}
 
@@ -4954,8 +5044,7 @@ snapshots:
 
   path-key@3.1.1: {}
 
-  path-parse@1.0.7:
-    optional: true
+  path-parse@1.0.7: {}
 
   path-to-regexp@8.4.2: {}
 
@@ -5020,7 +5109,6 @@ snapshots:
       resolve: 1.22.12
     transitivePeerDependencies:
       - supports-color
-    optional: true
 
   resolve-from@4.0.0: {}
 
@@ -5030,7 +5118,6 @@ snapshots:
       is-core-module: 2.17.0
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
-    optional: true
 
   rolldown@1.2.12:
     dependencies:
@@ -5095,7 +5182,6 @@ snapshots:
   semver@7.5.4:
     dependencies:
       lru-cache: 6.0.0
-    optional: true
 
   semver@7.8.5: {}
 
@@ -5134,8 +5220,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shimmer@1.2.1:
-    optional: true
+  shimmer@1.2.1: {}
 
   side-channel-list@1.0.1:
     dependencies:
@@ -5165,8 +5250,7 @@ snapshots:
       side-channel-map: 1.0.1
       side-channel-weakmap: 1.0.2
 
-  signal-exit@3.0.7:
-    optional: true
+  signal-exit@3.0.7: {}
 
   sisteransi@1.0.5: {}
 
@@ -5194,8 +5278,7 @@ snapshots:
   supports-color@10.2.2:
     optional: true
 
-  supports-preserve-symlinks-flag@1.0.0:
-    optional: true
+  supports-preserve-symlinks-flag@1.0.0: {}
 
   svg-parser@2.1.0: {}
 
@@ -5214,8 +5297,7 @@ snapshots:
     dependencies:
       typescript: 6.0.3
 
-  tslib@1.9.3:
-    optional: true
+  tslib@1.9.3: {}
 
   tslib@2.8.1: {}
 
@@ -5365,8 +5447,7 @@ snapshots:
 
   yallist@3.1.1: {}
 
-  yallist@4.0.0:
-    optional: true
+  yallist@4.0.0: {}
 
   yocto-queue@0.1.0: {}
 
