@@ -54,16 +54,17 @@ export const RoomLobbyCard = styled('section', {
         _before: { content: '""', position: 'absolute', zIndex: '2', top: '8px', left: '50%', width: '128px', height: '34px', marginLeft: '-64px', borderRadius: '6px 6px 12px 12px', bgImage: 'radial-gradient(circle at 15px 55%, #5F5F5B 0 2.5px, #EDEDE9 3px 4px, transparent 4.5px), radial-gradient(circle at calc(100% - 15px) 55%, #5F5F5B 0 2.5px, #EDEDE9 3px 4px, transparent 4.5px), linear-gradient(#FBFBF9, #D2D2CD 38%, #9C9C97 52%, #CFCFCA 78%, #A9A9A4)', boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 5px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.4)' },
         _after: { content: '""', position: 'absolute', zIndex: '3', top: '-6px', left: '50%', width: '78px', height: '24px', marginLeft: '-39px', borderRadius: '14px 14px 5px 5px', bgImage: 'linear-gradient(#FFFFFF, #CACAC5 45%, #8E8E89 60%, #C4C4BF)', boxShadow: '0 3px 4px rgba(0, 0, 0, 0.35)', maskImage: 'radial-gradient(ellipse 20px 5px at 50% 42%, transparent 96%, black 100%)' },
       },
-      // A sketch pad: a chipboard back (public/textures/chipboard.svg), the spiral along the top, and
-      // the board as its page.
+      // A sketch pad: a worn chipboard back (public/textures/chipboard.svg: blotches, recycled fibres,
+      // scuffs and dents), darker at the edges, rubbed corners and a graphite smudge, the spiral
+      // along the top, and the board as its page.
       doodle: {
         gridArea: 'doodle',
         paddingTop: '26px',
         borderRadius: '6px',
         bg: '#A98C6C',
-        bgImage: "linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 45%, rgba(0, 0, 0, 0.08)), url('/textures/chipboard.svg')",
-        bgSize: '100% 100%, 300px 300px',
-        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
+        bgImage: "radial-gradient(circle at 0 0, rgba(255, 246, 228, 0.22), transparent 70px), radial-gradient(circle at 100% 100%, rgba(255, 246, 228, 0.18), transparent 80px), radial-gradient(ellipse 160px 60px at 22% 92%, rgba(60, 60, 64, 0.12), transparent), linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 45%, rgba(0, 0, 0, 0.08)), url('/textures/chipboard.svg')",
+        bgSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 420px 420px',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.14), inset 0 0 24px rgba(40, 24, 10, 0.22), 0 18px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.35)',
         animationDelay: '0.06s',
       },
       // An index card: a red line under the title, blue lines below, and a binder clip on top.
