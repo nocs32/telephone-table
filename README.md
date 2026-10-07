@@ -11,18 +11,18 @@ A telephone drawing game you play with friends in the browser.
 
 It's a sibling of [Scribble Table](https://github.com/nocs32/scribble-table), the drawing-and-guessing game, and [Felt Table](https://github.com/nocs32/felt-table-jigsaw), the multiplayer jigsaw, and shares their stack, rules and look.
 
-> **Status:** the web UI is built and plays against a **demo table** in the browser: sample players who write, draw, like pages, stick stickers on them and turn their books' pages, with no server. Live tables on the server come next.
+> **Status:** the game plays on live tables run by the server. `pnpm demo` keeps a **demo table** in the browser, with sample players, for working on the UI. CI and hosting come next.
 
 ## Stack
 
 | Part | Tech |
 |---|---|
 | Web (`modules/web`) | React 19, TypeScript, Vite, Panda CSS, MobX, Ark UI, i18next |
-| API (`modules/core-api`) | Node.js, Express 5 and Colyseus 0.18 (run with `tsx`). Coming next: the live tables. |
+| API (`modules/core-api`) | Node.js, Express 5 and Colyseus 0.18 (run with `tsx`) |
 | Shared | `modules/protocol` (the contract between the two) and `modules/engine` (pure game logic) |
 | Tooling | pnpm workspaces, ESLint 10 + typescript-eslint, TypeScript 6.0 |
 
-The server runs the game. It keeps the books, the seats and the clock, and it sends each person only the page they're responding to, so nobody can peek at a book before the reveal. Tables live in the server's memory only, so there is no database.
+The server runs the game. It keeps the books, the seats and the clock, and it sends each person only the page they're responding to, so nobody can peek at a book before the reveal. Your page is saved as you go, so a reload puts you back where you were, draft and all. Tables live in the server's memory only, so there is no database.
 
 ## Getting started
 
@@ -40,9 +40,11 @@ pnpm dev
 | Web | http://localhost:5175 |
 | API | http://localhost:2569 — the web dev server forwards `/api/*`, and `/live` for tables, to it |
 
-Open the web URL to get a table. For now every table is a demo table: three sample players sit down with you and a fourth joins a little later. The **Demo** buttons in the top bar skip ahead and add or remove a sample player.
+Open the web URL to get a table, then share its link: everyone who opens it sits down at the same table. To try a game alone, open the link in three or four browser tabs.
 
-`pnpm demo` runs the web app alone against the demo table, with no API; it keeps working once live tables arrive.
+`pnpm demo` runs the web app alone against a demo table in the browser, with no API: three sample players sit down with you and a fourth joins a little later. The **Demo** buttons in the top bar skip ahead and add or remove a sample player.
+
+Saving a file in `modules/core-api` restarts the API, which clears every table: open a new one afterwards.
 
 The ports sit one above Scribble Table's (5174 and 2568) and two above Felt Table's (5173 and 2567), so all three games can run at the same time.
 
