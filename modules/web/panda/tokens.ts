@@ -76,9 +76,9 @@ export const tokens = defineTokens({
       heartTint: { value: '#FFE4E4' },
       star: { value: '#F2B53A' },
     },
-    // The art desk: walnut, its dark edges, and light writing on it.
+    // The art desk: muted oak, its dark edges, and light writing on it.
     desk: {
-      wood: { value: '#3B2B20' },
+      wood: { value: '#6B5B4C' },
       edge: { value: '#0E0E0D' },
       chalk: { value: '#EEF2E4' },
       chalkMuted: { value: 'rgba(238, 242, 228, 0.62)' },
