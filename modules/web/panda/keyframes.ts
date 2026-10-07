@@ -136,6 +136,13 @@ export const keyframes = defineKeyframes({
     '0%, 100%': { transform: 'translateY(0)' },
     '50%': { transform: 'translateY(-3px)' },
   },
+  // The doodle board's die: it hops, tumbles a full turn and lands back at its own angle.
+  dieRoll: {
+    '0%': { transform: 'translateY(0) rotate(-12deg)' },
+    '40%': { transform: 'translateY(-8px) rotate(150deg) scale(1.08)' },
+    '75%': { transform: 'translateY(0) rotate(330deg) scale(0.96)' },
+    '100%': { transform: 'translateY(0) rotate(348deg)' },
+  },
   // The 🎲 rolling.
   roll: {
     '0%': { transform: 'rotate(0deg) scale(1)' },
